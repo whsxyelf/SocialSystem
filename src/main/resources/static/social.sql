@@ -1,27 +1,25 @@
--- MySQL dump 10.13  Distrib 8.0.15, for macos10.14 (x86_64)
---
--- Host: localhost    Database: social
--- ------------------------------------------------------
--- Server version	8.0.15
+/*
+SQLyog Ultimate v8.32 
+MySQL - 5.7.17-log : Database - social
+*********************************************************************
+*/
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`social` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
---
--- Table structure for table `collection`
---
+USE `social`;
+
+/*Table structure for table `collection` */
 
 DROP TABLE IF EXISTS `collection`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+
 CREATE TABLE `collection` (
   `collection_id` int(11) NOT NULL COMMENT '收藏id',
   `user_no` varchar(11) NOT NULL COMMENT '用户编号',
@@ -146,31 +144,6 @@ INSERT INTO `essay_theme` VALUES (1,'2019年习主席出访美国'),(2,'三国�
 /*!40000 ALTER TABLE `essay_theme` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `false`
---
-
-DROP TABLE IF EXISTS `false`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `false` (
-  `a` char(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `false`
---
-
-LOCK TABLES `false` WRITE;
-/*!40000 ALTER TABLE `false` DISABLE KEYS */;
-/*!40000 ALTER TABLE `false` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `history`
---
-
 DROP TABLE IF EXISTS `history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
@@ -287,4 +260,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-02 21:33:36
+-- Dump completed on 2019-04-02 22:20:23
