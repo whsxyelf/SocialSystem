@@ -20,11 +20,11 @@ public class UserServiceImpl implements UserService{
 	 */
 	@Override
 	public void register(User user) {
-		usermapper.add(user);
+		usermapper.addOne(user);
 	}
 	@Override
-	public ArrayList<User> getUsers() {
-		ArrayList<User> userList = usermapper.getUsers();
+	public ArrayList<User> getUsers(){
+		ArrayList<User> userList = usermapper.findAll();
 		return userList;
 	}
 	
