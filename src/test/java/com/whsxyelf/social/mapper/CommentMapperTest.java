@@ -29,7 +29,7 @@ public class CommentMapperTest {
 	//@Test
 	public void addTest() throws ParseException {
 		Comment comment = new Comment();
-		comment.setCommentType("动态");
+		comment.setCommentType(1);//1表示动态
 		comment.setUserNo("U00001");
 		comment.setCommentedId(7);
 		comment.setCommentContent("我也想你了！");

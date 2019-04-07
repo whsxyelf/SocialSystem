@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comment {
 	private int commentId;
-	private String commentType;
+	private int commentType;
 	private String userNo;
 	private int commentedId;
 	private String commentContent;
@@ -14,7 +14,7 @@ public class Comment {
 		
 	}
 	
-	public Comment(int commentId, String commentType, String userNo, int commentedId, String commentContent,
+	public Comment(int commentId, int commentType, String userNo, int commentedId, String commentContent,
 			Date createTime) {
 		super();
 		this.commentId = commentId;
@@ -30,10 +30,10 @@ public class Comment {
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
-	public String getCommentType() {
+	public int getCommentType() {
 		return commentType;
 	}
-	public void setCommentType(String commentType) {
+	public void setCommentType(int commentType) {
 		this.commentType = commentType;
 	}
 	public String getUserNo() {

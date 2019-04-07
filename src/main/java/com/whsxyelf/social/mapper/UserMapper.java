@@ -2,6 +2,8 @@
 package com.whsxyelf.social.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -24,7 +26,8 @@ public interface UserMapper {
 	
 	/*
 	 * 改用结构化的sql注解
-	 * 根据用户编号查询用户user_email,密码：password
+	 * 1根据邮箱查询用户user_email,密码：password
+	 * 2注册时验证是否该邮箱已存在
 	 */
 	@SelectProvider(method = "findOne", type = UserDaoProviderFindOne.class)
 	public User findOne(User userOne);
@@ -33,12 +36,30 @@ public interface UserMapper {
 			return new SQL(){{
 				SELECT("user_email,password");
 				FROM("user");
-				if(user.getUserNo()!=null&&!user.equals("")) {
-					WHERE("user_no=#{userNo}");
+				if(user.getUserEmail()!=null) {
+					WHERE("user_email=#{userEmail}");
 				}
 				}}.toString();//其内部使用StringBuilder来实现拼接
 		 }
 	 }
+	
+	//根据用户编号获取到用户昵称
+	@SelectProvider(method = "saveNick",type = nickProvider.class)
+	public User saveNick(User user);
+	class nickProvider{
+		public String saveNick(User user) {
+			return new SQL() {{
+				SELECT("user_nick");
+				FROM("user");
+				if(user.getUserNo()!=null) {
+					WHERE("user_no=#{userNo}");
+				}
+				
+			}}.toString();
+			
+		}
+	}
+	
 	//查询所有用户信息(用户后台管理)
 	@SelectProvider(method = "findAll",type = UserDaoProvicerFindAll.class)
 	public ArrayList<User> findAll();

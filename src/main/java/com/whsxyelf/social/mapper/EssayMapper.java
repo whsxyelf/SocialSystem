@@ -1,5 +1,6 @@
 package com.whsxyelf.social.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,20 +54,29 @@ public interface EssayMapper {
 	//用户展示自己动态:essay+user:userNick、essayContent、essayPhoto
 	//XXXXXXXXX这个有问题
 	@SelectProvider(method = "showSelf",type = EssayDaoProviderShowSelf.class)
-	public List<Map <String,Object>>showSelf(Map<String,Object> map);
-	//public Essay ShowSelf(String userNo);
+	//public List<Map <String,Object>>showSelf(Map<String,Object> map);
+	public ArrayList<Essay> ShowSelf(Essay essay);
 	class EssayDaoProviderShowSelf{
-		public String showSelf(Map<String,Object> map) {
+		//public String showSelf(Map<String,Object> map) {
+		public String showSelf(Essay essay) {
 			return new SQL() {{
-				SELECT("user_nick,essay_content");
+//				SELECT("user_nick,essay_content");
+//				SELECT("essay_photo,essay_comment");
+//				SELECT("essay_collection,e.create_time as createTime");
+//				FROM("user u");
+//				LEFT_OUTER_JOIN("essay e on u.user_no=e.user_no");
+//				//JOIN("essay e on u.user_no=e.user_no");
+//				//if(essay.getUserNo()!=null) {
+//					WHERE("e.user_no=#{userNo}");
+//				//}
+				SELECT("user_no,essay_content");
 				SELECT("essay_photo,essay_comment");
-				SELECT("essay_collection,e.create_time as createTime");
-				FROM("user u");
-				LEFT_OUTER_JOIN("essay e on u.user_no=e.user_no");
-				//JOIN("essay e on u.user_no=e.user_no");
-				//if(essay.getUserNo()!=null) {
-					WHERE("e.user_no=#{userNo}");
-				//}
+				SELECT("essay_collection,create_time");
+				FROM("essay");
+				if(essay.getUserNo()!=null) {
+					WHERE("user_no=#{userNo}");
+				}
+				
 			}}.toString();
 			
 		}

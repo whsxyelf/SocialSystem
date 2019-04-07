@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class EssayMapperTest {
 	@Autowired
 	CommentMapper comMapper;
 	
-	//@Test
+	@Test
+	@Ignore
 	public void lauchEssayTest() throws ParseException {
 		Essay essay = new Essay();
 		essay.setUserNo("U00001");
@@ -46,7 +48,8 @@ public class EssayMapperTest {
 		mapper.lauchEssay(essay);
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void deleteOneEssayTest() {
 		Essay essay = new Essay();
 		essay.setEssayId(7);
@@ -60,7 +63,8 @@ public class EssayMapperTest {
 		}
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void ShowSelf(){
 ////		Essay essaySet = new Essay();
 ////		essaySet.setUserNo("U00001");
@@ -76,18 +80,27 @@ public class EssayMapperTest {
 //		for(Essay essay:essayList) {
 //			System.out.println(essay);
 //		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userNo", "U00001");
-		//List<Map<String,Object>> res = Session.getMapper(User.class).showSelf(Map<String,Object> map);
-		List<Map<String,Object>> res = mapper.showSelf(map);
-		System.out.println(res);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("userNo", "U00001");
+//		//List<Map<String,Object>> res = Session.getMapper(User.class).showSelf(Map<String,Object> map);
+//		List<Map<String,Object>> res = mapper.showSelf(map);
+//		System.out.println(res);
+		Essay essay = new Essay();
+		essay.setUserNo("U00002");
+		ArrayList<Essay> essayList = mapper.ShowSelf(essay);
+		for(Essay e:essayList) {
+			System.out.println(e.toString());
+			
+		}
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void ShowConcerneed() {
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("userNo", "U00001");
+		map.put("userNo", "U00002");
 		List<Map<String,Object>> res = mapper.showConcerned(map);
 		System.out.println(res);
+		
 	}
 }

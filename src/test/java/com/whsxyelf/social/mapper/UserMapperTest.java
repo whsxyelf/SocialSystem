@@ -1,7 +1,11 @@
 package com.whsxyelf.social.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +15,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.whsxyelf.social.SocialApplication;
 import com.whsxyelf.social.bean.User;
 
+//import redis.clients.jedis.Jedis;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocialApplication.class)
 public class UserMapperTest {
 	@Autowired
 	UserMapper mapper;
 	
-	//@Test
+	@Test
+	@Ignore
 	public void getsTest() {
 		//ArrayList<User> userList = mapper.getUsers();
 		ArrayList<User> userList = mapper.findAll();
@@ -26,16 +33,19 @@ public class UserMapperTest {
 		}
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void findOneTest() {
 		User user = new User();
-		user.setUserNo("U00002");
+		//user.setUserNo("U00002");
+		user.setUserEmail("1176851359@qq.com");
 		User userOne = mapper.findOne(user);
 		System.out.println(userOne.getUserEmail().toString());
 		System.out.println(userOne.getPassword().toString());
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void addOne() {
 		User user = new User();
 		user.setUserNo("U00003");
@@ -44,7 +54,8 @@ public class UserMapperTest {
 		mapper.addOne(user);
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void editUserTest() {
 		User user = new User();
 		user.setUserNick("张小三");
@@ -60,11 +71,22 @@ public class UserMapperTest {
 		mapper.editUser(user);
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void deleteUser() {
 		User user = new User();
 		user.setUserState(2);
 		user.setUserEmail("1176851359@qq.com");
 		mapper.deleteUser(user);
+	}
+	
+	@Test
+	@Ignore
+	public void redisSave() {
+		User user = new User();
+		user.setUserNo("U00001");
+		User u = mapper.saveNick(user);
+		System.out.println(u.getUserNick().toString());
+		
 	}
 }
