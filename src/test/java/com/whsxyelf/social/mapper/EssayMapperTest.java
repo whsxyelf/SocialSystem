@@ -75,12 +75,17 @@ public class EssayMapperTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void ShowConcerneed() {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("userNo", "U00002");
-		List<Map<String,Object>> res = mapper.showConcerned(map);
-		System.out.println(res);
+//		Map<String,Object> map = new HashMap<String, Object>();
+//		map.put("userNo", "U00001");
+//		List<Map<String,Object>> res = mapper.showConcerned(map);
+//		System.out.println(res);
+		
+		List<Essay> list = mapper.showConcerned("U00001");
+		for(Essay e:list) {
+			System.out.println(e.toString());
+		}
 		
 	}
 }

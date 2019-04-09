@@ -25,8 +25,10 @@ public interface EssayMapper {
 	public ArrayList<Essay> ShowSelf(User user);
 	
 	//3.展示用户关注对象的动态
+//	@SelectProvider(method = "showConcerned",type = EssayDaoProvider.class)
+//	public List<Map <String,Object>>showConcerned(Map<String,Object> map);
 	@SelectProvider(method = "showConcerned",type = EssayDaoProvider.class)
-	public List<Map <String,Object>>showConcerned(Map<String,Object> map);
+	public List<Essay> showConcerned(String userNo);
 	
 	//4.用户删除动态
 	@DeleteProvider(method = "deleteOneEssay",type = EssayDaoProvider.class)
@@ -56,17 +58,29 @@ public interface EssayMapper {
 			}}.toString();
 		}
 		
-		public String showConcerned(Map<String,Object> map) {
+//		public String showConcerned(Map<String,Object> map) {
+//			return new SQL() {
+//				{
+//					SELECT("concern.user_no,concern.concerned_id");
+//					SELECT("user_nick AS B_nick,essay_content");
+//					SELECT("essay_photo,essay_comment");
+//					SELECT("essay_collection,essay.create_time as launchTime");
+//					FROM("concern,essay,user");
+//					WHERE("concern.concerned_id=essay.user_no");
+//					WHERE("user.user_no=concern.concerned_id");
+//					WHERE("concern.user_no=#{userNo}");
+//				}
+//			}.toString();
+//		}
+		
+		public String showConcerned(String userNo) {
 			return new SQL() {
 				{
-					SELECT("concern.user_no,concern.concerned_id");
-					SELECT("user_nick AS B_nick,essay_content");
-					SELECT("essay_photo,essay_comment");
-					SELECT("essay_collection,essay.create_time as launchTime");
-					FROM("concern,essay,user");
-					WHERE("concern.concerned_id=essay.user_no");
-					WHERE("user.user_no=concern.concerned_id");
-					WHERE("concern.user_no=#{userNo}");
+					SELECT("essay_id,user_no,essay_content,essay_photo,"
+							+ "essay_theme_no,essay_collection");
+					FROM("essay");
+					WHERE("user_no in (select concerned_id from concern "
+							+ "where user_no=#{userNo})");
 				}
 			}.toString();
 		}
