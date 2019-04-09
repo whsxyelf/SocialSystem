@@ -11,7 +11,7 @@ public class User {
 	private int sex;
 	private String phone;
 	private String signature;
-	private String permission;
+	private int permission;
 	private int userState;
 	private Date createTime;
 	public String getUserNo() {
@@ -62,10 +62,10 @@ public class User {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
-	public String getPermission() {
+	public int getPermission() {
 		return permission;
 	}
-	public void setPermission(String permission) {
+	public void setPermission(int permission) {
 		this.permission = permission;
 	}
 	public int getUserState() {

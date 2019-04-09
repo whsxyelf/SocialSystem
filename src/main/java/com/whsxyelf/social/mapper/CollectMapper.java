@@ -1,5 +1,6 @@
 package com.whsxyelf.social.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.DeleteProvider;
@@ -14,53 +15,73 @@ import com.whsxyelf.social.bean.Collect;
 @Mapper
 public interface CollectMapper {
 	
-	//添加收藏
+	//1.添加收藏
 	@InsertProvider(method = "addCollect",type = CollectDaoProvider.class)
 	public int addCollect(Collect collect);
+	//2.取消单个收藏
+	@DeleteProvider(method = "cancelCollect",type = CollectDaoProvider.class)
+	public int cancelCollect(Collect collect);
+	//2.1取消所有收藏
+	@DeleteProvider(method = "cancelAllCollect",type = CollectDaoProvider.class)
+	public int cancelAllCollect(Collect collect);
+	//3.展示收藏列表
+	@SelectProvider(method = "showCollectList",type = CollectDaoProvider.class)
+	public ArrayList<Collect>showCollectList(Collect collect);
+	//4.展示单个收藏内容详情
+	@SelectProvider(method = "showCollectDetail",type = CollectDaoProvider.class)
+	public ArrayList<Collect>showCollectDetail(Collect collect);
+	
 	class CollectDaoProvider{
 		public String addCollect(Collect collect) {
 			return new SQL() {{
 				INSERT_INTO("collect");
-				//VALUES("collection_id", "#{collectionId}");
 				VALUES("user_no","#{userNo}");
 				VALUES("collection_type","#{collectionType}");
 				VALUES("collected_id","#{collectedId}");
-			}}.toString();
-			
+			}}.toString();			
 		}
-	}
-	//取消收藏
-	@DeleteProvider(method = "cancelCollect",type = CollectionDaoProviderCancel.class)
-	public int cancelCollect();
-	class CollectionDaoProviderCancel{
-		public String cancelCollect() {
+		
+		public String cancelCollect(Collect collect) {
 			return new SQL() {{
 				DELETE_FROM("collect");
 				WHERE("user_no=#{userNo}");
 				WHERE("collection_type=#{collectionType}");
 				WHERE("collected_id=#{collectedId}");
-			}}.toString();
-			 
+			}}.toString();	 
 		}
-	}
-	
-	//展示收藏列表
-	@SelectProvider(method = "showCollect",type = CollectionDaoProviderShow.class)
-	public List<Collect>showCollect(Collect collect);
-	class CollectionDaoProviderShow{
-		public String showCollect(Collect collect){
+		
+		public String cancelAllCollect(Collect collect) {
+			return new SQL() {{
+				DELETE_FROM("collect");
+				WHERE("user_no=#{userNo}");
+			}}.toString();
+		}
+		
+		public String showCollectList(Collect collect){
 			return new SQL() {{
 				SELECT("user_no");
 				SELECT("collection_type");
 				SELECT("collected_id");
 				FROM("collect");
 				if(collect.getUserNo()!=null) {
-					WHERE("user_no=#{userNO}");
+					WHERE("user_no=#{userNo}");
 				}
+			}}.toString();
+		}
+	
+		public String showCollectDetail(Collect collect){
+			return new SQL() {{
+				SELECT("user_no");
+				SELECT("collection_type");
+				SELECT("collected_id");
+				FROM("collect");
+				if(collect.getUserNo()!=null) {
+					WHERE("user_no=#{userNo}");
+				}
+				WHERE("collection_type=#{collectionType}");
+				WHERE("collected_id=#{collectedId}");
 				
 			}}.toString();
 		}
-		
-	}
-	
+	}	
 }

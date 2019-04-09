@@ -5,9 +5,11 @@ package com.whsxyelf.social.mapper;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.whsxyelf.social.SocialApplication;
 import com.whsxyelf.social.bean.Concern;
+import com.whsxyelf.social.bean.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocialApplication.class)
@@ -24,7 +27,9 @@ public class ConcernMapperTest {
 	
 	@Autowired
 	ConcernMapper mapper;
-	//@Test
+	
+	@Test
+	@Ignore
 	public void concernTest() throws ParseException {
 		Concern concern = new Concern();
 		concern.setUserNo("U00003");
@@ -34,7 +39,7 @@ public class ConcernMapperTest {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String current = df.format(now);
 		concern.setCreateTime(df.parse(current));
-		Concern con = mapper.findHave(concern);
+		Concern con = mapper.haveConcern(concern);
 		if(con==null) {
 			mapper.concernUser(concern);	
 		}else {
@@ -43,17 +48,52 @@ public class ConcernMapperTest {
 		
 	}
 	
-	//@Test
+	@Test
+	@Ignore
 	public void cancelConcernTest() {
 		Concern concern = new Concern();
 		concern.setUserNo("U00003");
 		concern.setConcernedId("U00002");
-		Concern con =  mapper.findHave(concern);
+		Concern con =  mapper.haveConcern(concern);
 		if(con!=null) {
 			mapper.concernCancel(concern);
+			System.out.println("取关成功！");
 		}else {
 			System.out.println("取关失败！");
 		}
+	}
+	
+	@Test
+	@Ignore
+	public void concernList() {
+		User user = new User();
+		user.setUserNo("U00001");
+		ArrayList<Concern> list = mapper.concernList(user);
+		System.out.println("列表");
+		if(list!=null) {
+			for(Concern con:list) {
+				System.out.println(con.getConcernedId());
+			}	
+		}else {
+			System.out.println("列表为空！");
+		}
 		
 	}
+	
+	@Test
+	@Ignore
+	public void haveConcern() {
+		Concern concern = new Concern();
+		concern.setUserNo("U00001");
+		concern.setConcernedId("U00002");
+		Concern con = mapper.haveConcern(concern);
+		if(con!=null) {
+			System.out.println(con.getUserNo().toString());
+			System.out.println(con.getConcernedId());
+		}else {
+			System.out.println("未关注该用户！");
+		}
+		
+	}
+	
 }

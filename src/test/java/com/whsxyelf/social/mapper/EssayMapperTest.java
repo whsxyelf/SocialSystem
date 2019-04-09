@@ -38,7 +38,7 @@ public class EssayMapperTest {
 	public void lauchEssayTest() throws ParseException {
 		Essay essay = new Essay();
 		essay.setUserNo("U00001");
-		essay.setEssayContent("今天心情真糟糕！");
+		essay.setEssayContent("fuck!");
 		essay.setEssayPhoto("");
 		Date now = new Date();
 		//yyyy-MM-dd
@@ -59,38 +59,18 @@ public class EssayMapperTest {
 		if(num==1) {
 			Comment comment = new Comment();
 			comment.setCommentedId(7);
-			comMapper.deleteOne(comment);
+			comMapper.deleteOneself(comment);
 		}
 	}
 	
 	@Test
 	@Ignore
 	public void ShowSelf(){
-////		Essay essaySet = new Essay();
-////		essaySet.setUserNo("U00001");
-////		//Essay essay = mapper.ShowSelf();
-////		ArrayList<Essay> essayList = mapper.ShowSelf();
-////		for(Essay essay:essayList) {
-////			System.out.println(essay);
-////		}
-////		//System.out.println(essay);
-////		Essay essay = mapper.ShowSelf("U00001");
-////		System.out.println(essay);
-//		ArrayList<Essay> essayList = mapper.ShowSelf("U00001");
-//		for(Essay essay:essayList) {
-//			System.out.println(essay);
-//		}
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("userNo", "U00001");
-//		//List<Map<String,Object>> res = Session.getMapper(User.class).showSelf(Map<String,Object> map);
-//		List<Map<String,Object>> res = mapper.showSelf(map);
-//		System.out.println(res);
-		Essay essay = new Essay();
-		essay.setUserNo("U00002");
-		ArrayList<Essay> essayList = mapper.ShowSelf(essay);
-		for(Essay e:essayList) {
+		User user = new User();
+		user.setUserNo("U00002");
+		ArrayList<Essay> list = mapper.ShowSelf(user);
+		for(Essay e:list) {
 			System.out.println(e.toString());
-			
 		}
 	}
 	
