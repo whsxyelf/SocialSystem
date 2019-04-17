@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Essay {
 	private int essayId;//被发布动态编号
-	private String userNo;//发布动态的用户编号
+	private int userNo;//发布动态的用户编号
 	private String essayContent;//动态发布内容
 	private String essayPhoto;//与动态同步的图片
 	private String essayThemeNo;//动态所属主题编号
@@ -16,7 +16,7 @@ public class Essay {
 		
 	}
 	
-	public Essay(int essayId, String userNo, String essayContent, String essayPhoto, String essayThemeNo,
+	public Essay(int essayId, int userNo, String essayContent, String essayPhoto, String essayThemeNo,
 			int essayCollection, int essayComment, Date createTime) {
 		super();
 		this.essayId = essayId;
@@ -34,10 +34,10 @@ public class Essay {
 	public void setEssayId(int essayId) {
 		this.essayId = essayId;
 	}
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 	public String getEssayContent() {

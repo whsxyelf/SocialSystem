@@ -8,9 +8,10 @@ public interface UserService {
 	/*
 	 * register注册接口
 	 */
-	public void register(User user);
+	public void register(String userEmail,String password);
 	
 	public ArrayList<User> getUsers();
+	
 	
 }
 

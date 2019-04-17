@@ -5,7 +5,7 @@ import java.util.Date;
 public class Comment {
 	private int commentId;
 	private int commentType;
-	private String userNo;
+	private int userNo;
 	private int commentedId;
 	private String commentContent;
 	private Date createTime;
@@ -14,7 +14,7 @@ public class Comment {
 		
 	}
 	
-	public Comment(int commentId, int commentType, String userNo, int commentedId, String commentContent,
+	public Comment(int commentId, int commentType, int userNo, int commentedId, String commentContent,
 			Date createTime) {
 		super();
 		this.commentId = commentId;
@@ -24,46 +24,61 @@ public class Comment {
 		this.commentContent = commentContent;
 		this.createTime = createTime;
 	}
+
+
+
 	public int getCommentId() {
 		return commentId;
 	}
+
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
+
 	public int getCommentType() {
 		return commentType;
 	}
+
 	public void setCommentType(int commentType) {
 		this.commentType = commentType;
 	}
-	public String getUserNo() {
+
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
 	public int getCommentedId() {
 		return commentedId;
 	}
+
 	public void setCommentedId(int commentedId) {
 		this.commentedId = commentedId;
 	}
+
 	public String getCommentContent() {
 		return commentContent;
 	}
+
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
 	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
 	@Override
 	public String toString() {
-		return "Comment commentId=" + commentId + ", commentType=" + commentType + ", userNo=" + userNo
-				+ ", commentedId=" + commentedId + ", commentContent=" + commentContent + ", createTime=" + createTime;
+		return "Comment [commentId=" + commentId + ", commentType=" + commentType + ", userNo=" + userNo + ", commentedId="
+				+ commentedId + ", commentContent=" + commentContent + ", createTime=" + createTime + "]";
 	}
 	
 }

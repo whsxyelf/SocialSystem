@@ -4,16 +4,15 @@ import java.util.Date;
 
 public class Concern {
 	private int concernId;
-	private String userNo;
-	//private User user;
-	private String concernedId;
+	private int userNo;
+	private int concernedId;
 	private Date createTime;
 	
 	public Concern() {
 		
 	}
 	
-	public Concern(int concernId, String userNo, String concernedId, Date createTime) {
+	public Concern(int concernId, int userNo, int concernedId, Date createTime) {
 		super();
 		this.concernId = concernId;
 		this.userNo = userNo;
@@ -26,16 +25,16 @@ public class Concern {
 	public void setConcernId(int concernId) {
 		this.concernId = concernId;
 	}
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public String getConcernedId() {
+	public int getConcernedId() {
 		return concernedId;
 	}
-	public void setConcernedId(String concernedId) {
+	public void setConcernedId(int concernedId) {
 		this.concernedId = concernedId;
 	}
 	public Date getCreateTime() {

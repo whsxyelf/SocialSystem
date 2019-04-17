@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Message {
 	private int messageId;
-	private String userNo;
-	private String concernedNo;
+	private int userNo;
+	private int concernedNo;
 	private String content;
 	private Date createTime;
 	
@@ -14,7 +14,7 @@ public class Message {
 		
 	}
 	
-	public Message(int messageId, String userNo, String concernedNo, String content, Date createTime) {
+	public Message(int messageId, int userNo, int concernedNo, String content, Date createTime) {
 		super();
 		this.messageId = messageId;
 		this.userNo = userNo;
@@ -28,16 +28,16 @@ public class Message {
 	public void setMessageId(int messageId) {
 		this.messageId = messageId;
 	}
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public String getConcernedNo() {
+	public int getConcernedNo() {
 		return concernedNo;
 	}
-	public void setConcernedNo(String concernedNo) {
+	public void setConcernedNo(int concernedNo) {
 		this.concernedNo = concernedNo;
 	}
 	public String getContent() {

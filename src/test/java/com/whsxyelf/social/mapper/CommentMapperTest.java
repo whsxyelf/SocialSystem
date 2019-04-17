@@ -32,11 +32,10 @@ public class CommentMapperTest {
 	public void addTest() throws ParseException {
 		Comment comment = new Comment();
 		comment.setCommentType(1);//1表示动态
-		comment.setUserNo("U00001");
-		comment.setCommentedId(7);//==essay_id
-		comment.setCommentContent("我也想你了！");
+		comment.setUserNo(5);
+		comment.setCommentedId(11);//==essay_id
+		comment.setCommentContent("难受！");
 		Date now = new Date();
-		//yyyy-MM-dd
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String current = df.format(now);
 		comment.setCreateTime(df.parse(current));
@@ -46,28 +45,23 @@ public class CommentMapperTest {
 	@Test
 	@Ignore
 	public void deleteAll() {
-		Comment comment = new Comment();
-		comment.setCommentedId(3);
-		mapper.deleteOneself(comment);
+		mapper.deleteAll(1,11);
 	}
 	
 	@Test
 	@Ignore
 	public void deleteOne() {
-		Comment comment = new Comment();
-		comment.setCommentedId(7);
-		comment.setCommentId(6);
-		mapper.deleteOneself(comment);
+		mapper.deleteOneself(12);
 	}
-	
-	
-	
+
 	@Test
 	@Ignore
 	public void show() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String,Object>> res = mapper.showComment(map);
-		System.out.println(res);
+		List<Comment> list = mapper.showComment(1, 11);
+		for(Comment com:list) {
+			System.out.println(com.getUserNo());
+			System.out.println(com.getCommentContent().toString());
+		}
 	}
 	
 }

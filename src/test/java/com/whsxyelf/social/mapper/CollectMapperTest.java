@@ -23,7 +23,7 @@ public class CollectMapperTest {
 	@Ignore
 	public void addCollect() {
 		Collect collect = new Collect();
-		collect.setUserNo("U00002");
+		collect.setUserNo(2);
 		collect.setCollectionType(1);
 		collect.setCollectedId(7);
 		mapper.addCollect(collect);
@@ -33,7 +33,7 @@ public class CollectMapperTest {
 	@Ignore
 	public void cancelCollect() {
 		Collect collect = new Collect();
-	    collect.setUserNo("U00001");
+	    collect.setUserNo(1);
 	    collect.setCollectionType(1);
 	    collect.setCollectedId(2);
 	    mapper.cancelCollect(collect);
@@ -41,12 +41,10 @@ public class CollectMapperTest {
 	
 	@Test
 	public void showCollectList() {
-		Collect collect = new Collect();
-		collect.setUserNo("U00001");
-		ArrayList<Collect> list = mapper.showCollectList(collect);
+		ArrayList<Collect> list = mapper.showCollectList(6);
 		if(list!=null) {
 			for(Collect c:list) {
-				System.out.println(c.getUserNo().toString());
+				System.out.println(c.getUserNo());
 				System.out.println(c.getCollectionType());
 				System.out.println(c.getCollectedId());
 			}

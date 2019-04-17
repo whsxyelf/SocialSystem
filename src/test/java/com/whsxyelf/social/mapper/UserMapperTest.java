@@ -26,7 +26,6 @@ public class UserMapperTest {
 	@Test
 	@Ignore
 	public void getsTest() {
-		//ArrayList<User> userList = mapper.getUsers();
 		ArrayList<User> userList = mapper.findAll();
 		for(User user : userList) {
 			System.out.println(user);
@@ -35,95 +34,104 @@ public class UserMapperTest {
 	
 	@Test
 	@Ignore
-	public void findOneTest() {
-		User user = new User();
-		//user.setUserNo("U00002");
-		user.setUserEmail("1176851359@qq.com");
-		if(user.getUserState()==1) {
-			User userOne = mapper.findOne(user);
-			System.out.println(userOne.getUserEmail().toString());
-		}else {
-			System.out.println("该用户不存在或遭封禁！");
+	public void findOneTest() {//注册验证
+		String email = "1352823595@qq.com";//输入框
+		User user = mapper.findOne(email);
+		if(user.getUserEmail()==null) {
+			System.out.println("该账号暂未使用！");
 		}
-		
+		if(user.getUserEmail()!=null&&user.getUserState()==2) {//user.getUserState()==2：注销;
+			System.out.println("该账号已被用户注销！");
+		}
 	}
 	
 	@Test
 	@Ignore
-	public void addOne() {
-		User user = new User();
-		user.setUserNo("U00003");
-		user.setUserEmail("1352823595@qq.com");
-		user.setPassword("hujin12345");
-		User userOne = mapper.findOne(user);
-		if(userOne.getUserEmail()==null) {
-			mapper.addOne(user);
+	public void addOne() {//注册
+		String email = "451231@qq.com";
+		String pass = "hujin12345";
+		User u = mapper.findOne(email);
+		if(u==null) {
+			mapper.addOne(email,pass);
 			System.out.println("注册成功！");
 		}else {
-			System.out.println("该用户已存在！");
+			System.out.println("该邮箱已注册！");
 		}
 		
 	}
 	
+	
 	@Test
 	@Ignore
-	public void editUserTest() {
+	public void userLoginTest() {//登录
+		//登录框输入
+		String email = "1176851359@qq.com";
+		String pass = "12345678";
+		User u = mapper.userLogin(email,pass);
+		if(u!=null) {
+			System.out.println("登录成功！");
+		}else {
+			System.out.println("登录失败！或账号密码有误！");
+		}		
+	}
+	
+	@Test
+	@Ignore
+	public void editUserTest() {//编辑用户信息
 		User user = new User();
-		user.setUserNick("张小三");
+		//登录的邮箱
+		String email = "1176851359@qq.com"; 
+		user.setUserNick("张小名");
 		user.setUserPhoto("/1111003");
-		user.setSex(0);
-		user.setPhone("");
-		user.setSignature("一波退婚流！");
-		user.setUserEmail("1176851359@qq.com");
+		user.setSex(1);
+		user.setPhone("13419640634");
+		user.setSignature("还在奋斗！");
+		user.setUserEmail(email);
 		mapper.editUser(user);
-		System.out.println("yes");
+		System.out.println("编辑成功！");
 	}
 	
 	@Test
 	@Ignore
 	public void operateUser() {
 		User user = new User();
-		user.setUserState(2);//删除用户
-		user.setPermission(1);
 		user.setUserEmail("1176851359@qq.com");
 		if(user.getUserState()==1) {
-			mapper.operateUser(user);
+			mapper.operateUser(2,1);
 		}else {
 			System.out.println("该条数据已被删除或封禁！");
 		}
 		
 	}
-	@Test
-	@Ignore
-	public void redisSave() {
-		User user = new User();
-		user.setUserNo("U00001");
-		User u = mapper.saveNick(user);
-		System.out.println(u.getUserNick().toString());
-		
-	}
+//	@Test
+//	@Ignore
+//	public void redisSave() {
+//		User user = new User();
+//		user.setUserNo(1);
+//		User u = mapper.saveNick(user);
+//		System.out.println(u.getUserNick().toString());
+//	}
 	
 	@Test
 	@Ignore
-	public void mohufind() {
-		User user = new User();
-		user.setUserNick("小");
-		if(user.getUserState()==1) {
-			List<User> list = mapper.findUserByNick(user);
-			for(User u:list) {
-				System.out.println(u.getUserNick().toString());
-			}
-		}else {
-			System.out.println("fail!");
-		}
-		
+	public void mohufind() {//查询：模糊查询？
+		//搜索框
+		String nick = "小";
+		List<User> list = mapper.findUserByNick(nick);
+			if(list==null) {
+				System.out.println("未找到！");
+			}else {
+				for(User u:list) {
+					System.out.println(u.getUserNick().toString());
+				}
+			}		
 	}
 	
 	@Test
 	@Ignore
 	public void gaimima() {
-		User user = new User();
-		user.setPassword("##");
-		mapper.changePassword(user);
+		String email = "";
+		String pass = "";//新密码
+		mapper.changePassword(email,pass);
 	}
 }

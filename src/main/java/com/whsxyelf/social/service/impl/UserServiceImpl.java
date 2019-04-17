@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService{
 	  * 2不存在：添加注册数据到数据库
 	 */
 	@Override
-	public void register(User user) {
-		usermapper.addOne(user);
+	public void register(String userEmail,String password) {
+		usermapper.addOne(userEmail, password);
 	}
 	@Override
 	public ArrayList<User> getUsers(){

@@ -2,6 +2,7 @@ package com.whsxyelf.social.mapper;
 
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -15,13 +16,13 @@ public interface MessageMapper {
 	
 	//1.发送一条消息
 	@InsertProvider(method = "sendMessage",type = MessageDaoProvider.class)
-	public int sendMessage();
+	public int sendMessage(Message message);
 	//2.展示消息
 	@SelectProvider(method = "showMessage",type = MessageDaoProvider.class)
-	public Message showMessage();
+	public Message showMessage(@Param("userNo")int userNo,@Param("concernedNo")int concernedNo);
 	
 	class MessageDaoProvider{
-		public String sendMessage() {
+		public String sendMessage(Message message) {
 			return new SQL() {{
 				INSERT_INTO("message");
 				VALUES("user_no", "#{userNo}");
@@ -31,7 +32,7 @@ public interface MessageMapper {
 			}}.toString(); 
 		}
 		
-		public String showMessage() {
+		public String showMessage(int userNo,int concernedNo) {
 			return new SQL() {{
 				SELECT("user_no");
 				SELECT("concerned_no");

@@ -2,7 +2,7 @@ package com.whsxyelf.social.bean;
 
 public class Collect {
 	private int collectionId;
-	private String userNo;
+	private int userNo;
 	private int collectionType;
 	private int collectedId;
 	
@@ -10,7 +10,7 @@ public class Collect {
 		
 	}
 	
-	public Collect(int collectionId, String userNo, int collectionType, int collectedId) {
+	public Collect(int collectionId, int userNo, int collectionType, int collectedId) {
 		super();
 		this.collectionId = collectionId;
 		this.userNo = userNo;
@@ -23,10 +23,10 @@ public class Collect {
 	public void setCollectionId(int collectionId) {
 		this.collectionId = collectionId;
 	}
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 	public int getCollectionType() {

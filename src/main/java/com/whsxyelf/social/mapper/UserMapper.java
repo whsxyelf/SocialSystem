@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
@@ -17,29 +18,29 @@ import com.whsxyelf.social.bean.User;
 public interface UserMapper {
 	
 		
-	//1.保存所有有效用户的 编号、昵称 ——>redis
-	@SelectProvider(method = "saveNick",type = UserDaoProvider.class)
-	public User saveNick(User user);
+//	//1.保存所有有效用户的 编号、昵称 ——>redis
+//	@SelectProvider(method = "saveNick",type = UserDaoProvider.class)
+//	public User saveNick(User user);
 	
 	// 2.注册
 	@InsertProvider(method = "addOne",type =UserDaoProvider.class)
-	public int addOne(User user);
+	public int addOne(@Param("userEmail")String userEmail,@Param("password")String password);
 	
 	// 2.1根据用户注册的邮箱验证是否邮箱已被注册
 	@SelectProvider(method = "findOne", type = UserDaoProvider.class)
-	public User findOne(User user);
+	public User findOne(String userEmail);
 	
 	//3.登录
 	@SelectProvider(method = "userLogin", type =UserDaoProvider.class)
-	public User userLogin(User user);
+	public User userLogin(@Param("userEmail")String userEmail,@Param("password")String password);
 	
 	//4.登陆后根据用户昵称模糊查询——>找人
 	@SelectProvider(method = "findUserByNick",type = UserDaoProvider.class)
-	public List<User> findUserByNick(User user);
+	public List<User> findUserByNick(String userNick);
 	
 	//5.登录时忘记密码：用户更改密码
 	@UpdateProvider(method = "changePassword",type =UserDaoProvider.class )
-	public int changePassword(User user);
+	public int changePassword(@Param("userEmail")String userEmail,@Param("password")String password);
 	
 	//6.普通用户登录后编辑用户基本信息
 	@UpdateProvider(method = "editUser",type = UserDaoProvider.class)
@@ -51,68 +52,60 @@ public interface UserMapper {
 	
 	//8.用户后台管理：管理员操作用户信息
 	@UpdateProvider(method = "operateUser",type = UserDaoProvider.class)
-	public int operateUser(User user);
+	public int operateUser(@Param("userState")int userState,@Param("permission")int permission);
 	
 	class UserDaoProvider{
 
-		public String saveNick(User user) {
-			return new SQL() {{
-				SELECT("user_no,user_nick");
-				FROM("user");
-			}}.toString();	
-		}
+//		public String saveNick(User user) {
+//			return new SQL() {{
+//				SELECT("user_no,user_nick");
+//				FROM("user");
+//			}}.toString();	
+//		}
 		
 
-		public String addOne(User user) {
+		public String addOne(String userEmail,String password) {
 			return new SQL() {{
 				INSERT_INTO("user");
-				VALUES("user_no","#{userNo}");
 				VALUES("user_email","#{userEmail}");
 				VALUES("password","#{password}");
 			}}.toString();
 		}
 		
 	
-		public String findOne(User user) {
+		public String findOne(String userEmail) {
 			return new SQL(){{
+				SELECT("user_no");
 				SELECT("user_email");
+				SELECT("user_state");
 				FROM("user");
-				if(user.getUserEmail()!=null) {
-					WHERE("user_email=#{userEmail}");
-				}
+				WHERE("user_email=#{userEmail}");
 				}}.toString();//其内部使用StringBuilder来实现拼接
 		 }
-
 		
-		 public String userLogin(User user) {
+		 public String userLogin(String userEmail,String password) {
 				return new SQL(){{
-					SELECT("user_email");
+					SELECT("user_email,password");
 					FROM("user");
-					if(user.getUserEmail()!=null) {
 						WHERE("user_email=#{userEmail}");
-					}
-					if(user.getPassword()!=null) {
 						WHERE("password=#{password}");
-					}
 					}}.toString();//其内部使用StringBuilder来实现拼接
 		 }
 		
 
-		 public String findUserByNick(User user) {
+		 public String findUserByNick(String userNick) {
 				return new SQL() {{
 					SELECT("user_nick");
 					SELECT("user_photo");
 					SELECT("sex");
 					SELECT("signature");
 					FROM("user");
-					if(user.getUserNick()!=null) {
-						WHERE("user_nick Like CONCAT(CONCAT('%',#{userNick}),'%')");
-					}
+					WHERE("user_nick Like CONCAT(CONCAT('%',#{userNick}),'%')");
 				}}.toString();
 		 }
 		 
 
-		 public String changePassword(User user) {
+		 public String changePassword(String userEmail,String password) {
 				return new SQL() {{
 					UPDATE("user");
 					SET("password=#{password}");//密码
@@ -135,9 +128,7 @@ public interface UserMapper {
 					 * 用户身份：普通用户
 					 * 普通用户可以编辑的信息：昵称、头像、性别、预留手机号、个性签名
 					 */
-					if(user.getUserNo()!=null&&user.getUserState()==1&&user.getPermission()==1) {
-						WHERE("user_email=#{userEmail}");
-					}
+				    WHERE("user_email=#{userEmail}");
 				}}.toString();
 		}
 		 
@@ -151,7 +142,7 @@ public interface UserMapper {
 		 }
 		 
 
-		 public String operateUser(User user) {
+		 public String operateUser(int userState,int permission) {
 				return new SQL() {{
 					UPDATE("user");
 					/*
@@ -161,9 +152,7 @@ public interface UserMapper {
 					 */
 						SET("user_state=#{userState}");
 						SET("permission=#{permission}");
-					if(user.getUserEmail()!=null) {
 						WHERE("user_email=#{userEmail}");
-					}
 				}}.toString();
 		}
 	}

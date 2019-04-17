@@ -1,9 +1,14 @@
 package com.whsxyelf.social.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
-	private String userNo;
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int userNo;
 	private String userNick;
 	private String userPhoto;
 	private String userEmail;
@@ -14,10 +19,30 @@ public class User {
 	private int permission;
 	private int userState;
 	private Date createTime;
-	public String getUserNo() {
+	
+	public User() {
+		
+	}
+	
+	public User(int userNo, String userNick, String userPhoto, String userEmail, String password, int sex, String phone,
+			String signature, int permission, int userState, Date createTime) {
+		super();
+		this.userNo = userNo;
+		this.userNick = userNick;
+		this.userPhoto = userPhoto;
+		this.userEmail = userEmail;
+		this.password = password;
+		this.sex = sex;
+		this.phone = phone;
+		this.signature = signature;
+		this.permission = permission;
+		this.userState = userState;
+		this.createTime = createTime;
+	}
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 	public String getUserNick() {

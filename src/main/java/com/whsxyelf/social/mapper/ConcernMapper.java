@@ -51,7 +51,7 @@ public interface ConcernMapper {
 					SELECT("user_no");
 					SELECT("concerned_id");
 					FROM("concern");
-					if(user.getUserNo()!=null) {
+					if(user.getUserNo()!=0) {
 						WHERE("user_no=#{userNo}");
 					}
 				}}.toString();
@@ -62,10 +62,10 @@ public interface ConcernMapper {
 					SELECT("user_no");
 					SELECT("concerned_id");
 					FROM("concern");
-					if(concern.getUserNo()!=null) {
+					if(concern.getUserNo()!=0) {
 						WHERE("user_no=#{userNo}");
 					}
-					if(concern.getConcernedId()!=null) {
+					if(concern.getConcernedId()!=0) {
 						WHERE("concerned_id=#{concernedId}");
 					}
 				}}.toString();

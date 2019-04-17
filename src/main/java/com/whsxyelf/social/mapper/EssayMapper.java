@@ -2,16 +2,14 @@ package com.whsxyelf.social.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.jdbc.SQL;
-
 import com.whsxyelf.social.bean.Essay;
-import com.whsxyelf.social.bean.User;
+
 
 @Mapper
 public interface EssayMapper {
@@ -22,15 +20,15 @@ public interface EssayMapper {
 	
 	//2.展示用户动态
 	@SelectProvider(method = "ShowSelf",type = EssayDaoProvider.class)
-	public ArrayList<Essay> ShowSelf(User user);
+	public ArrayList<Essay> ShowSelf(int userNo);
 	
 	//3.展示用户关注对象的动态
 	@SelectProvider(method = "showConcerned",type = EssayDaoProvider.class)
-	public List<Map <String,Object>>showConcerned(Map<String,Object> map);
+	public List<Essay> showConcerned(int userNo);
 	
 	//4.用户删除动态
 	@DeleteProvider(method = "deleteOneEssay",type = EssayDaoProvider.class)
-	public int deleteOneEssay(Essay essay);
+	public int deleteOneEssay(@Param("essayId")int essayId);
 	
 	class EssayDaoProvider{
 		
@@ -44,42 +42,31 @@ public interface EssayMapper {
 			}}.toString();
 		}
 		
-		public String ShowSelf(User user) {
+		public String ShowSelf(int userNo) {
 			return new SQL() {{
 				SELECT("user_no,essay_content");
 				SELECT("essay_photo,essay_comment");
 				SELECT("essay_collection,create_time");
 				FROM("essay");
-				if(user.getUserNo()!=null) {
-					WHERE("user_no=#{userNo}");
-				}
+				WHERE("user_no=#{userNo}");
 			}}.toString();
 		}
 		
-		public String showConcerned(Map<String,Object> map) {
-			return new SQL() {
-				{
-					SELECT("concern.user_no,concern.concerned_id");
-					SELECT("user_nick AS B_nick,essay_content");
-					SELECT("essay_photo,essay_comment");
-					SELECT("essay_collection,essay.create_time as launchTime");
-					FROM("concern,essay,user");
-					WHERE("concern.concerned_id=essay.user_no");
-					WHERE("user.user_no=concern.concerned_id");
-					WHERE("concern.user_no=#{userNo}");
-				}
-			}.toString();
+		public String showConcerned(int userNo) {
+			return new SQL() {{
+				SELECT("essay_id,user_no");
+				SELECT("essay_content,essay_photo");
+				SELECT("essay_theme_no,essay_collection");
+				FROM("essay");
+				WHERE("user_no in(select concerned_id from concern where user_no=#{userNo})");
+			}}.toString(); 
+			
 		}
 		
-		public String deleteOneEssay(Essay essay) {
+		public String deleteOneEssay(int essayId) {
 			return new SQL() {{
 				DELETE_FROM("essay");
-				if(essay.getEssayId()!=0) {
-					WHERE("essay_id=#{essayId}");
-				}
-				if(essay.getUserNo()!=null) {
-					WHERE("user_no=#{userNo}");
-				}
+				WHERE("essay_id=#{essayId}");
 			}}.toString();
 		}
 		

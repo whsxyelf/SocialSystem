@@ -32,8 +32,8 @@ public class ConcernMapperTest {
 	@Ignore
 	public void concernTest() throws ParseException {
 		Concern concern = new Concern();
-		concern.setUserNo("U00003");
-		concern.setConcernedId("U00002");
+		concern.setUserNo(6);
+		concern.setConcernedId(5);
 		Date now = new Date();
 		//yyyy-MM-dd
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -52,8 +52,8 @@ public class ConcernMapperTest {
 	@Ignore
 	public void cancelConcernTest() {
 		Concern concern = new Concern();
-		concern.setUserNo("U00003");
-		concern.setConcernedId("U00002");
+		concern.setUserNo(5);
+		concern.setConcernedId(6);
 		Concern con =  mapper.haveConcern(concern);
 		if(con!=null) {
 			mapper.concernCancel(concern);
@@ -67,7 +67,7 @@ public class ConcernMapperTest {
 	@Ignore
 	public void concernList() {
 		User user = new User();
-		user.setUserNo("U00001");
+		user.setUserNo(1);
 		ArrayList<Concern> list = mapper.concernList(user);
 		System.out.println("列表");
 		if(list!=null) {
@@ -84,11 +84,11 @@ public class ConcernMapperTest {
 	@Ignore
 	public void haveConcern() {
 		Concern concern = new Concern();
-		concern.setUserNo("U00001");
-		concern.setConcernedId("U00002");
+		concern.setUserNo(1);
+		concern.setConcernedId(2);
 		Concern con = mapper.haveConcern(concern);
 		if(con!=null) {
-			System.out.println(con.getUserNo().toString());
+			System.out.println(con.getUserNo());
 			System.out.println(con.getConcernedId());
 		}else {
 			System.out.println("未关注该用户！");
