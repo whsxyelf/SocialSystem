@@ -23,9 +23,10 @@ public interface EssayMapper {
 	public ArrayList<Essay> ShowSelf(int userNo);
 	
 	//3.展示用户关注对象的动态
+//	@SelectProvider(method = "showConcerned",type = EssayDaoProvider.class)
+//	public List<Map <String,Object>>showConcerned(Map<String,Object> map);
 	@SelectProvider(method = "showConcerned",type = EssayDaoProvider.class)
 	public List<Essay> showConcerned(int userNo);
-	
 	//4.用户删除动态
 	@DeleteProvider(method = "deleteOneEssay",type = EssayDaoProvider.class)
 	public int deleteOneEssay(@Param("essayId")int essayId);
@@ -52,6 +53,7 @@ public interface EssayMapper {
 			}}.toString();
 		}
 		
+
 		public String showConcerned(int userNo) {
 			return new SQL() {{
 				SELECT("essay_id,user_no");
@@ -60,9 +62,18 @@ public interface EssayMapper {
 				FROM("essay");
 				WHERE("user_no in(select concerned_id from concern where user_no=#{userNo})");
 			}}.toString(); 
-			
+		}		
+		public String showConcerned(String userNo) {
+			return new SQL() {
+				{
+					SELECT("essay_id,user_no,essay_content,essay_photo,"
+							+ "essay_theme_no,essay_collection");
+					FROM("essay");
+					WHERE("user_no in (select concerned_id from concern "
+							+ "where user_no=#{userNo})");
+				}
+			}.toString();
 		}
-		
 		public String deleteOneEssay(int essayId) {
 			return new SQL() {{
 				DELETE_FROM("essay");
