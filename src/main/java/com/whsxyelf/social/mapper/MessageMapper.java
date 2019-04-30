@@ -25,9 +25,9 @@ public interface MessageMapper {
 		public String sendMessage(Message message) {
 			return new SQL() {{
 				INSERT_INTO("message");
-				VALUES("user_no", "#{userNo}");
-				VALUES("concerned_no", "#{concernedNo}");
-				VALUES("content", "#{content}");
+				VALUES("user_no","#{userNo}");
+				VALUES("concerned_no","#{concernedNo}");
+				VALUES("content","#{content}");
 				VALUES("create_time","#{createTime}");
 			}}.toString(); 
 		}

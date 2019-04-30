@@ -16,145 +16,174 @@ import com.whsxyelf.social.bean.User;
 
 @Mapper
 public interface UserMapper {
+	//1.1.根据邮箱查询用户信息是否存在
+	@SelectProvider(method = "findByUserEmail", type = UserDaoProvider.class)
+	public User findByUserEmail(@Param("userEmail")String userEmail);
 	
-		
-//	//1.保存所有有效用户的 编号、昵称 ——>redis
-//	@SelectProvider(method = "saveNick",type = UserDaoProvider.class)
-//	public User saveNick(User user);
-	
-	// 2.注册
+	//2.增加用户信息到数据表
 	@InsertProvider(method = "addOne",type =UserDaoProvider.class)
-	public int addOne(@Param("userEmail")String userEmail,@Param("password")String password);
+	public int addOne(User user);
 	
-	// 2.1根据用户注册的邮箱验证是否邮箱已被注册
-	@SelectProvider(method = "findOne", type = UserDaoProvider.class)
-	public User findOne(String userEmail);
+	//3.根据邮箱、密码查询用户信息
+	@SelectProvider(method = "userByEmailLogin", type =UserDaoProvider.class)
+	public User userByEmailLogin(User user);
 	
-	//3.登录
-	@SelectProvider(method = "userLogin", type =UserDaoProvider.class)
-	public User userLogin(@Param("userEmail")String userEmail,@Param("password")String password);
+	//4.根据手机号、密码查询用户信息
+	@SelectProvider(method = "userByPhoneLogin", type =UserDaoProvider.class)
+	public User userByPhoneLogin(User user);
 	
-	//4.登陆后根据用户昵称模糊查询——>找人
+	//5.根据邮箱号更新密码
+	@UpdateProvider(method = "changePassword",type =UserDaoProvider.class)
+	public int changePassword(User user);
+	
+	//6.根据昵称模糊查询用户表
 	@SelectProvider(method = "findUserByNick",type = UserDaoProvider.class)
-	public List<User> findUserByNick(String userNick);
+	public List<User> findUserByNick(@Param("userNick")String userNick);
 	
-	//5.登录时忘记密码：用户更改密码
-	@UpdateProvider(method = "changePassword",type =UserDaoProvider.class )
-	public int changePassword(@Param("userEmail")String userEmail,@Param("password")String password);
-	
-	//6.普通用户登录后编辑用户基本信息
+	//7.根据用户编号更新用户表
 	@UpdateProvider(method = "editUser",type = UserDaoProvider.class)
 	public int editUser(User user);
 	
-	//7.用户后台管理：展示所有用户信息
+//	//8.
+//	@SelectProvider(method = "selectInfor",type = UserDaoProvider.class)
+//	public Social selectInfor(Social social);
+	
+	//9.查询用户列表
 	@SelectProvider(method = "findAll",type = UserDaoProvider.class)
 	public ArrayList<User> findAll();
 	
-	//8.用户后台管理：管理员操作用户信息
+	//10.根据邮箱号更新userState、permission
 	@UpdateProvider(method = "operateUser",type = UserDaoProvider.class)
-	public int operateUser(@Param("userState")int userState,@Param("permission")int permission);
+	public int operateUser(User user);
 	
-	class UserDaoProvider{
-
-//		public String saveNick(User user) {
-//			return new SQL() {{
-//				SELECT("user_no,user_nick");
-//				FROM("user");
-//			}}.toString();	
-//		}
-		
-
-		public String addOne(String userEmail,String password) {
-			return new SQL() {{
-				INSERT_INTO("user");
-				VALUES("user_email","#{userEmail}");
-				VALUES("password","#{password}");
-			}}.toString();
-		}
-		
+	//11.根据编号查询用户表
+	@SelectProvider(method = "saveToRedis",type = UserDaoProvider.class)
+	public User saveToRedis(@Param("userNo")int userNo);
 	
-		public String findOne(String userEmail) {
-			return new SQL(){{
-				SELECT("user_no");
-				SELECT("user_email");
-				SELECT("user_state");
-				FROM("user");
-				WHERE("user_email=#{userEmail}");
-				}}.toString();//其内部使用StringBuilder来实现拼接
-		 }
+		class UserDaoProvider{
+				//1.
+				public String findByUserEmail(String userEmail) {
+					return new SQL(){{
+						SELECT("user_no");
+						SELECT("user_email");
+						SELECT("user_state");
+						FROM("user");
+						WHERE("user_email=#{userEmail}");
+					}}.toString();//其内部使用StringBuilder来实现拼接
+				}
 		
-		 public String userLogin(String userEmail,String password) {
-				return new SQL(){{
-					SELECT("user_email,password");
-					FROM("user");
+				//2.
+				public String addOne(User user) {
+					return new SQL() {{
+						INSERT_INTO("user");
+						VALUES("user_email","#{userEmail}");
+						VALUES("password","#{password}");
+				}}.toString();
+				}
+		
+				//3.
+				public String userByEmailLogin(User user) {
+					return new SQL(){{
+						SELECT("user_email,password");
+						FROM("user");
 						WHERE("user_email=#{userEmail}");
 						WHERE("password=#{password}");
-					}}.toString();//其内部使用StringBuilder来实现拼接
-		 }
+						}}.toString();//其内部使用StringBuilder来实现拼接
+				}
+		 
+				//4.
+				public String userByPhoneLogin(User user) {
+					return new SQL(){{
+						SELECT("phone,password");
+						FROM("user");
+						WHERE("phone=#{phone}");
+						WHERE("password=#{password}");
+						}}.toString();//其内部使用StringBuilder来实现拼接
+				}
 		
-
-		 public String findUserByNick(String userNick) {
-				return new SQL() {{
-					SELECT("user_nick");
-					SELECT("user_photo");
-					SELECT("sex");
-					SELECT("signature");
-					FROM("user");
-					WHERE("user_nick Like CONCAT(CONCAT('%',#{userNick}),'%')");
+				//5.
+				public String changePassword(User user) {
+					return new SQL() {{
+						UPDATE("user");
+						SET("password=#{password}");//密码
+						WHERE("user_email=#{userEmail}");//获取邮箱验证码
+					}}.toString();	
+				}
+		 
+				//6.
+				public String findUserByNick(String userNick) {
+					return new SQL() {{
+						SELECT("user_nick");
+						SELECT("user_photo");
+						SELECT("sex");
+						SELECT("signature");
+						FROM("user");
+						WHERE("user_nick Like CONCAT(CONCAT('%',#{userNick}),'%')");
+					}}.toString();
+		 } 
+		 
+				//7.
+				public String editUser(User user) {
+					return new SQL(){{
+						UPDATE("user");
+						SET("user_nick=#{userNick}");//昵称
+						SET("user_photo=#{userPhoto}");//头像
+						SET("sex=#{sex}");//性别
+						SET("phone=#{phone}");//电话
+						SET("signature=#{signature}");//签名
+						/*
+						 * 用户编号不为空
+						 * 且用户状态为1：账号有效
+						 * 用户身份：普通用户
+						 * 普通用户可以编辑的信息：昵称、头像、性别、预留手机号、个性签名
+						 */
+					    WHERE("user_email=#{userEmail}");
 				}}.toString();
+		}
+		 
+//				//8.
+//				public String selectInfor() {
+//					return new SQL() {{
+//						SELECT("");
+//						SELECT("");
+//						
+//					}}.toString();
+//				}
+//				
+				
+				//9.
+				public String findAll() {
+					return new SQL() {{
+						SELECT("user_no","user_nick","user_email","password");
+						SELECT("sex","phone","permission","user_state");
+						FROM("user");
+					}}.toString();
 		 }
 		 
-
-		 public String changePassword(String userEmail,String password) {
-				return new SQL() {{
-					UPDATE("user");
-					SET("password=#{password}");//密码
-					WHERE("user_email=#{userEmail}");//获取邮箱验证码
-				}}.toString();	
+				//10.
+				public String operateUser(User user) {
+					return new SQL() {{
+						UPDATE("user");
+						/*
+						 * 账号：有效==1;无效==2
+						 * 身份：管理员；
+						 * 管理员可以操作的用户信息：用户账号是否可用、用户权限
+						 */
+							SET("user_state=#{userState}");
+							SET("permission=#{permission}");
+							WHERE("user_email=#{userEmail}");
+					}}.toString();
 		}
 		 
-
-		 public String editUser(User user) {
-				return new SQL(){{
-					UPDATE("user");
-					SET("user_nick=#{userNick}");//昵称
-					SET("user_photo=#{userPhoto}");//头像
-					SET("sex=#{sex}");//性别
-					SET("phone=#{phone}");//电话
-					SET("signature=#{signature}");//签名
-					/*
-					 * 用户编号不为空
-					 * 且用户状态为1：账号有效
-					 * 用户身份：普通用户
-					 * 普通用户可以编辑的信息：昵称、头像、性别、预留手机号、个性签名
-					 */
-				    WHERE("user_email=#{userEmail}");
-				}}.toString();
+				//11.
+				public String saveToRedis(int userNo) {
+					return new SQL() {{
+						SELECT("user_no,user_nick,user_photo,user_emial,signature");
+						FROM("user");
+						WHERE("user_no=#{userNo}");
+					}}.toString();	
 		}
-		 
-		 
-		 public String findAll() {
-				return new SQL() {{
-					SELECT("user_no","user_nick","user_email","password");
-					SELECT("sex","phone","permission","user_state");
-					FROM("user");
-				}}.toString();
-		 }
-		 
-
-		 public String operateUser(int userState,int permission) {
-				return new SQL() {{
-					UPDATE("user");
-					/*
-					 * 账号：有效==1;无效==2
-					 * 身份：管理员；
-					 * 管理员可以操作的用户信息：用户账号是否可用、用户权限
-					 */
-						SET("user_state=#{userState}");
-						SET("permission=#{permission}");
-						WHERE("user_email=#{userEmail}");
-				}}.toString();
+		
 		}
-	}
 
 }

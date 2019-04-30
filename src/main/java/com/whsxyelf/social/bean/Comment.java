@@ -1,6 +1,6 @@
 package com.whsxyelf.social.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Comment {
 	private int commentId;
@@ -8,14 +8,14 @@ public class Comment {
 	private int userNo;
 	private int commentedId;
 	private String commentContent;
-	private Date createTime;
+	private Timestamp createTime;
 	
 	public Comment() {
 		
 	}
 	
 	public Comment(int commentId, int commentType, int userNo, int commentedId, String commentContent,
-			Date createTime) {
+			Timestamp createTime) {
 		super();
 		this.commentId = commentId;
 		this.commentType = commentType;
@@ -67,11 +67,11 @@ public class Comment {
 		this.commentContent = commentContent;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 

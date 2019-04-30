@@ -36,7 +36,7 @@ public class UserMapperTest {
 	@Ignore
 	public void findOneTest() {//注册验证
 		String email = "1352823595@qq.com";//输入框
-		User user = mapper.findOne(email);
+		User user = mapper.findByUserEmail(email);
 		if(user.getUserEmail()==null) {
 			System.out.println("该账号暂未使用！");
 		}
@@ -50,9 +50,9 @@ public class UserMapperTest {
 	public void addOne() {//注册
 		String email = "451231@qq.com";
 		String pass = "hujin12345";
-		User u = mapper.findOne(email);
+		User u = mapper.findByUserEmail(email);
 		if(u==null) {
-			mapper.addOne(email,pass);
+			//mapper.addOne(email,pass);
 			System.out.println("注册成功！");
 		}else {
 			System.out.println("该邮箱已注册！");
@@ -67,12 +67,12 @@ public class UserMapperTest {
 		//登录框输入
 		String email = "1176851359@qq.com";
 		String pass = "12345678";
-		User u = mapper.userLogin(email,pass);
-		if(u!=null) {
-			System.out.println("登录成功！");
-		}else {
-			System.out.println("登录失败！或账号密码有误！");
-		}		
+//		User u = mapper.userByEmailLogin(email,pass);
+//		if(u!=null) {
+//			System.out.println("登录成功！");
+//		}else {
+//			System.out.println("登录失败！或账号密码有误！");
+//		}		
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class UserMapperTest {
 		User user = new User();
 		user.setUserEmail("1176851359@qq.com");
 		if(user.getUserState()==1) {
-			mapper.operateUser(2,1);
+			//mapper.operateUser(2,1);
 		}else {
 			System.out.println("该条数据已被删除或封禁！");
 		}
@@ -132,6 +132,6 @@ public class UserMapperTest {
 	public void gaimima() {
 		String email = "";
 		String pass = "";//新密码
-		mapper.changePassword(email,pass);
+		//mapper.changePassword(email,pass);
 	}
 }

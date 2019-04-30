@@ -39,8 +39,8 @@ public class EssayMapperTest {
 		//yyyy-MM-dd
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String current = df.format(now);
-		essay.setCreateTime(df.parse(current));
-		mapper.lauchEssay(essay);
+//		essay.setCreateTime(df.parse(current));
+		//mapper.lauchEssay(essay);
 	}
 	
 	@Test
@@ -60,20 +60,20 @@ public class EssayMapperTest {
 	@Test
 	@Ignore
 	public void ShowSelf(){
-		ArrayList<Essay> list = mapper.ShowSelf(2);
-		for(Essay e:list) {
-			System.out.println(e.toString());
-		}
+//		ArrayList<Essay> list = mapper.ShowSelf(2);
+//		for(Essay e:list) {
+//			System.out.println(e.toString());
+//		}
 	}
 	
 	@Test
 //	@Ignore
 	public void ShowConcerneed() {
 
-		List<Essay> list = mapper.showConcerned(1);
-		for(Essay e:list) {
-			System.out.println(e.toString());
-		}
+//		List<Essay> list = mapper.showConcerned(1);
+//		for(Essay e:list) {
+//			System.out.println(e.toString());
+//		}
 
 //		Map<String,Object> map = new HashMap<String, Object>();
 //		map.put("userNo", "U00001");
@@ -84,6 +84,10 @@ public class EssayMapperTest {
 //		for(Essay e:list) {
 //			System.out.println(e.toString());
 //		}
+//		Essay essay = new Essay();
+//		essay.setEssayId(11);
+//		mapper.updateEssayCollection(essay);
+//		
 		
 	}
 }

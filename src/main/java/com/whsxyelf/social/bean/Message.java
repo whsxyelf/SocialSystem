@@ -1,20 +1,20 @@
 package com.whsxyelf.social.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Message {
 	private int messageId;
 	private int userNo;
 	private int concernedNo;
 	private String content;
-	private Date createTime;
+	private Timestamp createTime;
 	
 	
 	public Message() {
 		
 	}
 	
-	public Message(int messageId, int userNo, int concernedNo, String content, Date createTime) {
+	public Message(int messageId, int userNo, int concernedNo, String content,Timestamp createTime) {
 		super();
 		this.messageId = messageId;
 		this.userNo = userNo;
@@ -46,10 +46,10 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 	@Override

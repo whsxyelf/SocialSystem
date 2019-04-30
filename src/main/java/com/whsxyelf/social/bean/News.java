@@ -1,6 +1,7 @@
 package com.whsxyelf.social.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 public class News {
 		private int newsId;
@@ -8,13 +9,13 @@ public class News {
 		private String newsTitle;
 		private String newsUrl;
 		private int length;
-		private Date createTime;
+		private Timestamp createTime;
 		
 		public News() {
 			
 		}
 		
-		public News(int newsId, String newsFrom, String newsTitle, String newsUrl, int length, Date createTime) {
+		public News(int newsId, String newsFrom, String newsTitle, String newsUrl, int length, Timestamp createTime) {
 			super();
 			this.newsId = newsId;
 			this.newsFrom = newsFrom;
@@ -53,10 +54,10 @@ public class News {
 		public void setLength(int length) {
 			this.length = length;
 		}
-		public Date getCreateTime() {
+		public Timestamp getCreateTime() {
 			return createTime;
 		}
-		public void setCreateTime(Date createTime) {
+		public void setCreateTime(Timestamp createTime) {
 			this.createTime = createTime;
 		}
 		@Override

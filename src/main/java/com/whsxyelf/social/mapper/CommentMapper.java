@@ -15,70 +15,80 @@ import com.whsxyelf.social.bean.Comment;
 @Mapper
 public interface CommentMapper {
 	
-	/*
-	 * 1.动态：自我评论、评价关注对象;commentType==1
-	 * 2.新闻：评论;commentType==2
-	 * 3.动态评论回复：commentType==3
-	 * 4.新闻评论回复：commentType==4
-	 */
-	@InsertProvider(method ="addComment",type= CommentDaoProvider.class)
-	public int addComment(Comment comment);
+	//	1.增加一条评论数据
+	@InsertProvider(method ="insertComment",type= CommentDaoProvider.class)
+	public int insertComment(Comment comment);
 	
-	//2.*展示评论
-	@SelectProvider(method = "showComment",type = CommentDaoProvider.class)
-	public List<Comment> showComment(@Param("commentType")int commentType,@Param("commentedId")int commentedId);
+	//	2.根据评论id删除一条动态的评论数据
+	@DeleteProvider(method = "deleteOneComment",type = CommentDaoProvider.class)
+	public int deleteOneComment(@Param("commentId")int commentId);
 	
-	/*
-	 * 3.用户删除自己动态中的评论
-	 * 4.关注对象删除自己在好友动态中的评论
-	 * 6.删除回复的评论
-	 */
-	@DeleteProvider(method = "deleteOneself",type = CommentDaoProvider.class)
-	public int deleteOneself(int commentId);
+	//	3.根据评论类型和被评论id查询评论列表
+	@SelectProvider(method = "selectCommentList",type = CommentDaoProvider.class)
+	public List<Comment> selectCommentList(Comment comment);
 	
-	//5.动态被删除对应所有评论自动删除
-	@DeleteProvider(method = "deleteAll",type = CommentDaoProvider.class)
-	public int deleteAll(@Param("commentType")int commentType,@Param("commentedId")int commentedId);
-
-	class CommentDaoProvider{
-		public String addComment(Comment comment) {
-			return new SQL() {
-				{
-					INSERT_INTO("comment");
-					VALUES("comment_type", "#{commentType}");
-					VALUES("user_no", "#{userNo}");
-					VALUES("commented_id", "#{commentedId}");	
-					VALUES("comment_content", "#{commentContent}");
-					VALUES("create_time", "#{createTime}");
-				}
-			}.toString();		
-		}
-		
-		public String showComment(int commentType,int commentedId) {
-			return new SQL() {{
-				SELECT("comment_id");
-				SELECT("user_no");
-				SELECT("comment_content");
-				FROM("comment");
-				WHERE("comment_type=#{commentType}");
-				WHERE("commented_id=#{commentedId}");
-			}}.toString();
-		}
-		
-		public String deleteOneself(int commentId) {
-			return new SQL() {{
-				DELETE_FROM("comment");
-				WHERE("comment_id=#{commentId}");
-			}}.toString();	
-		}
-		
-		public String deleteAll(int commentType,int commentedId) {
-			return new SQL() {{
-				DELETE_FROM("comment");
-				WHERE("comment_type=#{commentType}");
-				WHERE("commented_id=#{commentedId}");
-			}}.toString();
-		}	
+	//	4.删除动态所对应的所有评论
+	@DeleteProvider(method = "deleteAllComment",type = CommentDaoProvider.class)
+	public int deleteAllComment(Comment comment);
+	
+	//	5.统计动态评论的次数
+	@SelectProvider(method = "essayCommentCount",type = CommentDaoProvider.class)
+	public int essayCommentCount(Comment comment);
+	
+		class CommentDaoProvider{
+			
+			//1.
+			public String insertComment(Comment comment) {
+				return new SQL() {
+					{
+						INSERT_INTO("comment");
+						VALUES("comment_type", "#{commentType}");
+						VALUES("user_no", "#{userNo}");
+						VALUES("commented_id", "#{commentedId}");	
+						VALUES("comment_content", "#{commentContent}");
+						VALUES("create_time", "#{createTime}");
+					}
+				}.toString();		
+			}
+			
+			//2.
+			public String deleteOneComment(int commentId) {
+				return new SQL() {{
+					DELETE_FROM("comment");
+					WHERE("comment_id=#{commentId}");
+				}}.toString();	
+			}
+			
+			//3.
+			public String selectCommentList(Comment comment) {
+				return new SQL() {{
+					SELECT("comment_id");
+					SELECT("user_no");
+					SELECT("comment_content");
+					FROM("comment");
+					WHERE("comment_type=#{commentType}");
+					WHERE("commented_id=#{commentedId}");
+				}}.toString();
+			}
+			
+			//4.
+			public String deleteAllComment(Comment comment) {
+				return new SQL() {{
+					DELETE_FROM("comment");
+					WHERE("comment_type=#{commentType}");
+					WHERE("commented_id=#{commentedId}");
+				}}.toString();
+			}	
+			
+			//5.
+			public String essayCommentCount(Comment comment) {
+				return new SQL() {{
+					SELECT("count(*)");
+					FROM("comment");
+					WHERE("comment_type=#{commentType}");
+					WHERE("commented_id=#{commentedId}");
+				}}.toString();
+			}
 	}
 	
 }

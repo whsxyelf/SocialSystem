@@ -38,13 +38,13 @@ public class ConcernMapperTest {
 		//yyyy-MM-dd
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String current = df.format(now);
-		concern.setCreateTime(df.parse(current));
-		Concern con = mapper.haveConcern(concern);
-		if(con==null) {
-			mapper.concernUser(concern);	
-		}else {
-			System.out.println("关注失败！");
-		}
+//		concern.setCreateTime(df.parse(current));
+		//Concern con = mapper.haveConcern(concern);
+//		if(con==null) {
+//			mapper.concernUser(concern);	
+//		}else {
+//			System.out.println("关注失败！");
+//		}
 		
 	}
 	
@@ -54,13 +54,13 @@ public class ConcernMapperTest {
 		Concern concern = new Concern();
 		concern.setUserNo(5);
 		concern.setConcernedId(6);
-		Concern con =  mapper.haveConcern(concern);
-		if(con!=null) {
-			mapper.concernCancel(concern);
-			System.out.println("取关成功！");
-		}else {
-			System.out.println("取关失败！");
-		}
+		//Concern con =  mapper.haveConcern(concern);
+//		if(con!=null) {
+//			mapper.concernCancel(concern);
+//			System.out.println("取关成功！");
+//		}else {
+//			System.out.println("取关失败！");
+//		}
 	}
 	
 	@Test
@@ -68,32 +68,32 @@ public class ConcernMapperTest {
 	public void concernList() {
 		User user = new User();
 		user.setUserNo(1);
-		ArrayList<Concern> list = mapper.concernList(user);
+		//ArrayList<Concern> list = mapper.concernList(user);
 		System.out.println("列表");
-		if(list!=null) {
-			for(Concern con:list) {
-				System.out.println(con.getConcernedId());
-			}	
-		}else {
-			System.out.println("列表为空！");
-		}
+//		if(list!=null) {
+//			for(Concern con:list) {
+//				System.out.println(con.getConcernedId());
+//			}	
+//		}else {
+//			System.out.println("列表为空！");
+//		}
 		
 	}
 	
 	@Test
-	@Ignore
 	public void haveConcern() {
-		Concern concern = new Concern();
-		concern.setUserNo(1);
-		concern.setConcernedId(2);
-		Concern con = mapper.haveConcern(concern);
-		if(con!=null) {
-			System.out.println(con.getUserNo());
-			System.out.println(con.getConcernedId());
-		}else {
-			System.out.println("未关注该用户！");
-		}
-		
+//		Concern concern = new Concern();
+//		concern.setUserNo(1);
+//		concern.setConcernedId(2);
+		//Concern con = mapper.haveConcern(concern);
+//		if(con!=null) {
+//			System.out.println(con.getUserNo());
+//			System.out.println(con.getConcernedId());
+//		}else {
+//			System.out.println("未关注该用户！");
+//		}
+//		 int num = mapper.selectCount(5);
+//		 System.out.println(num);
 	}
 	
 }

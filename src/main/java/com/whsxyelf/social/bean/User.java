@@ -1,7 +1,7 @@
 package com.whsxyelf.social.bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class User implements Serializable{
 	/**
@@ -18,14 +18,14 @@ public class User implements Serializable{
 	private String signature;
 	private int permission;
 	private int userState;
-	private Date createTime;
+	private Timestamp createTime;
 	
 	public User() {
 		
 	}
 	
 	public User(int userNo, String userNick, String userPhoto, String userEmail, String password, int sex, String phone,
-			String signature, int permission, int userState, Date createTime) {
+			String signature, int permission, int userState, Timestamp createTime) {
 		super();
 		this.userNo = userNo;
 		this.userNick = userNick;
@@ -99,10 +99,10 @@ public class User implements Serializable{
 	public void setUserState(int userState) {
 		this.userState = userState;
 	}
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 	@Override

@@ -1,17 +1,25 @@
 package com.whsxyelf.social.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.whsxyelf.social.bean.User;
 
 public interface UserService {
-	/*
-	 * register注册接口
-	 */
-	public void register(String userEmail,String password);
 	
-	public ArrayList<User> getUsers();
+	//	1.注册
+	public int register(User user)throws Exception;
 	
+	//	2.邮箱登录
+	public User loginByEmail(User user);
+	
+	//	3.手机登录
+	public User loginByPhone(User user);
+
+	//	4.更改密码
+	public int changePassword(User user);
+	
+	//	5.找人
+	public List<User> findUser(String userNick);
 	
 }
 

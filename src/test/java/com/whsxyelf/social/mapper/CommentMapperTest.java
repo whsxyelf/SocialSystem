@@ -35,33 +35,33 @@ public class CommentMapperTest {
 		comment.setUserNo(5);
 		comment.setCommentedId(11);//==essay_id
 		comment.setCommentContent("难受！");
-		Date now = new Date();
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		String current = df.format(now);
-		comment.setCreateTime(df.parse(current));
-		mapper.addComment(comment);
+//		Date now = new Date();
+//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		String current = df.format(now);
+//		comment.setCreateTime(df.parse(current));
+		//mapper.addComment(comment);
 	}
 	
 	@Test
 	@Ignore
 	public void deleteAll() {
-		mapper.deleteAll(1,11);
+		//mapper.deleteAll(1,11);
 	}
 	
 	@Test
 	@Ignore
 	public void deleteOne() {
-		mapper.deleteOneself(12);
+		//mapper.deleteOneself(12);
 	}
 
 	@Test
 	@Ignore
 	public void show() {
-		List<Comment> list = mapper.showComment(1, 11);
-		for(Comment com:list) {
-			System.out.println(com.getUserNo());
-			System.out.println(com.getCommentContent().toString());
-		}
+		//List<Comment> list = mapper.showComment(1, 11);
+//		for(Comment com:list) {
+//			System.out.println(com.getUserNo());
+//			System.out.println(com.getCommentContent().toString());
+//		}
 	}
 	
 }

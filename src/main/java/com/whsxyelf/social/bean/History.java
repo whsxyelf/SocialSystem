@@ -1,19 +1,19 @@
 package com.whsxyelf.social.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class History {
 	private int id;
 	private int userNo;
 	private int newsId;
 	private float score;
-	private Date createTime;
+	private Timestamp createTime;
 	
 	public History() {
 		
 	}
 	
-	public History(int id, int userNo, int newsId, float score, Date createTime) {
+	public History(int id, int userNo, int newsId, float score, Timestamp createTime) {
 		super();
 		this.id = id;
 		this.userNo = userNo;
@@ -55,11 +55,11 @@ public class History {
 		this.score = score;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 

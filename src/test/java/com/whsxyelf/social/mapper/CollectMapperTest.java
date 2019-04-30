@@ -26,7 +26,7 @@ public class CollectMapperTest {
 		collect.setUserNo(2);
 		collect.setCollectionType(1);
 		collect.setCollectedId(7);
-		mapper.addCollect(collect);
+		//mapper.addCollect(collect);
 	}
 	
 	@Test
@@ -36,21 +36,21 @@ public class CollectMapperTest {
 	    collect.setUserNo(1);
 	    collect.setCollectionType(1);
 	    collect.setCollectedId(2);
-	    mapper.cancelCollect(collect);
+	    //mapper.cancelCollect(collect);
 	}
 	
 	@Test
 	public void showCollectList() {
-		ArrayList<Collect> list = mapper.showCollectList(6);
-		if(list!=null) {
-			for(Collect c:list) {
-				System.out.println(c.getUserNo());
-				System.out.println(c.getCollectionType());
-				System.out.println(c.getCollectedId());
-			}
-		}else {
-			System.out.println("列表为空！");
-		}
+		//ArrayList<Collect> list = mapper.showCollectList(6);
+//		if(list!=null) {
+//			for(Collect c:list) {
+//				System.out.println(c.getUserNo());
+//				System.out.println(c.getCollectionType());
+//				System.out.println(c.getCollectedId());
+//			}
+//		}else {
+//			System.out.println("列表为空！");
+//		}
 		
 	}
 }
