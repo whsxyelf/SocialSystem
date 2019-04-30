@@ -1,73 +1,58 @@
 package com.whsxyelf.social.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class History {
-	private int id;
-	private int userNo;
+	private int historyId;
+	private int userId;
 	private int newsId;
 	private float score;
-	private Timestamp createTime;
-	
-	public History() {
-		
+	private Date createTime;
+	private Date lastEditTime;
+	public int getHistoryId() {
+		return historyId;
 	}
-	
-	public History(int id, int userNo, int newsId, float score, Timestamp createTime) {
-		super();
-		this.id = id;
-		this.userNo = userNo;
-		this.newsId = newsId;
-		this.score = score;
-		this.createTime = createTime;
+	public void setHistoryId(int historyId) {
+		this.historyId = historyId;
 	}
-
-
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	
-	public int getUserNo() {
-		return userNo;
-	}
-
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
-
 	public int getNewsId() {
 		return newsId;
 	}
-
 	public void setNewsId(int newsId) {
 		this.newsId = newsId;
 	}
-
 	public float getScore() {
 		return score;
 	}
-
 	public void setScore(float score) {
 		this.score = score;
 	}
-
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
+	
+	public Date getLastEditTime() {
+		return lastEditTime;
+	}
+	public void setLastEditTime(Date lastEditTime) {
+		this.lastEditTime = lastEditTime;
+	}
 	@Override
 	public String toString() {
-		return "History [id=" + id + ", userNo=" + userNo + ", newsId=" + newsId + ", score=" + score + ", createTime="
-				+ createTime + "]";
+		return "History [historyId=" + historyId + ", userId=" + userId + ", newsId=" + newsId + ", score=" + score
+				+ ", createTime=" + createTime + "]";
 	}
+	
+	
 
 	
 }

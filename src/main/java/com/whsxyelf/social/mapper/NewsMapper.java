@@ -1,59 +1,36 @@
 package com.whsxyelf.social.mapper;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.jdbc.SQL;
 
 import com.whsxyelf.social.bean.News;
 
-
 @Mapper
 public interface NewsMapper {
+	@Select("select news_id,news_from,news_title,news_url,create_time from news where news_id=#{newsId}")
+	public News findNewsById(int newsId);
 	
-	//1.展示单条新闻详情
-	@SelectProvider(method = "showNewsDetail",type = NewsDaoProvider.class)
-	public News showNewsDetail(@Param("newsId")int newsId);
-	//2.展示新闻列表
-	@SelectProvider(method = "showNewsList",type = NewsDaoProvider.class)
-	public ArrayList<News> showNewsList();
-	//3.统计新闻条数
-	@SelectProvider(method = "countNews",type = NewsDaoProvider.class)
+	@SelectProvider(type=NewsProvider.class,method="findNewsByList")
+	public List<News> findNewsByList(@Param("newsId")int newsId[]);
+	
+	@Select("select count(news_id) from news")
 	public int countNews();
 	
-	class NewsDaoProvider{
-		
-		public String showNewsDetail(String newsId) {
-			return new SQL() {{
-				SELECT("news_from");
-				SELECT("news_title");
-				SELECT("news_url");
-				SELECT("length");
-				WHERE("news_id=#{newsId}");	
-			}}.toString(); 	
-		}
-		
-		public String showNewsList() {
-			return new SQL() {{
-				SELECT("news_id");
-				SELECT("news_from");
-				SELECT("news_title");
-				SELECT("news_url");
-				SELECT("length");
-				FROM("news");	
-			}}.toString(); 	
-		}
-		
-		public String countNews() {
-			return new SQL() {{
-			SELECT("count(*)");
-			FROM("news");
-			}}.toString(); 	
+	class NewsProvider {
+		public String findNewsByList(int newsId[]) {
+			StringBuilder list = new StringBuilder();
+			list.append("("+ newsId[0]);
+			int max = newsId.length;
+			for(int i=1;i<max;i++) {
+				list.append(","+newsId[i]);
+			}
+			list.append(")");
+			return "select news_id,news_from,news_title,news_url,create_time "
+					+ "from news where news_id in " + list.toString();
 		}
 	}
-	
 }

@@ -1,37 +1,24 @@
 package com.whsxyelf.social.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Essay {
-	private int essayId;//被发布动态编号
-	private int userNo;//发布动态的用户编号
-	private String essayContent;//动态发布内容
-	private String essayPhoto;//与动态同步的图片
-	private Timestamp createTime;//动态发布时间
-	
-	public Essay() {
-		
-	}
-	
-	public Essay(int essayId, int userNo, String essayContent, String essayPhoto,Timestamp createTime) {
-		super();
-		this.essayId = essayId;
-		this.userNo = userNo;
-		this.essayContent = essayContent;
-		this.essayPhoto = essayPhoto;
-		this.createTime = createTime;
-	}
+	private int essayId;
+	private int userId;
+	private String essayContent;
+	private String essayPhoto;
+	private Date createTime;
 	public int getEssayId() {
 		return essayId;
 	}
 	public void setEssayId(int essayId) {
 		this.essayId = essayId;
 	}
-	public int getUserNo() {
-		return userNo;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String getEssayContent() {
 		return essayContent;
@@ -45,17 +32,18 @@ public class Essay {
 	public void setEssayPhoto(String essayPhoto) {
 		this.essayPhoto = essayPhoto;
 	}
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
 	@Override
 	public String toString() {
-		return "Essay [essayId=" + essayId + ", userNo=" + userNo + ", essayContent=" + essayContent + ", essayPhoto="
+		return "Essay [essayId=" + essayId + ", userId=" + userId + ", essayContent=" + essayContent + ", essayPhoto="
 				+ essayPhoto + ", createTime=" + createTime + "]";
 	}
+	
+	
 	
 }

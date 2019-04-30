@@ -1,44 +1,30 @@
 package com.whsxyelf.social.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Message {
 	private int messageId;
-	private int userNo;
-	private int concernedNo;
+	private int userId;
+	private int concernedId;
 	private String content;
-	private Timestamp createTime;
-	
-	
-	public Message() {
-		
-	}
-	
-	public Message(int messageId, int userNo, int concernedNo, String content,Timestamp createTime) {
-		super();
-		this.messageId = messageId;
-		this.userNo = userNo;
-		this.concernedNo = concernedNo;
-		this.content = content;
-		this.createTime = createTime;
-	}
+	private Date createTime;
 	public int getMessageId() {
 		return messageId;
 	}
 	public void setMessageId(int messageId) {
 		this.messageId = messageId;
 	}
-	public int getUserNo() {
-		return userNo;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	public int getConcernedNo() {
-		return concernedNo;
+	public int getConcernedId() {
+		return concernedId;
 	}
-	public void setConcernedNo(int concernedNo) {
-		this.concernedNo = concernedNo;
+	public void setConcernedId(int concernedId) {
+		this.concernedId = concernedId;
 	}
 	public String getContent() {
 		return content;
@@ -46,15 +32,15 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	@Override
 	public String toString() {
-		return "Message [messageId=" + messageId + ", userNo=" + userNo + ", concernedNo=" + concernedNo + ", content="
+		return "Message [messageId=" + messageId + ", userId=" + userId + ", concernedId=" + concernedId + ", content="
 				+ content + ", createTime=" + createTime + "]";
 	}
 	

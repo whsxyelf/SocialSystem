@@ -1,117 +1,123 @@
 package com.whsxyelf.social.bean;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
-public class User implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int userNo;
+public class User {
+	private int userId;
 	private String userNick;
 	private String userPhoto;
 	private String userEmail;
 	private String password;
-	private int sex;
+	private Integer sex;
 	private String phone;
 	private String signature;
-	private int permission;
-	private int userState;
-	private Timestamp createTime;
-	
-	public User() {
-		
+	private Integer permission;
+	private Integer userState;
+	private Date createTime;
+	private Date lastEditTime;
+
+	public int getUserId() {
+		return userId;
 	}
-	
-	public User(int userNo, String userNick, String userPhoto, String userEmail, String password, int sex, String phone,
-			String signature, int permission, int userState, Timestamp createTime) {
-		super();
-		this.userNo = userNo;
-		this.userNick = userNick;
-		this.userPhoto = userPhoto;
-		this.userEmail = userEmail;
-		this.password = password;
-		this.sex = sex;
-		this.phone = phone;
-		this.signature = signature;
-		this.permission = permission;
-		this.userState = userState;
-		this.createTime = createTime;
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
+
 	public String getUserNick() {
 		return userNick;
 	}
+
 	public void setUserNick(String userNick) {
 		this.userNick = userNick;
 	}
+
 	public String getUserPhoto() {
 		return userPhoto;
 	}
+
 	public void setUserPhoto(String userPhoto) {
 		this.userPhoto = userPhoto;
 	}
+
 	public String getUserEmail() {
 		return userEmail;
 	}
+
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getSex() {
+
+	public Integer getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getSignature() {
 		return signature;
 	}
+
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
-	public int getPermission() {
+
+	public Integer getPermission() {
 		return permission;
 	}
-	public void setPermission(int permission) {
+
+	public void setPermission(Integer permission) {
 		this.permission = permission;
 	}
-	public int getUserState() {
+
+	public Integer getUserState() {
 		return userState;
 	}
-	public void setUserState(int userState) {
+
+	public void setUserState(Integer userState) {
 		this.userState = userState;
 	}
-	public Timestamp getCreateTime() {
+
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public Date getLastEditTime() {
+		return lastEditTime;
+	}
+
+	public void setLastEditTime(Date lastEditTime) {
+		this.lastEditTime = lastEditTime;
+	}
+
 	@Override
 	public String toString() {
-		return "User [userNo=" + userNo + ", userNick=" + userNick + ", userPhoto=" + userPhoto + ", userEmail="
+		return "User [userId=" + userId + ", userNick=" + userNick + ", userPhoto=" + userPhoto + ", userEmail="
 				+ userEmail + ", password=" + password + ", sex=" + sex + ", phone=" + phone + ", signature="
 				+ signature + ", permission=" + permission + ", userState=" + userState + ", createTime=" + createTime
 				+ "]";
 	}
-	
-	
+
 }

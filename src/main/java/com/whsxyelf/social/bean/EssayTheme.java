@@ -1,37 +1,25 @@
 package com.whsxyelf.social.bean;
 
 public class EssayTheme {
-	private int eassayThemeNo;
+	private int essayThemeId;
 	private String essayThemeContent;
-	public EssayTheme() {
-		
+	public int getEssayThemeId() {
+		return essayThemeId;
 	}
-	
-	public EssayTheme(int eassayThemeNo, String essayThemeContent) {
-		super();
-		this.eassayThemeNo = eassayThemeNo;
-		this.essayThemeContent = essayThemeContent;
+	public void setEssayThemeId(int essayThemeId) {
+		this.essayThemeId = essayThemeId;
 	}
-
-	public int getEassayThemeNo() {
-		return eassayThemeNo;
-	}
-
-	public void setEassayThemeNo(int eassayThemeNo) {
-		this.eassayThemeNo = eassayThemeNo;
-	}
-
 	public String getEssayThemeContent() {
 		return essayThemeContent;
 	}
-
 	public void setEssayThemeContent(String essayThemeContent) {
 		this.essayThemeContent = essayThemeContent;
 	}
-
 	@Override
 	public String toString() {
-		return "EssayTheme [eassayThemeNo=" + eassayThemeNo + ", essayThemeContent=" + essayThemeContent + "]";
+		return "EssayTheme [essayThemeId=" + essayThemeId + ", essayThemeContent=" + essayThemeContent + "]";
 	}
+	
+	
 	
 }

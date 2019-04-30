@@ -1,39 +1,27 @@
 package com.whsxyelf.social.bean;
 
 public class Collect {
-	private int collectionId;
-	private int userNo;
-	private int collectionType;
+	private int collectId;
+	private int userId;
+	private int collectType;
 	private int collectedId;
-	
-	public Collect() {
-		
+	public int getCollectId() {
+		return collectId;
 	}
-	
-	public Collect(int collectionId, int userNo, int collectionType, int collectedId) {
-		super();
-		this.collectionId = collectionId;
-		this.userNo = userNo;
-		this.collectionType = collectionType;
-		this.collectedId = collectedId;
+	public void setCollectId(int collectId) {
+		this.collectId = collectId;
 	}
-	public int getCollectionId() {
-		return collectionId;
+	public int getUserId() {
+		return userId;
 	}
-	public void setCollectionId(int collectionId) {
-		this.collectionId = collectionId;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	public int getUserNo() {
-		return userNo;
+	public int getCollectType() {
+		return collectType;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
-	public int getCollectionType() {
-		return collectionType;
-	}
-	public void setCollectionType(int collectionType) {
-		this.collectionType = collectionType;
+	public void setCollectType(int collectType) {
+		this.collectType = collectType;
 	}
 	public int getCollectedId() {
 		return collectedId;
@@ -41,11 +29,12 @@ public class Collect {
 	public void setCollectedId(int collectedId) {
 		this.collectedId = collectedId;
 	}
-
 	@Override
 	public String toString() {
-		return "Collection [collectionId=" + collectionId + ", userNo=" + userNo + ", collectionType=" + collectionType
+		return "Collect [collectId=" + collectId + ", userId=" + userId + ", collectType=" + collectType
 				+ ", collectedId=" + collectedId + "]";
 	}
+	
+	
 	
 }

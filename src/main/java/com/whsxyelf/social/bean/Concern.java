@@ -1,36 +1,23 @@
 package com.whsxyelf.social.bean;
 
-import java.sql.Timestamp;
-
+import java.util.Date;
 
 public class Concern {
 	private int concernId;
-	private int userNo;
+	private int userId;
 	private int concernedId;
-	private Timestamp createTime;
-	
-	public Concern() {
-		
-	}
-	
-	public Concern(int concernId, int userNo, int concernedId, Timestamp createTime) {
-		super();
-		this.concernId = concernId;
-		this.userNo = userNo;
-		this.concernedId = concernedId;
-		this.createTime = createTime;
-	}
+	private Date createTime;
 	public int getConcernId() {
 		return concernId;
 	}
 	public void setConcernId(int concernId) {
 		this.concernId = concernId;
 	}
-	public int getUserNo() {
-		return userNo;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public int getConcernedId() {
 		return concernedId;
@@ -38,17 +25,18 @@ public class Concern {
 	public void setConcernedId(int concernedId) {
 		this.concernedId = concernedId;
 	}
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
 	@Override
 	public String toString() {
-		return "Concern concernId=" + concernId + ", userNo=" + userNo + ", concernedId=" + concernedId
-				+ ", createTime=" + createTime ;
+		return "Concern [concernId=" + concernId + ", userId=" + userId + ", concernedId=" + concernedId
+				+ ", createTime=" + createTime + "]";
 	}
+	
+	
 	
 }
