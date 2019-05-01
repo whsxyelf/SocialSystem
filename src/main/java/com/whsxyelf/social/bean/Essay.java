@@ -8,6 +8,7 @@ public class Essay {
 	private String essayContent;
 	private String essayPhoto;
 	private Date createTime;
+	private Date lastEditTime;
 	public int getEssayId() {
 		return essayId;
 	}
@@ -37,6 +38,13 @@ public class Essay {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	
+	public Date getLastEditTime() {
+		return lastEditTime;
+	}
+	public void setLastEditTime(Date lastEditTime) {
+		this.lastEditTime = lastEditTime;
 	}
 	@Override
 	public String toString() {

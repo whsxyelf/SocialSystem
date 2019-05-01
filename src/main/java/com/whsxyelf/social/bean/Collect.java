@@ -1,10 +1,13 @@
 package com.whsxyelf.social.bean;
 
+import java.util.Date;
+
 public class Collect {
 	private int collectId;
 	private int userId;
 	private int collectType;
 	private int collectedId;
+	private Date createTime;
 	public int getCollectId() {
 		return collectId;
 	}
@@ -28,6 +31,14 @@ public class Collect {
 	}
 	public void setCollectedId(int collectedId) {
 		this.collectedId = collectedId;
+	}
+	
+	
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	@Override
 	public String toString() {

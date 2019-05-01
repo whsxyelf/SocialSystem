@@ -1,75 +1,63 @@
 package com.whsxyelf.social.mapper;
 
-import java.util.ArrayList;
-import org.apache.ibatis.annotations.DeleteProvider;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
-import com.whsxyelf.social.bean.Essay;
 
+import com.whsxyelf.social.bean.Essay;
 
 @Mapper
 public interface EssayMapper {
+	@Select("select essay_id,user_id,essay_content,essay_photo,create_time,last_edit_time "
+			+ "from essay where essay_id=#{essayId}")
+	public Essay findEssayById(int essayId);
 	
-	//	1.增加一条动态数据
-	@InsertProvider(method = "insertEssay",type= EssayDaoProvider.class)
-	public int insertEssay(Essay essay);
+	@Select("select essay_id,user_id,essay_content,essay_photo,create_time,last_edit_time "
+			+ "from essay where user_id=#{userId}")
+	public List<Essay> findEssayListByUserId(int userId);
 	
-	//	2.删除一条动态数据
-	@DeleteProvider(method = "deleteOneEssay",type = EssayDaoProvider.class)
-	public int deleteOneEssay(@Param("essayId")int essayId);
+	@InsertProvider(type = EssayProvider.class,method="addOne")
+	public int addOne(Essay essay);
 	
-	//	3.根据用户编号和发布动态的时间查询动态表数据
-	@SelectProvider(method = "selectSelf",type = EssayDaoProvider.class)
-	public ArrayList<Essay> selectSelf(@Param("userNo")int userNo);
+	@UpdateProvider(type = EssayProvider.class,method="updateEssay")
+	public int updateEssay(Essay essay);
 	
-	//	4.根据关注的用户编号和发布的时间查询动态表数据
-	@SelectProvider(method = "selectConcerned",type = EssayDaoProvider.class)
-	public ArrayList<Essay> selectConcerned(@Param("userNo")int userNo);
-
-		class EssayDaoProvider{
-		
-			//1.
-			public String insertEssay(Essay essay) {
-				return new SQL(){{
-					INSERT_INTO("essay");
-					VALUES("user_no","#{userNo}");//发布动态用户编号
-					VALUES("essay_content","#{essayContent}");//动态内容
-					VALUES("essay_photo","#{essayPhoto}");//动态图片
-					VALUES("create_time","#{createTime}");//发布时间：获取当前时间
-				}}.toString();
-			}
-			
-			//2.
-			public String deleteOneEssay(int essayId) {
-				return new SQL() {{
-					DELETE_FROM("essay");
-					WHERE("essay_id=#{essayId}");
-				}}.toString();
-			}
-			
-			//3.
-			public String selectSelf(int userNo) {
-				return new SQL() {{
-					SELECT("user_no,essay_content");
-					SELECT("essay_photo");
-					SELECT("create_time");
-					FROM("essay");
-					WHERE("user_no=#{userNo}");
-				}}.toString();
-			}
-			
-			//4.
-			public String selectConcerned(int userNo) {
-				return new SQL() {{
-					SELECT("essay_id,user_no");
-					SELECT("essay_content,essay_photo");
-					FROM("essay");
-					WHERE("user_no in(select concerned_id from concern where user_no=#{userNo})");
-				}}.toString(); 
-			}	
-			
+	@Delete("delete from essay where essay_id=#{essayId}")
+	public int deleteEssay(int essayId);
+	
+	@Select("select count(essay_id) from essay where user_id=#{userId}")
+	public int countEssayByUserId(int userId);
+	
+	class EssayProvider {
+		public String addOne(Essay essay) {
+			return new SQL() {{
+				INSERT_INTO("essay");
+				VALUES("user_id", "#{userId}");
+				VALUES("essay_content", "#{essayContent}");
+				if(essay.getEssayPhoto() != null) {
+					VALUES("essay_photo", "#{essayPhoto}");
+				}
+			}}.toString();
 		}
+		
+		public String updateEssay(Essay essay) {
+			return new SQL() {{
+				UPDATE("essay");
+				if(essay.getEssayContent() != null) {
+					SET("essay_content=#{essayContent}");
+				}
+				if(essay.getEssayPhoto() != null) {
+					SET("essay_photo=#{essayPhoto}");
+				}
+				SET("last_edit_time=#{lastEditTime}");
+				WHERE("essay_id=#{essayId}");
+			}}.toString();
+		}
+	}
 }
