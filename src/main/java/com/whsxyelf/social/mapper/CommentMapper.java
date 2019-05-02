@@ -2,11 +2,11 @@ package com.whsxyelf.social.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -16,7 +16,7 @@ import com.whsxyelf.social.bean.Comment;
 public interface CommentMapper {
 	@Select("select comment_id,user_id,comment_content,create_time from comment "
 			+ "where comment_type=#{commentType} and commented_id=#{commentedId}")
-	public List<Comment> findTotalCommentById(Comment comment);
+	public List<Comment> findTotalCommentById(@Param("commentType") int commentType,@Param("commentedId") int commentedId);
 	
 	@Insert("insert into comment(comment_type,commented_id,user_id,comment_content) "
 			+ "values(#{commentType},#{commentedId},#{userId},#{commentContent})")
@@ -25,11 +25,15 @@ public interface CommentMapper {
 	@UpdateProvider(type=CommentProvider.class,method="updateComment")
 	public int updateComment(Comment comment);
 	
-	@DeleteProvider(type=CommentProvider.class,method="deleteCommentByCommentedId")
-	public int deleteCommentByCommentedId(Comment comment);
+	@Delete("delete from comment where comment_Id=#{commentId} and user_id=#{userId}")
+	public int deleteCommentByCommentId(@Param("commentId") int commentId,@Param("userId") int userId);
 	
-	@SelectProvider(type=CommentProvider.class,method="countCommentByCommentedId")
-	public int countCommentByCommentedId(Comment comment);
+	@Delete("delete from comment where commented_id="
+			+ "(select essay_id from essay where essay_id=#{commentedId} and user_id=#{userId})")
+	public int deleteCommentByCommentedId(@Param("commentedId") int commentedId, @Param("userId") int userId);
+	
+	@Select("select count(comment_id) from comment where comment_type=#{commentType} and commented_id=#{commentedId}")
+	public int countCommentByCommentedId(@Param("commentType") int commentType,@Param("commentedId") int commentedId);
 	
 	class CommentProvider {
 		public String updateComment(Comment comment) {
@@ -38,23 +42,6 @@ public interface CommentMapper {
 				SET("comment_content=#{commentContent}");
 				SET("last_edit_time=#{lastEditTime}");
 				WHERE("comment_id=#{commentId}");
-			}}.toString();
-		}
-		
-		public String deleteCommentByCommentedId(Comment comment) {
-			return new SQL() {{
-				DELETE_FROM("comment");
-				WHERE("comment_type=#{commentType}");
-				WHERE("commented_id=#{commentedId}");
-			}}.toString();
-		}
-		
-		public String countCommentByCommentedId(Comment comment) {
-			return new SQL() {{
-				SELECT("count(comment_id)");
-				FROM("comment");
-				WHERE("comment_type=#{commentType}");
-				WHERE("commented_id=#{commentedId}");
 			}}.toString();
 		}
 	}

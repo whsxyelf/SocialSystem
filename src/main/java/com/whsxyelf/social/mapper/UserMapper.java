@@ -21,6 +21,9 @@ public interface UserMapper {
 	@SelectProvider(type=UserProvider.class,method="findUserByParams")
 	public User findUserByParams(User user);
 	
+	@SelectProvider(type=UserProvider.class,method="findUserByEmailOrPhone")
+	public User findUserByEmailOrPhone(User user);
+	
 	@Select("select user_id,user_nick,user_photo,user_email,sex,phone,signature,permission,user_state,create_time "
 			+ "from user where user_nick like '%${userNick}%'")
 	public List<User> findUserByUserName(@Param("userNick")String userNick);
@@ -48,6 +51,26 @@ public interface UserMapper {
 					WHERE("1 != 1");
 				}
 				WHERE("password=#{password}");
+			}}.toString();
+		}
+		
+		public String findUserByEmailOrPhone(User user) {
+			return new SQL() {{
+				SELECT("user_id,user_nick");
+				FROM("user");
+				if(user.getUserEmail() != null) {
+					WHERE("user_email=#{userEmail}");
+				} else if(user.getPhone() != null) {
+					WHERE("phone=#{phone}");
+				}  else if(user.getUserNick() != null) {
+					WHERE("user_nick=#{userNick}");
+				} else {
+					WHERE("1 != 1");
+				}
+				
+				if(user.getUserId() != null) {
+					WHERE("user_id!=#{userId}");
+				}
 			}}.toString();
 		}
 		

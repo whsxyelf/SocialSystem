@@ -1,9 +1,18 @@
 package com.whsxyelf.social.exception;
 
 public class CollectException extends Exception {
+	private String msg;
+	
+	public CollectException(String msg) {
+		this.msg = msg;
+	}
 
-	public CollectException(String string) {
-		// TODO Auto-generated constructor stub
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }

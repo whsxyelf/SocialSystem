@@ -1,6 +1,4 @@
 package com.whsxyelf.social.mapper;
-
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -58,7 +56,7 @@ public class EssayMapperTest {
 	@Test
 	@Ignore
 	public void deleteEssay() {
-		int result = mapper.deleteEssay(7);
+		int result = mapper.deleteEssay(7,1);
 		System.out.println(result);
 	}
 	

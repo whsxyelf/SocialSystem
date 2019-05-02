@@ -2,8 +2,18 @@ package com.whsxyelf.social.exception;
 
 public class CommentException extends Exception {
 
-	public CommentException(String string) {
-		// TODO Auto-generated constructor stub
+	private String msg;
+	
+	public CommentException(String msg) {
+		this.msg = msg;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }

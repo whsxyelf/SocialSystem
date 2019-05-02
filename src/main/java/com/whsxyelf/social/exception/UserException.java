@@ -1,10 +1,9 @@
 package com.whsxyelf.social.exception;
 
-public class EssayException extends RuntimeException {
-
+public class UserException extends RuntimeException {
 	private String msg;
 	
-	public EssayException(String msg) {
+	public UserException(String msg) {
 		this.msg = msg;
 	}
 

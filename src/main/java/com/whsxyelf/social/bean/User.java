@@ -3,7 +3,7 @@ package com.whsxyelf.social.bean;
 import java.util.Date;
 
 public class User {
-	private int userId;
+	private Integer userId;
 	private String userNick;
 	private String userPhoto;
 	private String userEmail;
@@ -16,11 +16,13 @@ public class User {
 	private Date createTime;
 	private Date lastEditTime;
 
-	public int getUserId() {
+	
+
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

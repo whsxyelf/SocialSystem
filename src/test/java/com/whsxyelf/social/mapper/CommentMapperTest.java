@@ -20,12 +20,9 @@ public class CommentMapperTest {
 	CommentMapper mapper;
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void findTotalCommentById() {
-		Comment comment = new Comment();
-		comment.setCommentType(2);
-		comment.setCommentedId(1);
-		List<Comment> commentList = mapper.findTotalCommentById(comment);
+		List<Comment> commentList = mapper.findTotalCommentById(2,1);
 		System.out.println(commentList.size());
 	}
 	
@@ -53,12 +50,9 @@ public class CommentMapperTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void deleteCommentByCommentedId() {
-		Comment comment = new Comment();
-		comment.setCommentType(3);
-		comment.setCommentedId(4);
-		int result = mapper.deleteCommentByCommentedId(comment);
+		int result = mapper.deleteCommentByCommentId(3,4);
 		System.out.println(result);
 	}
 	
@@ -66,9 +60,7 @@ public class CommentMapperTest {
 //	@Ignore
 	public void countCommentByCommentedId() {
 		Comment comment = new Comment();
-		comment.setCommentType(1);
-		comment.setCommentedId(1);
-		int count = mapper.deleteCommentByCommentedId(comment);
+		int count = mapper.deleteCommentByCommentId(1,1);
 		System.out.println(count);
 	}
 }

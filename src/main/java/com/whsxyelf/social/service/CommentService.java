@@ -5,23 +5,15 @@ import java.util.List;
 import com.whsxyelf.social.bean.Comment;
 
 public interface CommentService {
+	public List<Comment> GetCommentList(int commentType,int commentedId);
 	
+	public boolean Add(Comment comment);
 	
-	//	1.评论动态或新闻
-	public int review(Comment comment);
+	public boolean Update(Comment comment);
 	
+	public boolean Delete(int commentId,int userId);
 	
-	//	2.删除动态的评论
-	public int deleteReview(int commentId);
+	public boolean DeleteByCommentedId(int commentedId,int userId);
 	
-	
-	//	3.显示评论
-	public List<Comment> showReview(Comment comment);
-	
-	
-	// 4.删除所有的评论
-	public int clearReview(Comment comment);
-	
-	//5.获取评论数
-	public int essayCommentNum(Comment comment);
-}	
+	public int Count(int commentType,int commentedId);
+}

@@ -38,6 +38,15 @@ public class UserMapperTest {
 	}
 	
 	@Test
+	public void findUserByEmailOrPhone() {
+		User params = new User();
+//		params.setUserEmail("zxyono@163.com");
+		params.setPhone("123456789");
+		User result = mapper.findUserByEmailOrPhone(params);
+		System.out.println(result);
+	}
+	
+	@Test
 	@Ignore
 	public void findUserByUserName() {
 		List<User> userList = mapper.findUserByUserName("1");
