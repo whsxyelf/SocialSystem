@@ -39,7 +39,7 @@ public class CollectMapperTest {
 	@Test
 	@Ignore
 	public void deleteCollectByCollectId() {
-		int result = mapper.deleteCollectByCollectId(1);
+		int result = mapper.deleteCollectByCollectId(1,1);
 		System.out.println(result);
 	}
 	
@@ -56,7 +56,7 @@ public class CollectMapperTest {
 		Collect collect = new Collect();
 		collect.setCollectType(1);
 		collect.setCollectedId(3);
-		int count = mapper.countCollect(collect);
+		int count = mapper.countCollect(1,3);
 		System.out.println(count);
 	}
 }

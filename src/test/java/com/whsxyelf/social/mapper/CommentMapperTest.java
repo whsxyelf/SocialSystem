@@ -59,7 +59,6 @@ public class CommentMapperTest {
 	@Test
 //	@Ignore
 	public void countCommentByCommentedId() {
-		Comment comment = new Comment();
 		int count = mapper.deleteCommentByCommentId(1,1);
 		System.out.println(count);
 	}

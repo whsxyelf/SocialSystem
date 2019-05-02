@@ -21,7 +21,7 @@ public class ConcernMapperTest {
 	@Test
 	@Ignore
 	public void findConcernListByUserId() {
-		List<Integer> list = mapper.findConcernListByUserId(1);
+		List<Concern> list = mapper.findConcernListByUserId(1);
 		System.out.println(list.size());
 	}
 	
@@ -31,7 +31,7 @@ public class ConcernMapperTest {
 		Concern concern = new Concern();
 		concern.setUserId(1);
 		concern.setConcernedId(4);
-		int result = mapper.addOne(concern);
+		int result = mapper.addOne(1,4);
 		System.out.println(result);
 	}
 	
@@ -41,7 +41,7 @@ public class ConcernMapperTest {
 		Concern concern = new Concern();
 		concern.setUserId(1);
 		concern.setConcernId(4);
-		int result = mapper.deleteConcern(concern);
+		int result = mapper.deleteConcern(1,4);
 		System.out.println(result);
 	}
 	
