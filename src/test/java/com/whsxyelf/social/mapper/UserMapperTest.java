@@ -38,6 +38,7 @@ public class UserMapperTest {
 	}
 	
 	@Test
+	@Ignore
 	public void findUserByEmailOrPhone() {
 		User params = new User();
 //		params.setUserEmail("zxyono@163.com");
@@ -54,6 +55,7 @@ public class UserMapperTest {
 	}
 	
 	@Test
+	@Ignore
 	public void findUsersByList() {
 		int userId[] = {1,2};
 		List<User> userList = mapper.findUsersByList(userId);

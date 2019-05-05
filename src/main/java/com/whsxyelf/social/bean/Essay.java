@@ -39,7 +39,6 @@ public class Essay {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
 	public Date getLastEditTime() {
 		return lastEditTime;
 	}
@@ -49,8 +48,10 @@ public class Essay {
 	@Override
 	public String toString() {
 		return "Essay [essayId=" + essayId + ", userId=" + userId + ", essayContent=" + essayContent + ", essayPhoto="
-				+ essayPhoto + ", createTime=" + createTime + "]";
+				+ essayPhoto  + ", createTime=" + createTime + ", lastEditTime=" + lastEditTime
+				+ "]";
 	}
+	
 	
 	
 	

@@ -16,8 +16,6 @@ public class User {
 	private Date createTime;
 	private Date lastEditTime;
 
-	
-
 	public Integer getUserId() {
 		return userId;
 	}

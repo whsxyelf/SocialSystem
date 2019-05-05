@@ -20,7 +20,7 @@ public class CommentMapperTest {
 	CommentMapper mapper;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void findTotalCommentById() {
 		List<Comment> commentList = mapper.findTotalCommentById(2,1);
 		System.out.println(commentList.size());
@@ -50,14 +50,14 @@ public class CommentMapperTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void deleteCommentByCommentedId() {
 		int result = mapper.deleteCommentByCommentId(3,4);
 		System.out.println(result);
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void countCommentByCommentedId() {
 		int count = mapper.deleteCommentByCommentId(1,1);
 		System.out.println(count);

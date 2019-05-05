@@ -46,14 +46,14 @@ public class ConcernMapperTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void countConcern() {
 		int count = mapper.countConcern(1);
 		System.out.println(count);
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void countConcerned() {
 		int count = mapper.countFans(1);
 		System.out.println(count);

@@ -27,4 +27,8 @@ public interface ConcernMapper {
 	
 	@Select("select count(concern_id) from concern where concerned_id=#{userId}")
 	public int countFans(int userId);
+	
+	@Select("select concern_id,user_id from concern where user_id=#{userId} and "
+			+ "concerned_id=#{concernedId}")
+	public Concern isExist(@Param("userId") int userId, @Param("concernedId") int concernedId);
 }

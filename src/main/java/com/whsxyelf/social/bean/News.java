@@ -7,7 +7,7 @@ public class News {
 	private String newsFrom;
 	private String newsTitle;
 	private String newsUrl;
-	private int length;
+	private Integer length;
 	private Date createTime;
 	public int getNewsId() {
 		return newsId;
@@ -33,10 +33,10 @@ public class News {
 	public void setNewsUrl(String newsUrl) {
 		this.newsUrl = newsUrl;
 	}
-	public int getLength() {
+	public Integer getLength() {
 		return length;
 	}
-	public void setLength(int length) {
+	public void setLength(Integer length) {
 		this.length = length;
 	}
 	public Date getCreateTime() {
@@ -48,8 +48,9 @@ public class News {
 	@Override
 	public String toString() {
 		return "News [newsId=" + newsId + ", newsFrom=" + newsFrom + ", newsTitle=" + newsTitle + ", newsUrl=" + newsUrl
-				+ ", length=" + length + ", createTime=" + createTime + "]";
+				 + ", length=" + length + ", createTime=" + createTime + "]";
 	}
+	
 	
 	
 	

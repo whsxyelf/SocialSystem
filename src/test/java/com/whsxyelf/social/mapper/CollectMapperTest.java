@@ -26,7 +26,7 @@ public class CollectMapperTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void addOne() {
 		Collect collect = new Collect();
 		collect.setUserId(1);

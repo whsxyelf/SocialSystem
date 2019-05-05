@@ -61,7 +61,7 @@ public class EssayMapperTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void countEssayByUserId() {
 		int count = mapper.countEssayByUserId(1);
 		System.out.println(count);

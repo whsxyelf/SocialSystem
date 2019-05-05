@@ -14,7 +14,7 @@ import com.whsxyelf.social.bean.User;
 
 @Mapper
 public interface UserMapper {
-	@Select("select user_id,user_nick,user_photo,user_email,sex,phone,signature,permission,user_state,create_time "
+	@Select("select user_id,user_nick,user_photo,user_email,sex,phone,signature "
 			+ "from user where user_id=#{userId}")
 	public User findUserById(int userId);
 	
@@ -31,7 +31,7 @@ public interface UserMapper {
 	@SelectProvider(type=UserProvider.class,method="findUsersByList")
 	public List<User> findUsersByList(@Param("userId")int userId[]);
 	
-	@Insert("insert into user(user_email,phone,password) values(#{userEmail},#{phone},#{password})")
+	@Insert("insert into user(user_nick,user_email,password) values(#{userNick},#{userEmail},#{password})")
 	public int addOne(User user);
 	
 	@UpdateProvider(type=UserProvider.class,method="updateUser")
@@ -101,8 +101,11 @@ public interface UserMapper {
 				if(user.getPermission() != null) {
 					SET("permission=#{permission}");
 				}
-				if(user.getPermission() != null) {
+				if(user.getUserState() != null) {
 					SET("user_state=#{userState}");
+				}
+				if(user.getUserPhoto() != null) {
+					SET("user_photo=#{userPhoto}");
 				}
 				SET("last_edit_time=#{lastEditTime}");
 				WHERE("user_id=#{userId}");

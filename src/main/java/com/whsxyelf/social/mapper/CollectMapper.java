@@ -30,5 +30,7 @@ public interface CollectMapper {
 			+ "and collected_id=#{collectedId}")
 	public int countCollect(@Param("collectType")int collectType,@Param("collectedId")int collectedId);
 	
-	
+	@Select("select collect_id,user_id from collet where user_id=#{userId} and "
+			+ "collect_type=#{collectType} and collected_id=#{collectedId}")
+	public Collect isExist(Collect collect);
 }
