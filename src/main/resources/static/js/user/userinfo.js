@@ -11,7 +11,9 @@ function initUserInfo() {
 		dataType:'json',
 		success:function(data) {
 			if(data.success) {
-				$("#aaa").attr("src",data.user.userPhoto)
+				if(data.user.userPhoto != null && data.user.userPhoto != "") {
+					$("#aaa").attr("src",data.user.userPhoto)
+				}
 				$("#name-span").html(data.user.userNick)
 				$("#con-span").html(data.user.signature)
 				if(data.user.sex == 1) {
