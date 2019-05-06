@@ -1,6 +1,7 @@
 package com.whsxyelf.social.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.whsxyelf.social.bean.News;
+import com.whsxyelf.social.bean.User;
 import com.whsxyelf.social.service.impl.NewsServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
@@ -37,6 +39,29 @@ public class NewsController {
 			} else {
 				resultMap.put("success", false);
 				resultMap.put("error", "未找到本新闻");
+			}
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "参数错误");
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping(value="/getNewsList",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> getNewsList(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if(user != null) {
+			List<News> result = newsServiceImpl.GetNewsByUserId(user.getUserId());
+			if(result != null) {
+				resultMap.put("success", true);
+				resultMap.put("newsList", result);
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "为找到新闻列表");
 			}
 		} else {
 			resultMap.put("success", false);

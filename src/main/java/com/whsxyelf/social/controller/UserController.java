@@ -113,22 +113,26 @@ public class UserController {
 		return resultMap;
 	}
 	
-//	@RequestMapping(value="/logout",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Map<String,Object> UserLogout(HttpServletRequest request) {
-//		Map<String, Object> resultMap = new HashMap<String, Object>();
-//		
-//		User user = (User)request.getSession().getAttribute("user");
-//		
-//		if(user != null) {
-//			request.getSession().removeAttribute("user");
-//			resultMap.put("success", true);
-//		} else {
-//			resultMap.put("success", false);
-//			resultMap.put("error", "未登录");
-//		}
-//		return resultMap;
-//	}
+	@RequestMapping(value="/matchEmail",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> matchEmail(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String email = StringUtil.getStringParam(request, "email");
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if(user != null && email != null) {
+			if(email.equals(user.getUserEmail())) {
+				resultMap.put("success", true);
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "这不是您绑定的邮箱");
+			}
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "未登录");
+		}
+		return resultMap;
+	}
 	
 	@RequestMapping(value="/userInfoIsExist",method=RequestMethod.POST)
 	@ResponseBody
@@ -200,6 +204,35 @@ public class UserController {
 		return resultMap;
 	}
 	
+	@RequestMapping(value="/updatepwd",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> updatepwd(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String pwd = StringUtil.getStringParam(request, "pwd");
+		
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if(pwd != null && user != null) {
+			User params = new User();
+			params.setUserId(user.getUserId());
+			params.setPassword(pwd);
+			params.setLastEditTime(new Date());
+			boolean result = userServiceImpl.Update(params);
+			if(result) {
+				resultMap.put("success", true);
+				resultMap.put("msg", "修改成功");
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "修改失败");
+			}
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "json字符串解析失败");
+		}
+		return resultMap;
+	}
+	
 	@RequestMapping(value="/search",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> search(HttpServletRequest request) {
@@ -230,6 +263,7 @@ public class UserController {
 		
 		User user = (User)request.getSession().getAttribute("user");
 		String code = CheckCodeUtil.createCheckCode();
+		System.out.println(code);
 		
 		if(user != null) {
 			try {

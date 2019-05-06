@@ -1,0 +1,27 @@
+body{
+	text-align: inherit;
+}
+.history{
+	margin-top: 20px;
+	height: 500px;
+	overflow-y: auto;
+}
+.history-select{
+	width: 530px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.
+.history-select-title{
+	font-size: 17px;
+	max-width: 530px;
+
+}
+.history-select-time{
+	font-size: 14px;
+	color: #737373;
+}

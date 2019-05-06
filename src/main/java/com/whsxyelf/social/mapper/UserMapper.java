@@ -107,6 +107,9 @@ public interface UserMapper {
 				if(user.getUserPhoto() != null) {
 					SET("user_photo=#{userPhoto}");
 				}
+				if(user.getPassword() != null) {
+					SET("password=#{password}");
+				}
 				SET("last_edit_time=#{lastEditTime}");
 				WHERE("user_id=#{userId}");
 			}}.toString();

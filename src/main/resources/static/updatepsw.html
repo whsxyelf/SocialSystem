@@ -9,16 +9,8 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/layer/layer.js"></script>
-		<style>
-			iframe {
-				width: 100%;height: 54px;padding: 0;margin: 0;
-			}
-		</style>
 	</head>
 	<body>
-		<div style="position: relative;z-index: 99999;">
-			<iframe scrolling="no" id="nav-frame" src="nav.html"></iframe>
-		</div>
 		<div style="z-index: 90;" class="container" id="container">
 			<div class="section section-nav">
 				<div class="section-nav">
@@ -37,7 +29,7 @@
 							</div>
 							<i></i>
 						</li>
-						<li style="width: 56px;">
+						<li :class="{'passed':isPassed2,'active':isActive2}" style="width: 56px;">
 							<div>
 								<i>3</i>
 								<p>完成</p>
@@ -48,7 +40,7 @@
 			</div>
 			<div class="main" id="main">
 				<div class="main-phone" v-if="flag==0">
-					<div class="modal_content" v-if="phone">
+					<!-- 					<div class="modal_content" v-if="phone">
 						<div>
 							<label for="phone1">手机号：</label><br />
 							<input class="phone1" type="text" autocomplete="off" placeholder="请输入已绑定的手机号" />
@@ -63,10 +55,10 @@
 						<div class="next">
 							<button onclick="binding()">确定</button>
 						</div>
-						<!-- <div class="email1"><a href="javascript:void(0)" v-on:click="change">切换至邮箱认证</a></div> -->
-					</div>
-<!-- 
-					<div class="modal_content" v-else>
+						<div class="email1"><a href="javascript:void(0)" v-on:click="change">切换至邮箱认证</a></div>
+					</div> -->
+
+					<div class="modal_content">
 						<div>
 							<label for="phone1">邮箱：</label><br />
 							<input class="phone1" type="text" autocomplete="off" placeholder="请输入已绑定的邮箱" />
@@ -75,23 +67,20 @@
 							<label for="code1">验证码：</label>
 							<div class="code1">
 								<input class="code11" type="text" autocomplete="off" placeholder="邮箱验证码" />
-								<input class="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" onClick="sendMessage1()" />
+								<input class="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" />
 							</div>
 						</div>
 						<div class="next">
-							<button onclick="binding()">确定</button>
+							<button v-on:click="clickBtn1" style="cursor: pointer;">确定</button>
 						</div>
-						<div class="email1"><a href="javascript:void(0)" v-on:click="change">切换至手机认证</a></div>
-					</div> -->
+					</div>
 
 
 				</div>
 
 				<div class="middle" v-else-if="flag==1">
 					<div class="modal_content">
-						<form id="form-psw">
-
-
+						<form id="form-psw" action="">
 							<div>
 								<label style="margin-left: -800px;" for="phone1">密码：</label><br />
 								<input class="phone1" id="psw" name="psw" type="password" autocomplete="off" placeholder="请输入密码" />
@@ -101,7 +90,7 @@
 								<input id="checkpsw" name="checkpsw" class="phone1" type="password" autocomplete="off" placeholder="请再次输入密码" />
 							</div>
 							<div class="next">
-								<button onclick="save()">保存</button>
+								<button type="button" v-on:click="clickBtn2"  style="cursor: pointer;">保存</button>
 							</div>
 						</form>
 					</div>
@@ -119,25 +108,49 @@
 		<script type="text/javascript" src="js/vue.js"></script>
 		<script type="text/javascript" src="js/updatepsw.js"></script>
 		<script>
-			var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/; //手机号正则 
+			var path = "http://" + window.location.host + "/social/"
+			//var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/; //手机号正则 
+			var emailReg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
 			var count = 60; //间隔函数，1秒执行
 			var InterValObj1; //timer变量，控制时间
 			var curCount1; //当前剩余秒数
 			/*第一*/
-			function sendMessage1() {
+			$(".btnSendCode1").click(function() {
 				curCount1 = count;
-				var phone = $.trim($('.phone1').val());
-				if (!phoneReg.test(phone)) {
-					alert(" 请输入有效的手机号码");
-					return false;
+				var email = $.trim($('.phone1').val());
+				if (!emailReg.test(email)) {
+					layer.msg("请输入有效的邮箱地址")
+				} else {
+					$.ajax({
+						type: 'POST',
+						url: path + "user/matchEmail",
+						contentType: 'application/x-www-form-urlencoded',
+						dataType: 'json',
+						data: {
+							"email": email
+						},
+						success: function(data) {
+							if (data.success) {
+								$.post(path + "user/sendEmail", function(data) {
+									if (data.success) {
+										layer.msg("验证码已发送，请及时进行验证..")
+										//设置button效果，开始计时
+										$(".btnSendCode1").attr("disabled", "true");
+										$(".btnSendCode1").val(+curCount1 + "秒再获取");
+										InterValObj1 = window.setInterval(SetRemainTime1, 1000); //启动计时器，1秒执行一次
+										//向后台发送处理数据
+									} else {
+										layer.msg(data.error)
+									}
+								})
+							} else {
+								layer.msg(data.error)
+							}
+						}
+					})
 				}
-				//设置button效果，开始计时
-				$(".btnSendCode1").attr("disabled", "true");
-				$(".btnSendCode1").val(+curCount1 + "秒再获取");
-				InterValObj1 = window.setInterval(SetRemainTime1, 1000); //启动计时器，1秒执行一次
-				//向后台发送处理数据
 
-			}
+			})
 
 			function SetRemainTime1() {
 				if (curCount1 == 0) {
@@ -151,14 +164,32 @@
 			}
 
 			/*提交*/
-			function binding() {
-				curCount1 = count;
-				var phone = $.trim($('.phone1').val());
-				if (!phoneReg.test(phone)) {
-					alert(" 请输入有效的手机号码");
-					return false;
-				}
-			}
+			// function binding() {
+			// 	curCount1 = count;
+			// 	var email = $.trim($('.phone1').val());
+			// 	if (!emailReg.test(email)) {
+			// 		layer.msg("请输入有效的邮箱地址")
+			// 		return false;
+			// 	}
+			// 		
+			// 	code = $(".code11").val()
+			// 	$.ajax({
+			// 		type: 'POST',
+			// 		url: path + "user/checkEmail",
+			// 		contentType: 'application/x-www-form-urlencoded',
+			// 		dataType: 'json',
+			// 		data: {
+			// 			"checkCode":code
+			// 		},
+			// 		success:function(data){
+			// 			if(data.success) {
+			// 				layer.msg("验证成功")
+			// 			} else {
+			// 				layer.msg(data.error)
+			// 			}
+			// 		}
+			// 	})
+			// }
 
 			$("#form-psw").validate({
 				rules: {
@@ -189,9 +220,7 @@
 				}
 			})
 
-			function save() {
-				alert(1);
-			}
+			
 		</script>
 	</body>
 </html>

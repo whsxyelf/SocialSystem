@@ -20,6 +20,11 @@ public interface NewsMapper {
 	@Select("select count(news_id) from news")
 	public int countNews();
 	
+	@Select("select n.news_id,news_from,news_title,h.create_time " + 
+			"from news as n join history as h on n.news_id=h.news_id " + 
+			"where user_id=#{userId}")
+	public List<News> findNewsListByUserId(int userId);
+	
 	class NewsProvider {
 		public String findNewsByList(int newsId[]) {
 			StringBuilder list = new StringBuilder();

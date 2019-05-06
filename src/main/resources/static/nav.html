@@ -23,14 +23,14 @@
 				<div class="head-right">
 					<div>
 						<div class="user">
-								<div id="before-login">
+								<div id="before-login" style="display: none;">
 									<span id="nav-login" style="position: absolute;margin-left: 50px;">登录</span>
 									<span id="nav-register" style="position: absolute;margin-left: 105px;">注册</span>
 								</div>
-								<a id="nav-img-a" href=""><img id="nav-img"  src="images/cont/waterfall_img10.jpg" alt="">
-								<span id="nav-user-name">mistletoezzZ</span></a>
+								<a id="nav-img-a" href="" style="display: none;"><img id="nav-img"  src="images/cont/waterfall_img10.jpg" alt="">
+								<span id="nav-user-name" style="display: none;">mistletoezzZ</span></a>
 						</div>
-						<div class="tuichu"><a id="nav-exit" href="javascript:;">退出</a></div>
+						<div class="tuichu" style="display: none;"><a id="nav-exit" href="javascript:;">退出</a></div>
 
 					</div>
 				</div>
@@ -81,11 +81,11 @@
 						userNick = userNick.slice(0,5)+".."
 					}
 					$("#nav-user-name").html(userNick)
-					$("#before-login").css("display","none")
+					$("#nav-img-a").css("display","")
+					$("#nav-img").css("display","")
+					$(".tuichu").css("display","")
 				} else {
-					$("#nav-img-a").css("display","none")
-					$("#nav-img").css("display","none")
-					$(".tuichu").css("display","none")
+					$("#before-login").css("display","")
 				}
 			}
 		})

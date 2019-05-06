@@ -31,6 +31,12 @@ public class NewsServiceImpl implements NewsService {
 		int count = mapper.countNews();
 		return count;
 	}
+
+	@Override
+	public List<News> GetNewsByUserId(int userId) {
+		List<News> newsList = mapper.findNewsListByUserId(userId);
+		return newsList;
+	}
 	
 	
 }

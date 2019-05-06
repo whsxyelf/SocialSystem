@@ -7,14 +7,14 @@ body{
 	height: 101px;
 	overflow: hidden;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 .container{
-	width: 600px;
-	height: 530px;
+	width: 625px;
+	height: 540px;
 	margin: 0 auto;
-	margin-top: 50px;
+	margin-top: 10px;
 	  box-shadow: 0 0 10px rgba(0,0,0,.15);
 	  background-color: white;
 	  opacity: 0.8;
@@ -56,4 +56,37 @@ body{
 }
 .box-right input{
 	display: none;
+}
+.big{
+	width: 830px;
+	margin: 0 auto;
+}
+.leftcontent{
+	width: 150px;
+	height: 542px;
+	/* border: 1px solid red; */
+	float: left;
+	margin-right: 50px;
+	margin-top: 160px;
+	font-size: 18px;
+	line-height: 50px;
+	box-shadow: 0 0 10px rgba(0,0,0,.15);
+	background-color: white;
+	opacity: 0.8;
+	border-radius: 10px;
+	color: #5E5E5E;
+	cursor: pointer;
+}
+
+.leftcontent div:hover{
+	color: #007BFF;
+}
+.leftcontent div{
+	margin-left: 13px;
+}
+.rightcontent{
+	float: left;
+}
+.inf{
+	margin-top: 30px;
 }

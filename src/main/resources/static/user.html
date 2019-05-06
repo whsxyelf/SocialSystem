@@ -14,77 +14,116 @@
 		<script src="js/sitelogo.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<script src="js/layer/layer.js"></script>
-		<style>
-			body,iframe {
-				width: 100%;height: 52px;padding: 0;margin: 0;
-			}
-			#nav-frame {
-				z-index: 9999;
+		<script type="text/javascript" src="js/vue.js"></script>
+
+		<style type="text/css">
+			#myiframe {
+				display: none;
 			}
 		</style>
 	</head>
 	<body>
-		<iframe id="nav-frame" src="nav.html"></iframe>
-		<div class="font"><img src="images/xinxi.png" ></div>
-		<div class="container">
-			<div class="box">
-				<div class="box-left clearfix">头像</div>
-				<div class="box-right clearfix">
-					<div class="ibox-content">
-						<div class="row">
-							<div id="crop-avatar" class="col-md-6">
-								<div class="avatar-view">
-									<img id="aaa" src="images/cont/waterfall_img10.jpg">
+		<iframe src="nav.html" width="100%" height="54px" scrolling="no"></iframe>
+		<div class="big">
+			<div class="leftcontent">
+				<div class="inf">
+					修改个人信息
+				</div>
+				<div class="psw">
+					修改密码
+				</div>
+				<div class="liulan">
+					浏览记录
+				</div>
+			</div>
+			<div class="rightcontent">
+				<div class="font"><img src="images/xinxi.png"></div>
+				<div class="container">
+					<div id="inf">
+
+
+						<div class="box">
+							<div class="box-left clearfix">头像</div>
+							<div class="box-right clearfix">
+								<div class="ibox-content">
+									<div class="row">
+										<div id="crop-avatar" class="col-md-6">
+											<div class="avatar-view">
+												<img id="aaa" src="images/cont/waterfall_img10.jpg">
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+						<div class="box">
+							<div class="box-left clearfix">昵称</div>
+							<div class="box-right clearfix uu"><span id="name-span">昵称</span><input id="name-input" type="text" name="" id=""
+								 placeholder="输入新昵称" /><a id="name" href="javascript:void(0)" class="update">修改昵称</a></div>
+						</div>
+						<div class="box">
+							<div class="box-left clearfix">性别</div>
+							<div class="box-right clearfix ss">
+								<span id="sex-span">男</span>
+								<a id="sex" class="update" href="javascript:void(0)" class="update">修改性别</a>
+							</div>
+						</div>
+						<div class="box">
+							<div class="box-left clearfix">签名</div>
+							<div class="box-right clearfix uu"><span id="con-span">签名1212121</span><input id="con-input" type="text" name=""
+								 placeholder="请输入新签名" /><a id="con" href="javascript:void(0)" class="update">修改签名</a></div>
+						</div>
+						<div class="box" style="text-align: center;">
+							<button id="save" type="button" class="btn btn-success">保存</button>
+						</div>
+
 					</div>
+
+					<iframe id="myiframe" src="history.html" width="600" height="530" scrolling="no" style="padding: 0;margin: 0;border: 0;"></iframe>
 				</div>
-			</div>
-			<div class="box">
-				<div class="box-left clearfix">昵称</div>
-				<div class="box-right clearfix uu"><span id="name-span">昵称</span><input id="name-input" type="text" name="" id="" placeholder="输入新昵称"/><a id="name" href="javascript:void(0)" class="update">修改昵称</a></div>
-			</div>
-			<div class="box">
-				<div class="box-left clearfix">性别</div>
-				<div class="box-right clearfix ss">
-					<span id="sex-span">男</span>
-					<a id="sex" class="update" href="javascript:void(0)" class="update">修改性别</a>
-				</div>
-			</div>
-			<div class="box">
-				<div class="box-left clearfix">签名</div>
-				<div class="box-right clearfix uu"><span id="con-span">签名1212121</span><input id="con-input" type="text" name="" placeholder="请输入新签名"/><a id="con" href="javascript:void(0)" class="update">修改签名</a></div>
-			</div>
-			<div class="box" style="text-align: center;">
-				<button id="save" type="button" class="btn btn-success">保存</button>
 			</div>
 		</div>
-		
-		<script src="js/user/userinfo.js"></script>
-		
 		<script type="text/javascript">
-			$("#name").click(function(){
-				$("#name-input").css("display","inline-block");
-				$("#name-span").css("display","none");
+			$("#name").click(function() {
+				$("#name-input").css("display", "inline-block");
+				$("#name-span").css("display", "none");
 				$("#name-input").focus();
 			})
 
-			$("#sex").click(function(){
+			$("#sex").click(function() {
 				var a = $("#sex-span").text();
-				if(a=="男"){
+				if (a == "男") {
 					document.getElementById('sex-span').innerHTML = '女';
-				}else{
+				} else {
 					document.getElementById('sex-span').innerHTML = '男';
 				}
 			})
-			$("#con").click(function(){
-				$("#con-input").css("display","inline-block");
-				$("#con-span").css("display","none");
+			$("#con").click(function() {
+				$("#con-input").css("display", "inline-block");
+				$("#con-span").css("display", "none");
 				$("#con-input").focus();
+			})
+			$(".psw").click(function() {
+				$("#myiframe").css("display", "block");
+				$("#myiframe").attr("src", "updatepsw.html")
+				$("#inf").css("display", "none");
+				$(".font img").attr("src", "images/xiugai.png")
+			})
+			$(".inf").click(function() {
+				$("#myiframe").css("display", "none");
+				$("#inf").css("display", "block");
+				$(".font img").attr("src", "images/xinxi.png")
+			})
+			$(".liulan").click(function() {
+				$("#myiframe").css("display", "block");
+				$("#myiframe").attr("src", "history.html")
+				$("#inf").css("display", "none");
+				$(".font img").attr("src", "images/liulan.png")
 			})
 		</script>
 		
+		<script src="js/user/userinfo.js"></script>
+
 		<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog"
 		 tabindex="-1">
 			<div class="modal-dialog modal-lg">
