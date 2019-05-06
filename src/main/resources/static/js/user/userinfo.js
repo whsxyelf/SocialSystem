@@ -1,4 +1,4 @@
-var path = 'http://localhost:8080/social/'
+var path = "http://" + window.location.host + "/social/"
 
 initUserInfo()
 initMethods()

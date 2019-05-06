@@ -18,7 +18,7 @@ $(function(){
 	              return false;
 	  });
 	  
-	  path = window.location.href.replace("home","")
+	  path = "http://" + window.location.host + "/social/"
 	  $(".shouye").click(function(){
 		console.log(path)
 	  	window.location.href=path+"home"
