@@ -10,7 +10,7 @@ function initMethods() {
 		
 		userStr = {}
 		if(!re_phone.test(username) && !re_email.test(username)) {
-			alert("您输入的格式错误")
+			layer.msg("您输入的格式错误")
 			return
 		} else if(re_email.test(username)) {
 			userStr.userEmail = username
@@ -33,7 +33,7 @@ function initMethods() {
 				if(data.success){
 					window.location.href=path+'user'
 				} else {
-					alert(data.error)
+					layer.msg(data.error)
 				}
 			}
 		})

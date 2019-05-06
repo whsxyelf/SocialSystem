@@ -124,7 +124,10 @@ function initMethods() {
 					},
 					success:function(data) {
 						if(data.success) {
-							window.location.href=path+"home"
+							layer.msg("注册成功，将在3秒钟后回到首页...")
+							setTimeout(function() {
+								window.location.href=path+"home"
+							}, 3000);
 						} else {
 							alert(data.error)
 						}

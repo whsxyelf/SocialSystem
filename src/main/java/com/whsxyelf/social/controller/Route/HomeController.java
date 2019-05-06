@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -49,6 +50,33 @@ public class HomeController {
 	@RequestMapping(value="/redirect",method={RequestMethod.GET,RequestMethod.POST})
 	public String redirect(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		return "redirect";
+	}
+	
+	@RequestMapping(value="/nav/search/{key}",method={RequestMethod.GET,RequestMethod.POST})
+	public void navsearch(HttpServletRequest request,HttpServletResponse response,@PathVariable String key) throws IOException {
+		StringBuffer path = request.getRequestURL();
+		String jump = path.delete(path.length() - request.getRequestURI().length(),path.length()).toString();
+		response.sendRedirect(jump+"/social/search/"+key);
+	}
+	
+	@RequestMapping(value="/search",method={RequestMethod.GET,RequestMethod.POST})
+	public String search(HttpServletRequest request) {
+		return "search";
+	}
+	
+	@RequestMapping(value="/mainsearch",method={RequestMethod.GET,RequestMethod.POST})
+	public String mainsearch(HttpServletRequest request) {
+		return "search1";
+	}
+	
+	@RequestMapping(value="/news",method={RequestMethod.GET,RequestMethod.POST})
+	public String news(HttpServletRequest request) {
+		return "news";
+	}
+	
+	@RequestMapping(value="/errorpage",method={RequestMethod.GET,RequestMethod.POST})
+	public String errorpage(HttpServletRequest request) {
+		return "errorpage";
 	}
 	
 }

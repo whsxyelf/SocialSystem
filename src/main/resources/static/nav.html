@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
 		<link rel="stylesheet" type="text/css" href="css/nav.css" />
 		<script src="js/jquery.min.js"></script>
+		<script src="js/layer/layer.js"></script>
 		<title>商院社交平台</title>
 	</head>
 	<body>
@@ -29,7 +30,7 @@
 								<a id="nav-img-a" href=""><img id="nav-img"  src="images/5755037373826825257.jpg" alt="">
 								<span id="nav-user-name">mistletoezzZ</span></a>
 						</div>
-						<div class="tuichu"><a id="nav-exit" href="">退出</a></div>
+						<div class="tuichu"><a id="nav-exit" href="javascript:;">退出</a></div>
 
 					</div>
 				</div>
@@ -43,7 +44,13 @@
 			window.parent.location.href=path+"home"
 		})
 		$("#nav-exit").click(function() {
-			window.parent.location.href=path+"logout"
+			window.parent.layer.confirm('确定退出吗？',{
+				btn:['确定','取消']
+			},function() {
+				window.parent.location.href=path+"logout"
+			},function() {
+				
+			})
 		})
 		key = $("#nav-key").val()
 		$("#nav-search").click(function() {
@@ -66,8 +73,14 @@
 			dataType: 'json',
 			success:function(data){
 				if(data.success) {
-					$("#nav-img").attr("src",data.user.userPhoto)
-					$("#nav-user-name").html(data.user.userNick)
+					if(data.user.userPhoto != null && data.user.userPhoto != "") {
+						$("#nav-img").attr("src",data.user.userPhoto)
+					}
+					userNick = data.user.userNick
+					if(userNick.length > 5){
+						userNick = userNick.slice(0,5)+".."
+					}
+					$("#nav-user-name").html(userNick)
 					$("#before-login").css("display","none")
 				} else {
 					$("#nav-img-a").css("display","none")

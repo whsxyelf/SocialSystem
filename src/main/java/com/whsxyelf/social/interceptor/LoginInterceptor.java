@@ -6,10 +6,12 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.whsxyelf.social.bean.User;
 
+@Component
 public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override

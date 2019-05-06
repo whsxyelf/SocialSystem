@@ -30,7 +30,13 @@ $(function(){
 	  	window.location.href=path+"login"
 	  })
 	  $("#user-exit").click(function() {
-	  	window.location.href=path+"logout"
+	  	layer.confirm('确定退出吗？',{
+	  		btn:['确定','取消']
+	  	},function() {
+	  		window.location.href=path+"logout"
+	  	},function() {
+	  		
+	  	})
 	  })
 	  $("#user-img").click(function(){
 	  	window.location.href=path+"user"

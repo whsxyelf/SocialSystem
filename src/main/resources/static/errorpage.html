@@ -41,13 +41,13 @@
 				<img src="images/error.png" >
 			</div>
 			<div class="errot-btn">
-				<button class="errot-btn-1">返回首页</button>
+				<button style="cursor:pointer;" class="errot-btn-1">返回首页</button>
 			</div>
 		</div>
 	</body>
 	<script>
-		$("#errot-btn-1").click(function(){
-			path = window.location.href.replace("error.html","")
+		$(".errot-btn-1").click(function(){
+			path = window.location.href.replace("errorpage","")
 			window.location.href = path+"home"
 		})
 	</script>
