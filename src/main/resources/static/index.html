@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/index.css">
-	<script src="js/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -16,50 +16,21 @@
     <div class="header-top">
       <div class="container">
         <a href="#" class="header-logo"><img src="images/图标.png" alt=""><span> 商院</span></a>
-        <nav class="header-nav">
-          <a href="#" class="item item-cur">发现</a>
-          <a href="#" class="item">最新</a>
-          <a href="#" class="item new-icon">美思<i></i></a>
-          <a href="#" class="item">教育</a>
-          <a href="#" class="nav-more"></a>
-          <div class="nav-more__hover">
-            <div class="wrapper">
-              <div class="top-part">
-                <a href="#">移动应用</a>
-                <a href="#">采集工具</a>
-                <a href="#">招聘</a>
-              </div>
-              <div class="middle-part">
-                <a href="#">UI/UX</a>
-                <a href="#">平面</a>
-                <a href="#">插画/漫画</a>
-                <a href="#">家居/家装</a>
-                <a href="#">女装/搭配</a>
-                <a href="#">男士/风尚</a>
-                <a href="#">婚礼</a>
-                <a href="#">平面</a>
-                <a href="#">工业设计</a>
-                <a href="#"><b>兴趣/生活 »</b></a>
-              </div>
-              <div class="bottom-part">
-                <i class="pin-icon sprite_icon"></i>
-                <a href="#">活动</a>
-                <span class="dot">·</span>
-                <a href="#">周刊</a>
-                <span class="dot">·</span>
-                <a href="#">关于</a>
-                <span class="dot">·</span>
-                <a href="#">反馈</a>
-                <span class="dot">·</span>
-                <a href="#">博客</a>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <div class="header-user">
-          <a href="register.html" id="register">注册</a>
-          <a href="login.html" id="login">登录</a>
+        
+        <div class="header-user" style="display: none;">
+					<a class="shouye" href="javascript:;">首页</a>
+          <a href="javascript:;" id="register">注册</a>
+          <a href="javascript:;" id="login">登录</a>
         </div>
+				<div class="header-login-user" style="display: none;">
+					<a href="" id="user-exit">退出</a>
+				</div>
+				<div class="header-login-user" style="display: none;">
+					<a href="javascript:;" id="user-nick">小野</a>
+				</div>
+				<div class="header-login-user" style="display: none;">
+					<img style="cursor: pointer;" id="user-img" src="images/5755037373826825257.jpg" />
+				</div>
         <div class="search">
           <form action="#">
             <input type="text" class="search-text" placeholder="搜索你喜欢的">

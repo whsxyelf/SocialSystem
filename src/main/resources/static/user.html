@@ -13,9 +13,17 @@
 		<script src="js/cropper.min.js"></script>
 		<script src="js/sitelogo.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
-
+		<style>
+			body,iframe {
+				width: 100%;height: 52px;padding: 0;margin: 0;
+			}
+			#nav-frame {
+				z-index: 9999;
+			}
+		</style>
 	</head>
 	<body>
+		<iframe id="nav-frame" src="nav.html"></iframe>
 		<div class="font"><img src="images/xinxi.png" ></div>
 		<div class="container">
 			<div class="box">

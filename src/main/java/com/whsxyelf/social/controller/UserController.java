@@ -111,6 +111,23 @@ public class UserController {
 		return resultMap;
 	}
 	
+//	@RequestMapping(value="/logout",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String,Object> UserLogout(HttpServletRequest request) {
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		
+//		User user = (User)request.getSession().getAttribute("user");
+//		
+//		if(user != null) {
+//			request.getSession().removeAttribute("user");
+//			resultMap.put("success", true);
+//		} else {
+//			resultMap.put("success", false);
+//			resultMap.put("error", "未登录");
+//		}
+//		return resultMap;
+//	}
+	
 	@RequestMapping(value="/userInfoIsExist",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> checkUserInfo(HttpServletRequest request) {

@@ -1,0 +1,172 @@
+body{
+	background-color: #F7F7F7;
+}
+.container{
+	width: 1000px;
+	margin: 0 auto;
+}
+.input-box{
+	float: left;
+}
+.input-box input{
+	background: #fff;
+    border: 1px solid #ddd;
+    width: 572px;
+    height: 34px;
+    line-height: 28px;
+    font-size: 20px;
+    padding: 0 8px;
+    border-radius: 2px;
+}
+.s-btn-b {
+    font-size: 16px;
+    width: 100px;
+    height: 36px;
+    line-height: 36px;
+    background: #4FC08D;
+    color: #fefefe;
+	display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 2px;
+    padding: 0 10px;
+	border: 0;
+    outline: none;
+	margin-left: 18px;
+}
+.top{
+	height: 36px;
+	margin-top: 20px;
+}
+.top div{
+	float: left;
+	height: 36px;
+}
+.top-left{
+	float: left;
+    width: 116px;
+    height: 36px;
+    margin-top: 3px;
+    margin-right: 20px
+}
+.top-left img{
+	width: 116px;
+	height: 36px;
+	cursor: pointer;
+}
+.bigbox{
+	float: left;
+	margin-top: 10px;
+}
+.box{
+	width: 600px;
+	height: auto;
+	background-color: white;
+	margin-top: 15px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px #CCCCCC;
+}
+.box-top{
+	height: 66px;
+	margin-left: 13px;
+}
+.box-top-left{
+	float: left;
+	text-align: center;
+	line-height: 66px;
+}
+.box-top-left img{
+	width: 56px;
+	height: 56px;
+	border-radius: 28px;
+}
+.box-top-right{
+	float: left;
+	margin-left: 6px;
+}
+.mid{
+	margin-top: 10px;
+}
+.top-name{
+	font-weight: 600;
+	font-size: 16px;
+}
+.top-time{
+	margin-top: 4px;
+	font-size: 14px;
+}
+.box-middle{
+	margin-left: 73px;
+	width: 500px;
+
+	font-size: 15px;
+}
+.box-middle-text{
+	overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+}
+.box-middle-img{
+	width: 166px;
+	height: 166px;
+	margin-top: 10px;
+}
+.box-middle-img img{
+	width: 166px;
+	height: 166px;
+}
+.box-foot{
+	border-top: 1px solid #ececec;
+	text-align: center;
+	height: 38px;
+	margin-top: 7px;
+}
+.box-foot-a{
+	margin-top: 8px;
+}
+.box-foot a{
+	display: inline-block;
+	width: 145px;
+	height: 30px;
+	font-size: 15px;
+	border-right: 1px solid #ECECEC;
+}
+.middle{
+	width: 230px;
+	height: 325px;
+	float: right;
+		background-color: white;
+		border-radius: 5px;
+	box-shadow: 0 0 10px #CCCCCC;
+	margin-top: 25px;
+}
+.middle-1{
+	height: 36px;
+	border-bottom: 1px solid #ececec;
+	line-height: 36px;
+	font-size: 16px;
+	padding-left: 16px;
+}
+.middle-2 ul{
+	padding: 0;
+	margin: 0;
+}
+.middle-2 li{
+	height: 33px;
+	line-height: 33px;
+}
+.middle-2 li span{
+	float: right;
+	font-size: 13px;
+	color: #808080;
+	margin-right: 10px;
+		white-space: nowrap;
+	overflow: hidden;
+}
+.middle-2 li a{
+	float: left;
+	font-size: 15px;
+	margin-left: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+}

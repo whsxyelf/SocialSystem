@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>重置密码</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/updatepsw.css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
+		<style>
+			iframe {
+				width: 100%;height: 54px;padding: 0;margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="position: relative;z-index: 99999;">
+			<iframe scrolling="no" id="nav-frame" src="nav.html"></iframe>
+		</div>
+		<div style="z-index: 90;" class="container" id="container">
+			<div class="section section-nav">
+				<div class="section-nav">
+					<ul class="subnav_process">
+						<li :class="{'passed':isPassed0,'active':isActive0}">
+							<div>
+								<i>1</i>
+								<p>身份验证</p>
+							</div>
+							<i></i>
+						</li>
+						<li :class="{'passed':isPassed1,'active':isActive1}">
+							<div>
+								<i>2</i>
+								<p>设置新密码</p>
+							</div>
+							<i></i>
+						</li>
+						<li style="width: 56px;">
+							<div>
+								<i>3</i>
+								<p>完成</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="main" id="main">
+				<div class="main-phone" v-if="flag==0">
+					<div class="modal_content" v-if="phone">
+						<div>
+							<label for="phone1">手机号：</label><br />
+							<input class="phone1" type="text" autocomplete="off" placeholder="请输入已绑定的手机号" />
+						</div>
+						<div>
+							<label for="code1">验证码：</label>
+							<div class="code1">
+								<input class="code11" type="text" autocomplete="off" placeholder="短信验证码" />
+								<input class="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" onClick="sendMessage1()" />
+							</div>
+						</div>
+						<div class="next">
+							<button onclick="binding()">确定</button>
+						</div>
+						<!-- <div class="email1"><a href="javascript:void(0)" v-on:click="change">切换至邮箱认证</a></div> -->
+					</div>
+<!-- 
+					<div class="modal_content" v-else>
+						<div>
+							<label for="phone1">邮箱：</label><br />
+							<input class="phone1" type="text" autocomplete="off" placeholder="请输入已绑定的邮箱" />
+						</div>
+						<div>
+							<label for="code1">验证码：</label>
+							<div class="code1">
+								<input class="code11" type="text" autocomplete="off" placeholder="邮箱验证码" />
+								<input class="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" onClick="sendMessage1()" />
+							</div>
+						</div>
+						<div class="next">
+							<button onclick="binding()">确定</button>
+						</div>
+						<div class="email1"><a href="javascript:void(0)" v-on:click="change">切换至手机认证</a></div>
+					</div> -->
+
+
+				</div>
+
+				<div class="middle" v-else-if="flag==1">
+					<div class="modal_content">
+						<form id="form-psw">
+
+
+							<div>
+								<label style="margin-left: -800px;" for="phone1">密码：</label><br />
+								<input class="phone1" id="psw" name="psw" type="password" autocomplete="off" placeholder="请输入密码" />
+							</div>
+							<div>
+								<label style="margin-left: -740px;" for="code1">再次输入密码：</label><br />
+								<input id="checkpsw" name="checkpsw" class="phone1" type="password" autocomplete="off" placeholder="请再次输入密码" />
+							</div>
+							<div class="next">
+								<button onclick="save()">保存</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="right" v-else-if="flag==2">
+					<div class="success">
+						<img src="images/chongzhi.png">
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/updatepsw.js"></script>
+		<script>
+			var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/; //手机号正则 
+			var count = 60; //间隔函数，1秒执行
+			var InterValObj1; //timer变量，控制时间
+			var curCount1; //当前剩余秒数
+			/*第一*/
+			function sendMessage1() {
+				curCount1 = count;
+				var phone = $.trim($('.phone1').val());
+				if (!phoneReg.test(phone)) {
+					alert(" 请输入有效的手机号码");
+					return false;
+				}
+				//设置button效果，开始计时
+				$(".btnSendCode1").attr("disabled", "true");
+				$(".btnSendCode1").val(+curCount1 + "秒再获取");
+				InterValObj1 = window.setInterval(SetRemainTime1, 1000); //启动计时器，1秒执行一次
+				//向后台发送处理数据
+
+			}
+
+			function SetRemainTime1() {
+				if (curCount1 == 0) {
+					window.clearInterval(InterValObj1); //停止计时器
+					$(".btnSendCode1").removeAttr("disabled"); //启用按钮
+					$(".btnSendCode1").val("重新发送");
+				} else {
+					curCount1--;
+					$(".btnSendCode1").val(+curCount1 + "秒再获取");
+				}
+			}
+
+			/*提交*/
+			function binding() {
+				curCount1 = count;
+				var phone = $.trim($('.phone1').val());
+				if (!phoneReg.test(phone)) {
+					alert(" 请输入有效的手机号码");
+					return false;
+				}
+			}
+
+			$("#form-psw").validate({
+				rules: {
+					psw: {
+						required: true,
+						minlength: 6,
+						maxlength: 12
+					},
+					checkpsw: {
+						required: true,
+						minlength: 6,
+						maxlength: 12,
+						equalTo: "#psw"
+					}
+				},
+				messages: {
+					psw: {
+						required: "请输入密码",
+						minlength: "密码长度由6-12个字符组成",
+						maxlength: "密码长度由6-12个字符组成"
+					},
+					checkpsw: {
+						required: "请输入密码",
+						minlength: "密码长度由6-12个字符组成",
+						maxlength: "密码长度由6-12个字符组成",
+						equalTo: "两次密码输入不一致"
+					},
+				}
+			})
+
+			function save() {
+				alert(1);
+			}
+		</script>
+	</body>
+</html>

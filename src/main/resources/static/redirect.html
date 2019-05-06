@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>出现错误了呢</title>
+		<script src="js/jquery.min.js"></script>
+	</head>
+	<style type="text/css">
+		body{
+			background-color: #F3F3F3;
+		}
+		.container{
+			width: 580px;
+			margin: 0 auto;
+			margin-top: 200px;
+		}
+		.errot-btn{
+			width: 100px;
+			margin: 0 auto;
+		}
+		.errot-btn-1{
+			    font-size: 16px;
+			width: 100px;
+			height: 36px;
+			line-height: 36px;
+			background: #4FC08D;
+			color: #fefefe;
+			display: inline-block;
+			text-align: center;
+			white-space: nowrap;
+			border-radius: 2px;
+			padding: 0 10px;
+			border: 0;
+			outline: none;
+			margin-left: 18px;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<div class="error-img">
+				<img src="images/younotlogin.png" >
+			</div>
+			<div class="errot-btn">
+				<button style="cursor: pointer;" class="errot-btn-1">返回首页</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		$(".errot-btn-1").click(function(){
+			path = window.location.href.replace("redirect","")
+			window.location.href = path+"home"
+		})
+	</script>
+</html>

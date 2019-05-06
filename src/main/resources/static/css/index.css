@@ -229,6 +229,44 @@
   color: #444;
   background-color: #fff;
 }
+.header-login-user {
+  float: right;
+  margin-top: 8px;
+}
+.header-login-user #user-img {
+	width: 40px;
+	height: 40px;
+	border-radius:20px;
+}
+.header-login-user #user-nick {
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	border: 1px solid rgba(255, 255, 255, .8);
+	box-sizing: border-box;
+	margin-top: 10px;
+	margin-left: 10px;
+	text-decoration: none;
+}
+.header-login-user #user-nick:hover {
+	color: #444;
+	background-color: #fff;
+}
+.header-login-user #user-exit {
+	color: navajowhite;
+	text-align: center;
+	font-size: 20px;
+	background-color: rgba(201,0,0,.6);
+	border: 1px solid transparent;
+	margin-top: 10px;
+	margin-left: 10px;
+	text-decoration: none;
+}
+.header-login-user #user-exit:hover {
+	background-color: rgba(201,0,0,.9);
+	
+}
+
 .header-top .search {
   position: absolute;
   display: none;
@@ -981,4 +1019,21 @@
 .banner-titlte span{
 	font-size: 41px;
 	color: rgba(255, 255, 255, .85);
+}
+.shouye{
+	float: left;
+    width: 52px;
+    height:34px;
+    line-height: 34px;
+    text-align: center;
+    margin-left: 10px;
+    color: #fff;
+    border-radius: 2px;
+		border: 1px solid Green;
+		background-color:ForestGreen;
+}
+.shouye:hover{
+	text-decoration: none;
+	color: white;
+	background-color:Lime;
 }
