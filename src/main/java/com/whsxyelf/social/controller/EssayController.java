@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import com.whsxyelf.social.service.impl.EssayServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/essay")
 public class EssayController {
 	@Autowired
