@@ -49,7 +49,9 @@ $(function(){
 	  	dataType: 'json',
 	  	success:function(data){
 	  		if(data.success) {
-	  			$("#user-img").attr("src",data.user.userPhoto)
+	  			if(data.user.userPhoto != null && data.user.userPhoto != "") {
+	  				$("#user-img").attr("src",data.user.userPhoto)
+	  			}
 				userNick = data.user.userNick
 				if(userNick.length > 5){
 					userNick = userNick.slice(0,5)+".."
