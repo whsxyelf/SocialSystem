@@ -31,11 +31,14 @@ public interface UserMapper {
 	@SelectProvider(type=UserProvider.class,method="findUsersByList")
 	public List<User> findUsersByList(@Param("userId")int userId[]);
 	
-	@Insert("insert into user(user_nick,user_email,password) values(#{userNick},#{userEmail},#{password})")
+	@Insert("insert into user(user_nick,user_email,signature,password) values(#{userNick},#{userEmail},#{signature},#{password})")
 	public int addOne(User user);
 	
 	@UpdateProvider(type=UserProvider.class,method="updateUser")
 	public int updateUser(User user);
+	
+	@Insert("insert into user(user_nick,signature,phone,password) values(#{userNick},#{signature},#{phone},#{password})")
+	public int addMobileUser(User user);
 	
 	
 	class UserProvider {

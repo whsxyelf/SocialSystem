@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.whsxyelf.social.SocialApplication;
 import com.whsxyelf.social.bean.Essay;
+import com.whsxyelf.social.packbean.Article;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocialApplication.class)
@@ -27,7 +28,7 @@ public class EssayMapperTest {
 	@Test
 	@Ignore
 	public void findEssayListByUserId() {
-		List<Essay> essayList = mapper.findEssayListByUserId(1);
+		List<Article> essayList = mapper.findEssayListByUserId(1);
 		System.out.println(essayList.size());
 	}
 	

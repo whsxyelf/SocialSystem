@@ -18,7 +18,11 @@ public class UserServiceImpl implements UserService {
 	public boolean Register(User user) {	
 		int result = 0;
 		if(!isExist(user)) {
-			result = mapper.addOne(user);
+			if(user.getPhone() != null) {
+				result = mapper.addMobileUser(user);
+			} else {
+				result = mapper.addOne(user);
+			}
 		}
 		return result>0?true:false;
 	}

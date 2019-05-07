@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.whsxyelf.social.bean.Essay;
+import com.whsxyelf.social.packbean.Article;
 
 @Mapper
 public interface EssayMapper {
@@ -21,9 +22,11 @@ public interface EssayMapper {
 	public Essay findEssayById(int essayId);
 	
 	//通过用户id查询用户所有动态
-	@Select("select essay_id,user_id,essay_content,essay_photo,praise,create_time,last_edit_time "
-			+ "from essay where user_id=#{userId}")
-	public List<Essay> findEssayListByUserId(int userId);
+	@Select("select u.user_id,user_nick,user_photo,e.essay_id,essay_content,e.create_time " + 
+			"from user as u join essay as e on u.user_id=e.user_id " + 
+			"where u.user_id in (select concerned_id from concern where user_id=#{userId}) " + 
+			"or u.user_id=#{userId}")
+	public List<Article> findEssayListByUserId(int userId);
 	
 	//添加一条动态
 	@InsertProvider(type = EssayProvider.class,method="addOne")

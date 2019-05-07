@@ -10,6 +10,7 @@ import com.whsxyelf.social.bean.Essay;
 import com.whsxyelf.social.mapper.CommentMapper;
 import com.whsxyelf.social.mapper.EssayMapper;
 import com.whsxyelf.social.mapper.SubCommentMapper;
+import com.whsxyelf.social.packbean.Article;
 import com.whsxyelf.social.service.EssayService;
 
 @Service
@@ -30,9 +31,9 @@ public class EssayServiceImpl implements EssayService {
 	}
 
 	@Override
-	public List<Essay> GetEssayList(int userId) {
-		List<Essay> essayList = mapper.findEssayListByUserId(userId);
-		return essayList;
+	public List<Article> GetEssayList(int userId) {
+		List<Article> articleList = mapper.findEssayListByUserId(userId);
+		return articleList;
 	}
 
 	@Override

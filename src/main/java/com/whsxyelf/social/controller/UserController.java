@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.whsxyelf.social.bean.User;
+import com.whsxyelf.social.service.impl.ConcernServiceImpl;
+import com.whsxyelf.social.service.impl.EssayServiceImpl;
 import com.whsxyelf.social.service.impl.FileUpLoadServiceImpl;
 import com.whsxyelf.social.service.impl.UserServiceImpl;
 import com.whsxyelf.social.util.CheckCodeUtil;
@@ -31,6 +33,10 @@ import com.whsxyelf.social.util.StringUtil;
 public class UserController {
 	@Autowired
 	UserServiceImpl userServiceImpl;
+	@Autowired
+	ConcernServiceImpl concernServiceImpl;
+	@Autowired
+	EssayServiceImpl essayServiceImpl;
 	@Autowired
 	EmailUtil email;
 	@Autowired
@@ -53,6 +59,29 @@ public class UserController {
 		return resultMap;
 	}
 	
+	@RequestMapping(value="/userDetailInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> userDetailInfo(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if(user != null) {
+			int concernCount = concernServiceImpl.CountConcern(user.getUserId());
+			int concernedCount = concernServiceImpl.CountFans(user.getUserId());
+			int essayCount = essayServiceImpl.Count(user.getUserId());
+			resultMap.put("success", true);
+			resultMap.put("user", user);
+			resultMap.put("concernCount", concernCount);
+			resultMap.put("concernedCount", concernedCount);
+			resultMap.put("essayCount", essayCount);
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "未登录");
+		}
+		return resultMap;
+	}
+	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> UserRegister(HttpServletRequest request) {
@@ -68,6 +97,7 @@ public class UserController {
 		}
 		
 		if(params != null) {
+			params.setSignature("这个人很懒，什么也没有留下...");
 			boolean result = userServiceImpl.Register(params);
 			if(result) {
 				resultMap.put("success", true);

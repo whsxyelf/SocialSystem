@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.whsxyelf.social.bean.Essay;
 import com.whsxyelf.social.bean.User;
+import com.whsxyelf.social.packbean.Article;
 import com.whsxyelf.social.service.impl.EssayServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
@@ -57,9 +58,15 @@ public class EssayController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		int userId = StringUtil.getIntParam(request, "userId");
+		User user = (User)request.getSession().getAttribute("user");
 		
-		if(userId > 0) {
-			List<Essay> result = essayServiceImpl.GetEssayList(userId);
+		if(user != null) {
+			List<Article> result = null;
+			if(userId == -1) {
+				result = essayServiceImpl.GetEssayList(user.getUserId());
+			} else {
+				result = essayServiceImpl.GetEssayList(userId);
+			}
 			if(result != null) {
 				resultMap.put("success", true);
 				resultMap.put("essayList", result);
@@ -183,4 +190,6 @@ public class EssayController {
 		}
 		return resultMap;
 	}
+	
+	
 }

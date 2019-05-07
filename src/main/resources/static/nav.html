@@ -9,7 +9,6 @@
 		<title>商院社交平台</title>
 	</head>
 	<body>
-
 		<div class="head">
 			<div class="head-content">
 				<div class="head-logo clearfix">
@@ -27,7 +26,7 @@
 									<span id="nav-login" style="position: absolute;margin-left: 50px;">登录</span>
 									<span id="nav-register" style="position: absolute;margin-left: 105px;">注册</span>
 								</div>
-								<a id="nav-img-a" href="" style="display: none;"><img id="nav-img"  src="images/cont/waterfall_img10.jpg" alt="">
+								<a id="nav-img-a" href="javascript:;" style="display: none;"><img id="nav-img"  src="images/cont/waterfall_img10.jpg" alt="">
 								<span id="nav-user-name" style="display: none;">mistletoezzZ</span></a>
 						</div>
 						<div class="tuichu" style="display: none;"><a id="nav-exit" href="javascript:;">退出</a></div>
@@ -52,12 +51,19 @@
 				
 			})
 		})
-		key = $("#nav-key").val()
 		$("#nav-search").click(function() {
-			window.parent.location.href=path+"/nav/search?key="+key
+			key = $("#nav-key").val()
+			if(key != "") {
+				window.parent.location.href = path+"searchTo/"+key
+			} else {
+				window.parent.location.href = path+"search"
+			}
 		})
-		$("#nav-img-a").click(function(){
+		$("#nav-img").click(function(){
 			window.parent.location.href=path+"user"
+		})
+		$("#nav-user-name").click(function(){
+			window.parent.location.href=path+"news"
 		})
 		$("#nav-login").click(function(){
 			window.parent.location.href=path+"login"
@@ -81,6 +87,8 @@
 						userNick = userNick.slice(0,5)+".."
 					}
 					$("#nav-user-name").html(userNick)
+					
+					$("#nav-user-name").css("display","")
 					$("#nav-img-a").css("display","")
 					$("#nav-img").css("display","")
 					$(".tuichu").css("display","")

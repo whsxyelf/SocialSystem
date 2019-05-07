@@ -63,10 +63,12 @@ public class UserMapperTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void addOne() {
 		User user = new User();
-		user.setUserEmail("123@163.com");
+//		user.setUserEmail("123@163.com");
+		user.setUserNick("11sdsd1");
+		user.setSignature("1111");
 		user.setPhone("12971423523");
 		user.setPassword("123456");
 		int result = mapper.addOne(user);
