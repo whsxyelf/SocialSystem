@@ -133,7 +133,7 @@ body{
 }
 .middle{
 	width: 230px;
-	height: 325px;
+	height: max-content;
 	float: right;
 		background-color: white;
 		border-radius: 5px;
@@ -193,6 +193,7 @@ body{
 }
 .user1-right{
 	height: 70px;
+	width: 115px;
 	line-height: 70px;
 }
 .user1{
@@ -201,13 +202,29 @@ body{
 	border-bottom: 1px solid #ececec;
 	cursor: pointer;
 }
-.user1:hover{
+.user1-right:hover{
 	color: #4FC08D;
 }
 .user-top{
 	height: 38px;
 	line-height: 38px;
 	border-bottom: 1px solid #ececec;
+}
+
+.user1-right {
+	float: left;
+}
+
+.guanzhu {
+	float: right;
+	width: 20px;
+	height: 70px;
+	line-height: 70px;
+}
+
+.guanzhu img {
+	width: 20px;
+	height: 20px;
 }
 .user-top-left{
 	float: left;
@@ -376,3 +393,16 @@ body{
       text-align: center;
 	  margin-top: 10px;
     }
+	
+	.del-btn {
+		cursor: pointer;
+		position:absolute;
+		top:10px;
+		right:10px;
+		width: 15px;
+		opacity: 0.5;
+	}
+	
+	.del-btn:hover {
+		opacity: 1;
+	}

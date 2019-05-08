@@ -10,4 +10,6 @@ public interface NewsService {
 	public int Count();
 	public List<News> newsTest();
 	public List<News> GetNewsByUserId(int userId);
+	public List<News> GetRandomNewsList(int limit);
+	public List<News> GetNewsListByKey(String key);
 }

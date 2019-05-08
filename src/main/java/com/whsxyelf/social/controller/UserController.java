@@ -8,6 +8,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.whsxyelf.social.bean.User;
 import com.whsxyelf.social.service.impl.ConcernServiceImpl;
 import com.whsxyelf.social.service.impl.EssayServiceImpl;
@@ -396,6 +401,39 @@ public class UserController {
 	public Map<String,Object> recommend(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if(user != null) {
+			String url = "http://localhost:5000/user/"+user.getUserId();
+			Connection conn = Jsoup.connect(url);
+			Document doc;
+			try {
+				doc = conn.get();
+				Element el = doc.body();
+				JSONObject json = JSONObject.parseObject(el.text());
+				boolean success = (boolean)json.get("success");
+				if(success) {
+					List<Integer> ids = (List<Integer>)json.get("result");
+					List<User> userList = userServiceImpl.Recommend(ids);
+					if(userList != null) {
+						resultMap.put("success", true);
+						resultMap.put("userList", userList);
+					} else {
+						resultMap.put("success", false);
+						resultMap.put("error", "推荐失败");
+					}
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "推荐服务器异常");
+				}
+			} catch (IOException e) {
+				resultMap.put("success", false);
+				resultMap.put("error", "推荐服务器未开启");
+			}
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "未登录");
+		}
 		return resultMap;
 	}
 }

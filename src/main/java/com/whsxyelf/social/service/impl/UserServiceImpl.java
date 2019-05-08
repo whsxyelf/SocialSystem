@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> Recommend(int[] userId) {
+	public List<User> Recommend(List<Integer> userId) {
 		List<User> userList = mapper.findUsersByList(userId);
 		return userList;
 	}

@@ -1,93 +1,98 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>动态/新闻</title>
-		<link rel="stylesheet" type="text/css" href="css/common.css" />
-		<link rel="stylesheet" type="text/css" href="css/news.css" />
-		<script src="js/jquery.min.js"></script>
-		<script src="js/layer/layer.js"></script>
-		<script src="js/util/timeformat.js"></script>
-		<style>
-			body,iframe {
-				width: 100%;height: 54px;padding: 0;margin: 0;
-			}
-		</style>
-	</head>
-	<body>
-		<iframe id="nav-frame" src="nav.html"></iframe>
-		<div class="container">
-			<div class="left clearfix">
-				<div class="fabu clearfix">
-					<div class="fabu-box">
-						<div class="fabu-top">
-							<img src="images/xinxian.png">
-						</div>
-						<div class="fabu-mid">
-							<textarea id="essay-content" title="发布动态" style="height: 68px; width: 100%; margin: 0px; padding: 0px; border-style: none; border-width: 0px; font-size: 14px; word-wrap: break-word; line-height: 18px; overflow: hidden; outline: none;"></textarea>
-						</div>
+<head>
+<meta charset="utf-8">
+<title>动态/新闻</title>
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/news.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/layer/layer.js"></script>
+<script src="js/util/timeformat.js"></script>
+<style>
+body, iframe {
+	width: 100%;
+	height: 54px;
+	padding: 0;
+	margin: 0;
+}
+</style>
+</head>
+<body>
+	<iframe id="nav-frame" src="nav.html"></iframe>
+	<div class="container">
+		<div class="left clearfix">
+			<div class="fabu clearfix">
+				<div class="fabu-box">
+					<div class="fabu-top">
+						<img src="images/xinxian.png">
+					</div>
+					<div class="fabu-mid">
+						<textarea id="essay-content" title="发布动态"
+							style="height: 68px; width: 100%; margin: 0px; padding: 0px; border-style: none; border-width: 0px; font-size: 14px; word-wrap: break-word; line-height: 18px; overflow: hidden; outline: none;"></textarea>
+					</div>
 
-						<div id="app">
-							<div class="hello">
-								<div class="upload">
-									<div class="upload_warp">
-										<div class="upload_warp_left" @click="fileClick">
-											<img src="images/upload.png">
-										</div>
-										<div class="upload_warp_right" @drop="drop($event)" @dragenter="dragenter($event)" @dragover="dragover($event)">
-											或者将图片拖到此处
-										</div>
+					<div id="app">
+						<div class="hello">
+							<div class="upload">
+								<div class="upload_warp">
+									<div class="upload_warp_left" @click="fileClick">
+										<img src="images/upload.png">
 									</div>
-									<div class="upload_warp_text">
-										选中{{imgList.length}}张图片，共{{bytesToSize(this.size)}}
-									</div>
-									<input @change="fileChange($event)" type="file" name="upload_file" id="upload_file" multiple style="display: none" />
-									<div class="upload_warp_img" v-show="imgList.length!=0">
-										<div class="upload_warp_img_div" v-for="(item,index) of imgList">
-											<div class="upload_warp_img_div_top">
-												<div class="upload_warp_img_div_text">
-													{{item.file.name}}
-												</div>
-												<img src="images/del.png" class="upload_warp_img_div_del" @click="fileDel(index)">
-											</div>
-											<img :src="item.file.src">
+									<div class="upload_warp_right" @drop="drop($event)"
+										@dragenter="dragenter($event)" @dragover="dragover($event)">
+										或者将图片拖到此处</div>
+								</div>
+								<div class="upload_warp_text">
+									选中{{imgList.length}}张图片，共{{bytesToSize(this.size)}}</div>
+								<input @change="fileChange($event)" type="file"
+									name="upload_file" id="upload_file" multiple
+									style="display: none" />
+								<div class="upload_warp_img" v-show="imgList.length!=0">
+									<div class="upload_warp_img_div"
+										v-for="(item,index) of imgList">
+										<div class="upload_warp_img_div_top">
+											<div class="upload_warp_img_div_text">
+												{{item.file.name}}</div>
+											<img src="images/del.png" class="upload_warp_img_div_del"
+												@click="fileDel(index)">
 										</div>
+										<img :src="item.file.src">
 									</div>
 								</div>
 							</div>
-							<div class="fabu-foot">
-								<button type="button" class="fabu-btn" @click="publish($event)">发布</button>
-							</div>
+						</div>
+						<div class="fabu-foot">
+							<button type="button" class="fabu-btn" @click="publish($event)">发布</button>
 						</div>
 					</div>
 				</div>
-				<div id="box-bar">
-					<div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
+			</div>
+			<div id="box-bar">
+				<div class="box"
+					style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg); background-position: 50% 50%;">
+					<div class="box-top"></div>
+					<div class="box-middle" style="height: 500px;"></div>
+					<div class="box-foot"></div>
+				</div>
+				<!-- <div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
 						<div class="box-top">
 						</div>
 						<div class="box-middle" style="height: 500px;">
 						</div>
 						<div class="box-foot">
 						</div>
-					</div>
-					<div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
+					</div> -->
+				<!-- <div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
 						<div class="box-top">
 						</div>
 						<div class="box-middle" style="height: 500px;">
 						</div>
 						<div class="box-foot">
 						</div>
-					</div>
-					<div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
-						<div class="box-top">
-						</div>
-						<div class="box-middle" style="height: 500px;">
-						</div>
-						<div class="box-foot">
-						</div>
-					</div>
-					<div class="box">
-						<div class="box-top">
+					</div> -->
+				<!-- <div class="box">
+						<div class="box-top" style="position: relative;">
+							<img name="1" class="del-btn" src="images/delete.png" />
 							<div class="box-top-left clearfix">
 								<img src="images/cont/waterfall_img4.jpg">
 							</div>
@@ -114,8 +119,8 @@
 								<a href="javascript:void(0)">点赞</a>
 							</div>
 						</div>
-					</div>
-					<div class="box">
+					</div> -->
+				<!-- <div class="box">
 						<div class="box-top">
 							<div class="box-top-left clearfix">
 								<img src="images/cont/waterfall_img4.jpg">
@@ -146,94 +151,107 @@
 								<a href="javascript:void(0)">点赞</a>
 							</div>
 						</div>
+					</div> -->
+			</div>
+		</div>
+		<div class="right">
+			<div class="right-top">
+				<div class="right-top-img">
+					<div>
+						<img id="user-img-right" src="images/cont/waterfall_img10.jpg">
 					</div>
 				</div>
-			</div>
-			<div class="right">
-				<div class="right-top">
-					<div class="right-top-img">
-						<div><img id="user-img-right" src="images/cont/waterfall_img10.jpg"></div>
-					</div>
-					<div class="right-top-mid">
-						mistletoezzZ
-					</div>
-					<div class="right-top-foot">
-						<div class="right-top-foot-1">
-							<div><strong id="concernCount">197</strong><br /><span>关注</span></div>
-							<div><strong id="concernedCount">298</strong><br /><span>粉丝</span></div>
-							<div style="border: none;"><strong id="essayCount">297</strong><br /><span>动态</span></div>
+				<div class="right-top-mid">mistletoezzZ</div>
+				<div class="right-top-foot">
+					<div class="right-top-foot-1">
+						<div>
+							<strong id="concernCount">197</strong><br />
+							<span>关注</span>
+						</div>
+						<div>
+							<strong id="concernedCount">298</strong><br />
+							<span>粉丝</span>
+						</div>
+						<div style="border: none;">
+							<strong id="essayCount">297</strong><br />
+							<span>动态</span>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="user-tuijian">
-				<div class="user-top">
-					<div class="user-top-left">
-						<strong>相关用户</strong>
-					</div>
-					<div class="user-top-right">
-						<img src="images/换一换.png">
-						<span>换一批</span>
-					</div>
-				</div>
-				<div class="user1">
-					<div class="user1-left">
-						<img src="images/5755037373826825257.jpg">
-					</div>
-					<div class="user1-right">
-						<strong>mistletoezzZ</strong>
-					</div>
-				</div>
-				<div class="user1">
-					<div class="user1-left">
-						<img src="images/5755037373826825257.jpg">
-					</div>
-					<div class="user1-right">
-						<strong>mistletoezzZ</strong>
-					</div>
-				</div>
-				<div class="user1">
-					<div class="user1-left">
-						<img src="images/5755037373826825257.jpg">
-					</div>
-					<div class="user1-right">
-						<strong>mistletoezzZ</strong>
-					</div>
-				</div>
-				<div class="user1">
-					<div class="user1-left">
-						<img src="images/5755037373826825257.jpg">
-					</div>
-					<div class="user1-right">
-						<strong>mistletoezzZ</strong>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="middle">
-				<div class="middle-1">
-					<strong>热门新闻</strong>
-				</div>
-				<div class="middle-2">
-					<ul id="news-bar">
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
-					</ul>
-				</div>
-				<div class="middle-3">
-
 				</div>
 			</div>
 		</div>
-	</body>
-	<script src="js/vue.js"></script>
-	<script src="js/upload.js"></script>
-	<script src="js/news.js"></script>
+		<input id="page" type="hidden" value="0" />
+		<div class="user-tuijian">
+			<div class="user-top">
+				<div class="user-top-left">
+					<strong>相关用户</strong>
+				</div>
+				<div class="user-top-right flash">
+					<img src="images/换一换.png"> <span>换一批</span>
+				</div>
+			</div>
+			<div id="recommend-bar">
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+					<div class="guanzhu">
+						<img src="images/关注.png">
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="middle">
+			<div class="middle-1">
+				<strong>热门新闻</strong>
+			</div>
+			<div class="middle-2">
+				<ul id="news-bar">
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+					<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
+				</ul>
+			</div>
+			<div class="middle-3"></div>
+		</div>
+	</div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/news.js"></script>
 </html>

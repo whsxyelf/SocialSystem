@@ -39,8 +39,10 @@ public class CommentController {
 		if(commentType > 0 && commentedId > 0) {
 			List<CommentExtend> result = commentServiceImpl.GetCommentList(commentType, commentedId);
 			if(result != null) {
+//				int count = commentServiceImpl.Count(commentType, commentedId);
 				resultMap.put("success", true);
 				resultMap.put("commentList", result);
+				
 			} else {
 				resultMap.put("success", false);
 				resultMap.put("error", "未找到评论列表");

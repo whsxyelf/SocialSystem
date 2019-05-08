@@ -11,5 +11,5 @@ public interface UserService {
 	public boolean Update(User user);
 	public List<User> Search(String userNick);
 	
-	public List<User> Recommend(int userId[]);
+	public List<User> Recommend(List<Integer> userId);
 }

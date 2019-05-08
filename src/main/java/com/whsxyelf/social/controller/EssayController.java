@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
@@ -36,17 +37,17 @@ public class EssayController {
 	EssayServiceImpl essayServiceImpl;
 	@Autowired
 	FileUpLoadServiceImpl fileUploadServiceImpl;
-	
-	@RequestMapping(value="/getEssay",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/getEssay", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> getEssay(HttpServletRequest request) {
+	public Map<String, Object> getEssay(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		int essayId = StringUtil.getIntParam(request, "essayId");
-		
-		if(essayId > 0) {
+
+		if (essayId > 0) {
 			Essay result = essayServiceImpl.GetEssay(essayId);
-			if(result != null) {
+			if (result != null) {
 				resultMap.put("success", true);
 				resultMap.put("essay", result);
 			} else {
@@ -59,23 +60,23 @@ public class EssayController {
 		}
 		return resultMap;
 	}
-	
-	@RequestMapping(value="/getEssayList",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/getEssayList", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> getEssayList(HttpServletRequest request) {
+	public Map<String, Object> getEssayList(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		int userId = StringUtil.getIntParam(request, "userId");
-		User user = (User)request.getSession().getAttribute("user");
-		
-		if(user != null) {
+		User user = (User) request.getSession().getAttribute("user");
+
+		if (user != null) {
 			List<Article> result = null;
-			if(userId == -1) {
+			if (userId == -1) {
 				result = essayServiceImpl.GetEssayList(user.getUserId());
 			} else {
 				result = essayServiceImpl.GetEssayList(userId);
 			}
-			if(result != null) {
+			if (result != null) {
 				resultMap.put("success", true);
 				resultMap.put("essayList", result);
 			} else {
@@ -88,18 +89,18 @@ public class EssayController {
 		}
 		return resultMap;
 	}
-	
-	@RequestMapping(value="/matchEssayList",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/matchEssayList", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> matchEssayList(HttpServletRequest request) throws UnsupportedEncodingException {
+	public Map<String, Object> matchEssayList(HttpServletRequest request) throws UnsupportedEncodingException {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		String key = StringUtil.getStringParam(request, "key");
-		
-		if(key != null) {
+
+		if (key != null) {
 			key = URLDecoder.decode(key, "UTF-8");
 			List<Article> essayList = essayServiceImpl.MatchEssayList(key);
-			if(essayList != null) {
+			if (essayList != null) {
 				resultMap.put("success", true);
 				resultMap.put("essayList", essayList);
 			} else {
@@ -112,18 +113,19 @@ public class EssayController {
 		}
 		return resultMap;
 	}
-	
-	@RequestMapping(value = "/publish",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/publish", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> publish(@RequestParam("file")MultipartFile[] imgList,@RequestParam("essayContent") String essayContent,HttpServletRequest request) {
+	public Map<String, Object> publish(@RequestParam("file") MultipartFile[] imgList,
+			@RequestParam("essayContent") String essayContent, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		User user = (User) request.getSession().getAttribute("user");
-		
-		if(user != null) {
+
+		if (user != null) {
 			String filesUrl = null;
 			Essay params = new Essay();
-			if(imgList.length > 0) {
+			if (imgList.length > 0) {
 				try {
 					filesUrl = fileUploadServiceImpl.saveImageList(imgList);
 				} catch (IOException e) {
@@ -134,27 +136,61 @@ public class EssayController {
 			}
 			params.setEssayContent(essayContent);
 			params.setUserId(user.getUserId());
-			
+
 			boolean result = essayServiceImpl.Publish(params);
-			if(result) {
+			if (result) {
 				resultMap.put("success", true);
 			} else {
 				resultMap.put("success", false);
 				resultMap.put("error", "发布失败");
 			}
-			
+
 		} else {
 			resultMap.put("success", false);
 			resultMap.put("error", "参数异常");
 		}
 		return resultMap;
 	}
-	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/wechat/publish", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> update(HttpServletRequest request) {
+	public Map<String, Object> wechatPublish(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+		String essayStr = StringUtil.getStringParam(request, "essayStr");
+		Essay params = null;
+		try {
+			params = JSON.parseObject(essayStr, Essay.class);
+		} catch (JSONException e) {
+			resultMap.put("success", false);
+			resultMap.put("error", "JSONException");
+		}
+
+		User user = (User) request.getSession().getAttribute("user");
+
+		if (user != null) {
+			Essay essay = new Essay();
+			essay.setUserId(user.getUserId());
+			essay.setEssayContent(params.getEssayContent());
+			essay.setEssayPhoto(params.getEssayPhoto());
+			boolean result = essayServiceImpl.Publish(essay);
+			if (result) {
+				resultMap.put("success", true);
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "发布失败");
+			}
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "未登录");
+		}
+		return resultMap;
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> update(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
 		String essayStr = StringUtil.getStringParam(request, "essayStr");
 		Essay params = null;
 		try {
@@ -164,14 +200,14 @@ public class EssayController {
 			resultMap.put("error", "JSONException");
 			return resultMap;
 		}
-		
-		User user = (User)request.getSession().getAttribute("user");
-		
-		if(params != null && user != null) {
+
+		User user = (User) request.getSession().getAttribute("user");
+
+		if (params != null && user != null) {
 			params.setUserId(user.getUserId());
 			params.setLastEditTime(new Date());
 			boolean result = essayServiceImpl.Update(params);
-			if(result) {
+			if (result) {
 				resultMap.put("success", true);
 			} else {
 				resultMap.put("success", false);
@@ -183,19 +219,19 @@ public class EssayController {
 		}
 		return resultMap;
 	}
-	
-	@RequestMapping(value="/delete",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> delete(HttpServletRequest request) {
+	public Map<String, Object> delete(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		int essayId = StringUtil.getIntParam(request, "essayId");
-		
-		User user = (User)request.getSession().getAttribute("user");
-		
-		if(essayId > 0 && user != null) {
-			boolean result = essayServiceImpl.DeleteOne(essayId,user.getUserId());
-			if(result) {
+
+		User user = (User) request.getSession().getAttribute("user");
+
+		if (essayId > 0 && user != null) {
+			boolean result = essayServiceImpl.DeleteOne(essayId, user.getUserId());
+			if (result) {
 				resultMap.put("success", true);
 			} else {
 				resultMap.put("success", false);
@@ -207,25 +243,24 @@ public class EssayController {
 		}
 		return resultMap;
 	}
-	
-	@RequestMapping(value="/count",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/count", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> count(HttpServletRequest request) {
+	public Map<String, Object> count(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		int userId = StringUtil.getIntParam(request, "userId");
-		
-		if(userId > 0) {
+
+		if (userId > 0) {
 			int result = essayServiceImpl.Count(userId);
 			resultMap.put("success", true);
 			resultMap.put("count", result);
-			
+
 		} else {
 			resultMap.put("success", false);
 			resultMap.put("error", "参数错误");
 		}
 		return resultMap;
 	}
-	
-	
+
 }

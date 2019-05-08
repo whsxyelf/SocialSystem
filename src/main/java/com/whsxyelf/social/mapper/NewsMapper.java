@@ -23,10 +23,16 @@ public interface NewsMapper {
 	@Select("select count(news_id) from news")
 	public int countNews();
 	
-	@Select("select n.news_id,news_from,news_title,h.create_time " + 
+	@Select("select n.news_id,news_from,news_title,h.create_time,h.last_edit_time " + 
 			"from news as n join history as h on n.news_id=h.news_id " + 
-			"where user_id=#{userId}")
+			"where user_id=#{userId} order by h.last_edit_time desc")
 	public List<News> findNewsListByUserId(int userId);
+	
+	@Select("select * from news order by rand() limit #{limitNews}")
+	public List<News> findRandomNewsList(int limitNews);
+	
+	@Select("select * from news where news_title like '%${key}%'")
+	public List<News> findNewsByKey(@Param("key") String key);
 	
 	class NewsProvider {
 		public String findNewsByList(int newsId[]) {

@@ -10,9 +10,10 @@ $.ajax({
 			tableStr = ''
 			$.each(newsList, function(index, obj) {
 				newsUrl = path+"news/"+obj.newsId
-				tableStr += '<div class="history-select"><a onclick=window.top.location="' + newsUrl + '" href="javascript:;">' + 
+				console.log(obj.lastEditTime)
+				tableStr += '<div class="history-select"><a target="_blank" href="' + newsUrl + '" href="javascript:;">' + 
 				'<span class="history-select-title">' + obj.newsTitle + '</span><br />' +
-				'<span class="history-select-time">' + renderTime(obj.createTime) + '</span></a></div>'
+				'<span class="history-select-time">' + renderTime(obj.lastEditTime) + '</span></a></div>'
 			})
 			$(".history").html(tableStr)
 			// initMethods()

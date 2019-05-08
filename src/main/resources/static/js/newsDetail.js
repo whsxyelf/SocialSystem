@@ -23,6 +23,7 @@ $.ajax({
 			$("#news-id").val(data.news.newsId)
 			$(".news-title-title").html(data.news.newsTitle)
 			$(".news-title-time").html(timeFormat(data.news.createTime))
+			$("#news-length").val(get_length(Trim(del_html_tags(data.newsContent),"g")))
 		} else {
 			window.location.href=path+"errorpage"
 		}
@@ -44,6 +45,7 @@ function initCommentList() {
 		success:function(data){
 			if(data.success) {
 				commentList = data.commentList
+				$("#comment-count").html(commentList.length);
 				commentBarStr = ''
 				$.each(commentList,function(index,obj) {
 					console.log(obj.userPhoto)
@@ -84,6 +86,7 @@ $("#submit").click(function(){
 				if(data.success) {
 					// window.location.href = path+"newsDetail?newsId="+$("#news-id").val()
 					initCommentList()
+					$("#commit-input").val('')
 				} else {
 					layer.msg(data.error)
 					setTimeout(function(){
@@ -93,5 +96,54 @@ $("#submit").click(function(){
 			}
 		})
 	}
-	
 })
+
+//去除html标签：
+function del_html_tags(str)
+{
+    var words = '';
+    words = str.replace(/<[^>]+>/g,"");
+    return words;
+}
+//去除空格：
+function Trim(str,is_global)
+{
+    var result;
+    result = str.replace(/(^\s+)|(\s+$)/g,"");
+    if(is_global.toLowerCase()=="g")
+    result = result.replace(/\s/g,"");
+    return result;
+} 
+function get_length(str)
+{
+    var char_length = 0;
+    for (var i = 0; i < str.length; i++){
+        var son_char = str.charAt(i);
+        //如果是汉字，长度大于2，其他任何字符（包括￥等特殊字符，长度均为1）另外：根据需求规则，限制n个字，一个字=2个字符
+        encodeURI(son_char).length > 2 ? char_length += 1 : char_length += 0.5;
+    }
+        return char_length; 
+}
+
+setTimeout(function(){
+	setInterval(function() {
+		length = $("#news-length").val()
+		$.ajax({
+			type: 'POST',
+			url: path + "history/update",
+			contentType: 'application/x-www-form-urlencoded',
+			dataType: 'json',
+			data: {
+				"newsId":newsId,
+				"length":length
+			},
+			success:function(data) {
+				if(data.success){
+					
+				} else {
+					console.log(data.error)
+				}
+			}
+		})
+	},10000)
+},10000)

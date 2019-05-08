@@ -68,9 +68,6 @@ public class UserServiceTest {
 	@Test
 	@Ignore
 	public void Recommend() {
-		int userId[] = {2,4};
-		List<User> userList = userServiceImpl.Recommend(userId);
-		System.out.println(userList.size());
 	}
 	
 }

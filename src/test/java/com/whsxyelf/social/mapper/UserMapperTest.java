@@ -1,5 +1,6 @@
 package com.whsxyelf.social.mapper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,15 +56,17 @@ public class UserMapperTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void findUsersByList() {
-		int userId[] = {1,2};
+		List<Integer> userId = new ArrayList<Integer>();
+		userId.add(1);
+		userId.add(2);
 		List<User> userList = mapper.findUsersByList(userId);
 		System.out.println(userList.size());
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void addOne() {
 		User user = new User();
 //		user.setUserEmail("123@163.com");

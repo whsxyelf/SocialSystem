@@ -29,7 +29,7 @@ public interface UserMapper {
 	public List<User> findUserByUserName(@Param("userNick")String userNick);
 	
 	@SelectProvider(type=UserProvider.class,method="findUsersByList")
-	public List<User> findUsersByList(@Param("userId")int userId[]);
+	public List<User> findUsersByList(@Param("userId")List<Integer> userId);
 	
 	@Insert("insert into user(user_nick,user_email,signature,password) values(#{userNick},#{userEmail},#{signature},#{password})")
 	public int addOne(User user);
@@ -77,16 +77,20 @@ public interface UserMapper {
 			}}.toString();
 		}
 		
-		public String findUsersByList(int userId[]) {
+		public String findUsersByList(List<Integer> userId) {
 			StringBuilder list = new StringBuilder();
-			list.append("("+ userId[0]);
-			int max = userId.length;
+			StringBuilder list2 = new StringBuilder();
+			list.append("("+ userId.get(0));
+			list2.append("(user_id,"+userId.get(0));
+			int max = userId.size();
 			for(int i=1;i<max;i++) {
-				list.append(","+userId[i]);
+				list.append(","+userId.get(i));
+				list2.append(","+userId.get(i));
 			}
 			list.append(")");
+			list2.append(")");
 			return "select user_id,user_nick,user_photo,user_email,sex,phone,signature,permission,user_state,create_time "
-					+ "from user where user_id in " + list.toString();
+					+ "from user where user_id in " + list.toString() +" order by field" +list2.toString();
 		}
 		
 		public String updateUser(User user) {

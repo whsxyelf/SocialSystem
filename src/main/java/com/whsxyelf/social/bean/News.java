@@ -9,6 +9,7 @@ public class News {
 	private String newsUrl;
 	private Integer length;
 	private Date createTime;
+	private Date lastEditTime;
 	public int getNewsId() {
 		return newsId;
 	}
@@ -44,6 +45,13 @@ public class News {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	
+	public Date getLastEditTime() {
+		return lastEditTime;
+	}
+	public void setLastEditTime(Date lastEditTime) {
+		this.lastEditTime = lastEditTime;
 	}
 	@Override
 	public String toString() {

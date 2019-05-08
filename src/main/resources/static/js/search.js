@@ -45,6 +45,33 @@ function startSearch(key) {
 			}
 		}
 	})
+	
+	$.ajax({
+		type: 'POST',
+		url: path + "news/getNewsByKey",
+		contentType: 'application/x-www-form-urlencoded',
+		dataType: 'json',
+		data: {
+			"key":key
+		},
+		success:function(data) {
+			if(data.success) {
+				newsList = data.newsList
+				newsTableStr = ''
+				$.each(newsList,function(index,obj) {
+					newsTitle = obj.newsTitle
+					if(newsTitle.length > 10) {
+						newsTitle = newsTitle.slice(0,11) + "..."
+					}
+					newsTableStr += '<li style="cursor:pointer;"><a target="_blank" href="'+path+"news/"+obj.newsId+'">' + newsTitle + '</a><span></span></li>'
+				})
+				$("#news-bar").html(newsTableStr)
+			} else {
+				layer.msg(data.error)
+			}
+		}
+		
+	})
 }
 
 var key = ''

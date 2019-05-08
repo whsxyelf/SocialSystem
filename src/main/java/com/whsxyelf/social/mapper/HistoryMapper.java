@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
@@ -20,9 +21,12 @@ public interface HistoryMapper {
 			+ "from history where user_id=#{userId} and state=1")
 	public List<History> findHistoryListByUserId(int userId);
 	
-	@Insert("insert into history(user_id,news_id,create_time,last_edit_time) "
-			+ "values(#{userId},#{newsId},#{createTime},#{lastEditTime})")
+	@Insert("insert into history(user_id,news_id) "
+			+ "values(#{userId},#{newsId})")
 	public int addHistory(History history);
+	
+	@Select("select * from history where user_id=#{userId} and news_id=#{newsId}")
+	public History isExist(@Param("userId")int userId,@Param("newsId") int newsId);
 	
 	@UpdateProvider(type=HistoryProvider.class,method="updateHistory")
 	public int updateHistory(History history);

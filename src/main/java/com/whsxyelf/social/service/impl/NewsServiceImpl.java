@@ -43,6 +43,18 @@ public class NewsServiceImpl implements NewsService {
 		List<News> newsList = mapper.newsListTest();
 		return newsList;
 	}
+
+	@Override
+	public List<News> GetRandomNewsList(int limit) {
+		List<News> newsList = mapper.findRandomNewsList(limit);
+		return newsList;
+	}
+
+	@Override
+	public List<News> GetNewsListByKey(String key) {
+		List<News> newsList = mapper.findNewsByKey(key);
+		return newsList;
+	}
 	
 	
 }
