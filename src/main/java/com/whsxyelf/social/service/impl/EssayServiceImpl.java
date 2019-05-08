@@ -74,4 +74,10 @@ public class EssayServiceImpl implements EssayService {
 		return count;
 	}
 
+	@Override
+	public List<Article> MatchEssayList(String essayContent) {
+		List<Article> articleList = mapper.findEssayListByEssayContent(essayContent);
+		return articleList;
+	}
+
 }

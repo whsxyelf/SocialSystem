@@ -61,6 +61,33 @@ public class FileUpLoadServiceImpl implements FileUpLoadService {
 			return null;
 		}
 	}
+
+	@Override
+	public String saveImageList(MultipartFile[] fileList) throws IOException {
+		String fileName = UUID.randomUUID().toString().replaceAll("-", "");
+		try {
+			int count = 1;
+			for(MultipartFile file : fileList) {
+				String originName = file.getOriginalFilename();
+				int dot = originName.lastIndexOf(".");
+				String extName = originName.substring(dot+1).toLowerCase();
+				if(!FileUploadUtil.isImageAllowed(extName)) {
+					continue;
+				}
+				
+				Response res = uploadManager.put(file.getBytes(),fileName+"_"+fileList.length+"_"+count+".jpg",getUpToken());
+				count = count + 1;
+				if(!res.isOK()) {
+					System.out.println("上传组件异常:" + res.bodyString());
+					return null;
+				}
+			}
+		} catch (QiniuException e) {
+			System.out.println("七牛云异常:" + e.getMessage());
+			return null;
+		}
+		return QINIU_IMAGE_DOMAIN + fileName + "_" + fileList.length;
+	}
 	
 	
 }

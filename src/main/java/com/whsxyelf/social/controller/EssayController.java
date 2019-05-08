@@ -1,5 +1,8 @@
 package com.whsxyelf.social.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
@@ -20,6 +25,7 @@ import com.whsxyelf.social.bean.Essay;
 import com.whsxyelf.social.bean.User;
 import com.whsxyelf.social.packbean.Article;
 import com.whsxyelf.social.service.impl.EssayServiceImpl;
+import com.whsxyelf.social.service.impl.FileUpLoadServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
 @Controller
@@ -28,6 +34,8 @@ import com.whsxyelf.social.util.StringUtil;
 public class EssayController {
 	@Autowired
 	EssayServiceImpl essayServiceImpl;
+	@Autowired
+	FileUpLoadServiceImpl fileUploadServiceImpl;
 	
 	@RequestMapping(value="/getEssay",method=RequestMethod.POST)
 	@ResponseBody
@@ -81,25 +89,52 @@ public class EssayController {
 		return resultMap;
 	}
 	
-	@RequestMapping(value="/publish",method=RequestMethod.POST)
+	@RequestMapping(value="/matchEssayList",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> publish(HttpServletRequest request) {
+	public Map<String,Object> matchEssayList(HttpServletRequest request) throws UnsupportedEncodingException {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		String essayStr = StringUtil.getStringParam(request, "essayStr");
-		Essay params = null;
-		try {
-			params = JSON.parseObject(essayStr, Essay.class);
-		} catch (JSONException e) {
+		String key = StringUtil.getStringParam(request, "key");
+		
+		if(key != null) {
+			key = URLDecoder.decode(key, "UTF-8");
+			List<Article> essayList = essayServiceImpl.MatchEssayList(key);
+			if(essayList != null) {
+				resultMap.put("success", true);
+				resultMap.put("essayList", essayList);
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "未查询到动态");
+			}
+		} else {
 			resultMap.put("success", false);
-			resultMap.put("error", "JSONException");
-			return resultMap;
+			resultMap.put("error", "参数异常");
 		}
+		return resultMap;
+	}
+	
+	@RequestMapping(value = "/publish",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> publish(@RequestParam("file")MultipartFile[] imgList,@RequestParam("essayContent") String essayContent,HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		User user = (User)request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		
-		if(params != null && user != null) {
+		if(user != null) {
+			String filesUrl = null;
+			Essay params = new Essay();
+			if(imgList.length > 0) {
+				try {
+					filesUrl = fileUploadServiceImpl.saveImageList(imgList);
+				} catch (IOException e) {
+					resultMap.put("error", "图片存储失败");
+				} finally {
+					params.setEssayPhoto(filesUrl);
+				}
+			}
+			params.setEssayContent(essayContent);
 			params.setUserId(user.getUserId());
+			
 			boolean result = essayServiceImpl.Publish(params);
 			if(result) {
 				resultMap.put("success", true);
@@ -107,9 +142,10 @@ public class EssayController {
 				resultMap.put("success", false);
 				resultMap.put("error", "发布失败");
 			}
+			
 		} else {
 			resultMap.put("success", false);
-			resultMap.put("error", "json字符串解析失败");
+			resultMap.put("error", "参数异常");
 		}
 		return resultMap;
 	}

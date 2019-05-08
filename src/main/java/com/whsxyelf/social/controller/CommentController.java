@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.whsxyelf.social.bean.Comment;
 import com.whsxyelf.social.bean.User;
+import com.whsxyelf.social.packbean.CommentExtend;
 import com.whsxyelf.social.service.impl.CommentServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
@@ -36,7 +37,7 @@ public class CommentController {
 		int commentedId = StringUtil.getIntParam(request, "commentedId");
 		
 		if(commentType > 0 && commentedId > 0) {
-			List<Comment> result = commentServiceImpl.GetCommentList(commentType, commentedId);
+			List<CommentExtend> result = commentServiceImpl.GetCommentList(commentType, commentedId);
 			if(result != null) {
 				resultMap.put("success", true);
 				resultMap.put("commentList", result);
@@ -79,7 +80,7 @@ public class CommentController {
 			}
 		} else {
 			resultMap.put("success", false);
-			resultMap.put("error", "参数错误");
+			resultMap.put("error", "未登录");
 		}
 		return resultMap;
 	}

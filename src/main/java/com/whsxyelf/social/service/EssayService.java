@@ -8,6 +8,7 @@ import com.whsxyelf.social.packbean.Article;
 public interface EssayService {
 	public Essay GetEssay(int essayId);
 	public List<Article> GetEssayList(int userId);
+	public List<Article> MatchEssayList(String essayContent);
 	public boolean Publish(Essay essay);
 	public boolean Update(Essay essay);
 	public boolean DeleteOne(int essayId,int userId);

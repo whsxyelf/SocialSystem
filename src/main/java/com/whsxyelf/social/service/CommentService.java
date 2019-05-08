@@ -3,9 +3,10 @@ package com.whsxyelf.social.service;
 import java.util.List;
 
 import com.whsxyelf.social.bean.Comment;
+import com.whsxyelf.social.packbean.CommentExtend;
 
 public interface CommentService {
-	public List<Comment> GetCommentList(int commentType,int commentedId);
+	public List<CommentExtend> GetCommentList(int commentType,int commentedId);
 	
 	public boolean Add(Comment comment);
 	

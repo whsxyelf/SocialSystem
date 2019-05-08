@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.whsxyelf.social.SocialApplication;
 import com.whsxyelf.social.bean.Comment;
+import com.whsxyelf.social.packbean.CommentExtend;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocialApplication.class)
@@ -22,8 +23,7 @@ public class CommentMapperTest {
 	@Test
 	@Ignore
 	public void findTotalCommentById() {
-		List<Comment> commentList = mapper.findTotalCommentById(2,1);
-		System.out.println(commentList.size());
+		
 	}
 	
 	@Test

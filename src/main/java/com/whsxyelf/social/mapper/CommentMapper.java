@@ -11,12 +11,14 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.whsxyelf.social.bean.Comment;
+import com.whsxyelf.social.packbean.CommentExtend;
 
 @Mapper
 public interface CommentMapper {
-	@Select("select comment_id,user_id,comment_content,create_time from comment "
-			+ "where comment_type=#{commentType} and commented_id=#{commentedId}")
-	public List<Comment> findTotalCommentById(@Param("commentType") int commentType,@Param("commentedId") int commentedId);
+	@Select("select comment_id,u.user_id,user_nick,user_photo,comment_content,c.create_time "+
+			"from comment as c join user as u on c.user_id=u.user_id "+
+			"where comment_type=#{commentType} and commented_id=#{commentedId} order by create_time desc")
+	public List<CommentExtend> findTotalCommentById(@Param("commentType") int commentType,@Param("commentedId") int commentedId);
 	
 	@Insert("insert into comment(comment_type,commented_id,user_id,comment_content) "
 			+ "values(#{commentType},#{commentedId},#{userId},#{commentContent})")

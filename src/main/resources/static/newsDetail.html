@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>新闻详情页</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/newsDetail.css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/layer/layer.js"></script>
+		<script src="js/util/timeformat.js"></script>
+		<script src="js/vue.js"></script>
+		<style>
+			iframe {
+				width: 100%;height: 52px;padding: 0;margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<iframe scrolling="no" id="nav-frame" src="nav.html"></iframe>
+		</div>
+		<div class="container">
+			<input id="news-id" type="hidden" value="" />
+			<input id="time-hide" type="hidden" value="0" />
+			<div class="content">
+				<div class="news-title">
+					<span class="news-title-title">2019年五一劳动节放假通知</span><br />
+					<span class="news-title-time">2019-4-30</span>
+				</div>
+				<div class="news-body">
+					<div class="news-detail">
+						<p>尊敬的商企事业单位及粉丝用户：</p>
+
+						<p>感谢大家一直以来对ThinkSNS的支持与信任，ThinkSNS也将一如既往地为大家提供更优质的服务与产口。在此，全体ThinkSNS成员祝各位新老客户和广大朋友们五一劳动节快乐！
+
+							现将我司授权服务，技术服务相关部门放假时间通知如下：
+
+							2019年5月1日（星期三）至2019年5月4日（星期六）放假调休，共四天。自5月5日起，恢复正常上班。
+
+							ThinkSNS五一劳动节值班在岗：授权购买/产品咨询/项目开发咨询/紧急问题处理在线响应
+
+							产品商务部：18280036918（同微信）
+
+							官网在线咨询QQ：2135385483
+
+							官方邮箱：fuxiuying@zhishisoft.com
+
+							节假日期间如有任何问题请通过以上方式与我们沟通，再次感谢大家一直以来对ThinkSNS的关注与支持！</p>
+
+						<p>特此通知</p>
+
+						<p>——ThinkSNS官方</p>
+
+						<p>2019年4月30日</p>
+					</div>
+				</div>
+				<div class="news-foot">
+					<div class="fff clearfix">
+						<div class="news-foot-num">
+							<span>0</span>人评论
+						</div>
+						<div class="news-foot-content">
+							<textarea id="commit-input" placeholder="说点什么吧" style="width: 700px;"></textarea>
+						</div>
+						<div class="news-foot-btn clearfix">
+							<button id="submit" style="cursor: pointer;" type="button" class="btn btn-primary">评论</button>
+						</div>
+					</div>
+				</div>
+				<div class="news-pinglun">
+					<div class="pinglun">
+
+						<ul id="comment-bar">
+							<li>
+								<div class="pinglun-content">
+									<div class="pinglun-img"><a href="user.html"><img src="images/5755037373826825257.jpg"></a></div>
+									<div class="pinglun-text">我是一条评论</div>
+
+									<div class="dianzan">
+										<img src="images/点赞1.png">
+									</div>
+									<div class="ping">
+										<img src="images/评论.png">
+										<span>8</span>
+									</div>
+
+
+								</div>
+							</li>
+
+							<li>
+								<div class="pinglun-content">
+									<div class="pinglun-img"><a href="user.html"><img src="images/5755037373826825257.jpg"></a></div>
+									<div class="pinglun-text">我是一条评论</div>
+									<div class="dianzan">
+										<img src="images/点赞1.png">
+									</div>
+									<div class="ping">
+										<img src="images/评论.png">
+										<span>8</span>
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<div class="pinglun-content">
+									<div class="pinglun-img"><a href="user.html"><img src="images/5755037373826825257.jpg"></a></div>
+									<div class="pinglun-text">我是一条评论</div>
+									<div class="dianzan">
+										<img src="images/点赞1.png">
+									</div>
+									<div class="ping">
+										<img src="images/评论.png">
+										<span>8</span>
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<div class="pinglun-content">
+									<div class="pinglun-img"><a href="user.html"><img src="images/5755037373826825257.jpg"></a></div>
+									<div class="pinglun-text">我是一条评论</div>
+									<div class="dianzan">
+										<img src="images/点赞1.png">
+									</div>
+									<div class="ping">
+										<img src="images/评论.png">
+										<span>8</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+						//没有评论时显示图片
+						<!-- <img src="images/pinglun.png"> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			setTimeout(function() {
+				setInterval(function() {
+					var time = parseInt($("#time-hide").val()) + 1
+					$("#time-hide").val(time)
+				}, 1000)
+			}, 1000)
+		})
+	</script>
+	<script src="js/newsDetail.js"></script>
+</html>

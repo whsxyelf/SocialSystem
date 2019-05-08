@@ -2,15 +2,19 @@ package com.whsxyelf.social.packbean;
 
 import java.util.Date;
 
-public class Article {
+public class CommentExtend {
+	private int commentId;
 	private int userId;
 	private String userNick;
 	private String userPhoto;
-	private int essayId;
-	private String essayContent;
-	private String essayPhoto;
+	private String commentContent;
 	private Date createTime;
-	
+	public int getCommentId() {
+		return commentId;
+	}
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
+	}
 	public int getUserId() {
 		return userId;
 	}
@@ -29,25 +33,11 @@ public class Article {
 	public void setUserPhoto(String userPhoto) {
 		this.userPhoto = userPhoto;
 	}
-	public int getEssayId() {
-		return essayId;
+	public String getCommentContent() {
+		return commentContent;
 	}
-	public void setEssayId(int essayId) {
-		this.essayId = essayId;
-	}
-	public String getEssayContent() {
-		return essayContent;
-	}
-	public void setEssayContent(String essayContent) {
-		this.essayContent = essayContent;
-	}
-	
-	
-	public String getEssayPhoto() {
-		return essayPhoto;
-	}
-	public void setEssayPhoto(String essayPhoto) {
-		this.essayPhoto = essayPhoto;
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
 	public Date getCreateTime() {
 		return createTime;

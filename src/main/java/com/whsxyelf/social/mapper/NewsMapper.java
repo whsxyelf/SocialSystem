@@ -14,6 +14,9 @@ public interface NewsMapper {
 	@Select("select news_id,news_from,news_title,news_url,create_time from news where news_id=#{newsId}")
 	public News findNewsById(int newsId);
 	
+	@Select("select news_id,news_from,news_title,news_url,create_time from news limit 3,10")
+	public List<News> newsListTest();
+	
 	@SelectProvider(type=NewsProvider.class,method="findNewsByList")
 	public List<News> findNewsByList(@Param("newsId")int newsId[]);
 	

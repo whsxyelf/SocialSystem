@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.whsxyelf.social.bean.Comment;
 import com.whsxyelf.social.mapper.CommentMapper;
 import com.whsxyelf.social.mapper.SubCommentMapper;
+import com.whsxyelf.social.packbean.CommentExtend;
 import com.whsxyelf.social.service.CommentService;
 
 @Service
@@ -20,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
 	SubCommentMapper submapper;
 	
 	@Override
-	public List<Comment> GetCommentList(int commentType,int commentedId) {
-		List<Comment> commentList = mapper.findTotalCommentById(commentType,commentedId);
+	public List<CommentExtend> GetCommentList(int commentType,int commentedId) {
+		List<CommentExtend> commentList = mapper.findTotalCommentById(commentType,commentedId);
 		return commentList;
 	}
 

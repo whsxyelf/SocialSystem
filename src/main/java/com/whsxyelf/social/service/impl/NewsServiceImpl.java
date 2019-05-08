@@ -37,6 +37,12 @@ public class NewsServiceImpl implements NewsService {
 		List<News> newsList = mapper.findNewsListByUserId(userId);
 		return newsList;
 	}
+
+	@Override
+	public List<News> newsTest() {
+		List<News> newsList = mapper.newsListTest();
+		return newsList;
+	}
 	
 	
 }

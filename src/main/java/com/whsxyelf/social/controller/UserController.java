@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
@@ -132,6 +133,7 @@ public class UserController {
 			if(result != null) {
 				resultMap.put("success", true);
 				request.getSession().setAttribute("user", result);
+				resultMap.put("sessionId", request.getSession().getId());
 			} else {
 				resultMap.put("success", false);
 				resultMap.put("error", "登陆失败");
@@ -355,6 +357,36 @@ public class UserController {
 		} else {
 			resultMap.put("success", false);
 			resultMap.put("error", "参数异常");
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping(value = "/wechat/upload",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> wechatUpload(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile avatar_file = req.getFile("avatar_file");
+		
+		if(avatar_file.isEmpty()) {
+			resultMap.put("success", false);
+			resultMap.put("error", "无图片");
+		} else {
+			User user = (User)request.getSession().getAttribute("user");
+			
+			if(user != null) {
+				try {
+					String fileUrl = fileUpLoadServiceImpl.saveImage(avatar_file);
+					resultMap.put("success", true);
+					resultMap.put("fileUrl", fileUrl);
+				} catch (IOException e) {
+					resultMap.put("success", false);
+					resultMap.put("error", "IO异常");
+				}
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "未登录");
+			}
 		}
 		return resultMap;
 	}

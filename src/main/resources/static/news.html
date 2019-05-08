@@ -17,94 +17,134 @@
 	<body>
 		<iframe id="nav-frame" src="nav.html"></iframe>
 		<div class="container">
-			<div id="table-box" class="left clearfix">
-				<div class="box">
-					<div class="box-top">
-						<div class="box-top-left clearfix">
-							<img src="images/cont/waterfall_img4.jpg">
+			<div class="left clearfix">
+				<div class="fabu clearfix">
+					<div class="fabu-box">
+						<div class="fabu-top">
+							<img src="images/xinxian.png">
 						</div>
-						<div class="box-top-right clearfix">
-							<div class="mid">
-								<div class="top-name">何炅</div>
-								<div class="top-time">2019-5-3</div>
+						<div class="fabu-mid">
+							<textarea id="essay-content" title="发布动态" style="height: 68px; width: 100%; margin: 0px; padding: 0px; border-style: none; border-width: 0px; font-size: 14px; word-wrap: break-word; line-height: 18px; overflow: hidden; outline: none;"></textarea>
+						</div>
+
+						<div id="app">
+							<div class="hello">
+								<div class="upload">
+									<div class="upload_warp">
+										<div class="upload_warp_left" @click="fileClick">
+											<img src="images/upload.png">
+										</div>
+										<div class="upload_warp_right" @drop="drop($event)" @dragenter="dragenter($event)" @dragover="dragover($event)">
+											或者将图片拖到此处
+										</div>
+									</div>
+									<div class="upload_warp_text">
+										选中{{imgList.length}}张图片，共{{bytesToSize(this.size)}}
+									</div>
+									<input @change="fileChange($event)" type="file" name="upload_file" id="upload_file" multiple style="display: none" />
+									<div class="upload_warp_img" v-show="imgList.length!=0">
+										<div class="upload_warp_img_div" v-for="(item,index) of imgList">
+											<div class="upload_warp_img_div_top">
+												<div class="upload_warp_img_div_text">
+													{{item.file.name}}
+												</div>
+												<img src="images/del.png" class="upload_warp_img_div_del" @click="fileDel(index)">
+											</div>
+											<img :src="item.file.src">
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<div class="box-middle">
-						<div class="box-middle-text">
-							何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！
-						</div>
-						<div class="box-middle-img">
-							<img src="images/5755037373826825257.jpg">
-						</div>
-						<div class="box-middle-img">
-							<img src="images/5755037373826825257.jpg">
-						</div>
-					</div>
-					<div class="box-foot">
-						<div class="box-foot-a">
-							<a href="javascript:void(0)">收藏</a>
-							<a href="javascript:void(0)">转发</a>
-							<a href="javascript:void(0)">评论</a>
-							<a href="javascript:void(0)">点赞</a>
+							<div class="fabu-foot">
+								<button type="button" class="fabu-btn" @click="publish($event)">发布</button>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="box">
-					<div class="box-top">
-						<div class="box-top-left clearfix">
-							<img src="images/cont/waterfall_img4.jpg">
+				<div id="box-bar">
+					<div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
+						<div class="box-top">
 						</div>
-						<div class="box-top-right clearfix">
-							<div class="mid">
-								<div class="top-name">何炅</div>
-								<div class="top-time">2019-5-3</div>
+						<div class="box-middle" style="height: 500px;">
+						</div>
+						<div class="box-foot">
+						</div>
+					</div>
+					<div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
+						<div class="box-top">
+						</div>
+						<div class="box-middle" style="height: 500px;">
+						</div>
+						<div class="box-foot">
+						</div>
+					</div>
+					<div class="box" style="background: url(images/empty.jpg@1280w_1l_2o_100sh.jpg);background-position: 50% 50%;">
+						<div class="box-top">
+						</div>
+						<div class="box-middle" style="height: 500px;">
+						</div>
+						<div class="box-foot">
+						</div>
+					</div>
+					<div class="box">
+						<div class="box-top">
+							<div class="box-top-left clearfix">
+								<img src="images/cont/waterfall_img4.jpg">
+							</div>
+							<div class="box-top-right clearfix">
+								<div class="mid">
+									<div class="top-name">何炅</div>
+									<div class="top-time">2019-5-3</div>
+								</div>
+							</div>
+						</div>
+						<div class="box-middle">
+							<div class="box-middle-text">
+								何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！
+							</div>
+							<div class="box-middle-img">
+								<img src="images/5755037373826825257.jpg">
+							</div>
+						</div>
+						<div class="box-foot">
+							<div class="box-foot-a">
+								<a href="javascript:void(0)">收藏</a>
+								<a href="javascript:void(0)">转发</a>
+								<a href="javascript:void(0)">评论</a>
+								<a href="javascript:void(0)">点赞</a>
 							</div>
 						</div>
 					</div>
-					<div class="box-middle">
-						<div class="box-middle-text">
-							何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！
-						</div>
-						<div class="box-middle-img">
-							<img src="images/5755037373826825257.jpg">
-						</div>
-					</div>
-					<div class="box-foot">
-						<div class="box-foot-a">
-							<a href="javascript:void(0)">收藏</a>
-							<a href="javascript:void(0)">转发</a>
-							<a href="javascript:void(0)">评论</a>
-							<a href="javascript:void(0)">点赞</a>
-						</div>
-					</div>
-				</div>
-				<div class="box">
-					<div class="box-top">
-						<div class="box-top-left clearfix">
-							<img src="images/cont/waterfall_img4.jpg">
-						</div>
-						<div class="box-top-right clearfix">
-							<div class="mid">
-								<div class="top-name">何炅</div>
-								<div class="top-time">2019-5-3</div>
+					<div class="box">
+						<div class="box-top">
+							<div class="box-top-left clearfix">
+								<img src="images/cont/waterfall_img4.jpg">
+							</div>
+							<div class="box-top-right clearfix">
+								<div class="mid">
+									<div class="top-name">何炅</div>
+									<div class="top-time">2019-5-3</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="box-middle">
-						<div class="box-middle-text">
-							何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！
+						<div class="box-middle">
+							<div class="box-middle-text">
+								何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！何实上台之前来丢几张狗啃刘海照。今晚有大本营，记得约！
+							</div>
+							<div class="box-middle-img">
+								<img src="images/5755037373826825257.jpg">
+								<img src="images/5755037373826825257.jpg">
+								<img src="images/5755037373826825257.jpg">
+								<img src="images/5755037373826825257.jpg">
+							</div>
 						</div>
-						<div class="box-middle-img">
-							<img src="images/5755037373826825257.jpg">
-						</div>
-					</div>
-					<div class="box-foot">
-						<div class="box-foot-a">
-							<a href="javascript:void(0)">收藏</a>
-							<a href="javascript:void(0)">转发</a>
-							<a href="javascript:void(0)">评论</a>
-							<a href="javascript:void(0)">点赞</a>
+						<div class="box-foot">
+							<div class="box-foot-a">
+								<a href="javascript:void(0)">收藏</a>
+								<a href="javascript:void(0)">转发</a>
+								<a href="javascript:void(0)">评论</a>
+								<a href="javascript:void(0)">点赞</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -126,12 +166,57 @@
 					</div>
 				</div>
 			</div>
+			<div class="user-tuijian">
+				<div class="user-top">
+					<div class="user-top-left">
+						<strong>相关用户</strong>
+					</div>
+					<div class="user-top-right">
+						<img src="images/换一换.png">
+						<span>换一批</span>
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+				<div class="user1">
+					<div class="user1-left">
+						<img src="images/5755037373826825257.jpg">
+					</div>
+					<div class="user1-right">
+						<strong>mistletoezzZ</strong>
+					</div>
+				</div>
+
+			</div>
+
 			<div class="middle">
 				<div class="middle-1">
 					<strong>热门新闻</strong>
 				</div>
 				<div class="middle-2">
-					<ul>
+					<ul id="news-bar">
 						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
 						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
 						<li><a href="">爱你3000遍</a><span>4.7亿</span></li>
@@ -148,5 +233,7 @@
 			</div>
 		</div>
 	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/upload.js"></script>
 	<script src="js/news.js"></script>
 </html>

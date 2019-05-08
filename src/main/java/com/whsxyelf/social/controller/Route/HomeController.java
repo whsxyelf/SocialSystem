@@ -2,6 +2,8 @@ package com.whsxyelf.social.controller.Route;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,6 +84,19 @@ public class HomeController {
 	@RequestMapping(value="/errorpage",method={RequestMethod.GET,RequestMethod.POST})
 	public String errorpage(HttpServletRequest request) {
 		return "errorpage";
+	}
+	
+	@RequestMapping(value="/news/{newsId}",method={RequestMethod.GET,RequestMethod.POST})
+	public void newsinfo(HttpServletRequest request,HttpServletResponse response,@PathVariable("newsId") int newsId) throws IOException {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		StringBuffer path = request.getRequestURL();
+		String jump = path.delete(path.length() - request.getRequestURI().length(),path.length()).toString();
+		response.sendRedirect(jump+"/social/newsDetail?newsId="+newsId);
+	}
+	
+	@RequestMapping(value="/newsDetail",method={RequestMethod.GET,RequestMethod.POST})
+	public String newsDetail(HttpServletRequest request) {
+		return "newsDetail";
 	}
 	
 }

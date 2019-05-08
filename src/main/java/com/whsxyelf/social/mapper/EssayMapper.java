@@ -22,11 +22,16 @@ public interface EssayMapper {
 	public Essay findEssayById(int essayId);
 	
 	//通过用户id查询用户所有动态
-	@Select("select u.user_id,user_nick,user_photo,e.essay_id,essay_content,e.create_time " + 
+	@Select("select u.user_id,user_nick,user_photo,e.essay_id,essay_content,essay_photo,e.create_time " + 
 			"from user as u join essay as e on u.user_id=e.user_id " + 
 			"where u.user_id in (select concerned_id from concern where user_id=#{userId}) " + 
-			"or u.user_id=#{userId}")
+			"or u.user_id=#{userId} order by e.create_time desc")
 	public List<Article> findEssayListByUserId(int userId);
+	
+	@Select("select u.user_id,user_nick,user_photo,e.essay_id,essay_content,essay_photo,e.create_time " +
+			"from user as u join essay as e on u.user_id=e.user_id " +
+			"where essay_content like '%${essayContent}%' order by e.create_time desc")
+	public List<Article> findEssayListByEssayContent(@Param("essayContent") String essayContent);
 	
 	//添加一条动态
 	@InsertProvider(type = EssayProvider.class,method="addOne")

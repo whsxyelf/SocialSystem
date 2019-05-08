@@ -1,0 +1,135 @@
+body{
+	text-align: inherit;
+}
+.container{
+	width: 800px;
+	margin: 0 auto;
+}
+.content{
+	
+	margin-top: 50px;
+}
+.news-title{
+	text-align: center;
+}
+.news-title-title{
+	font-size: 30px;
+    padding-bottom: 40px;
+    text-align: left;
+    color: #333;
+}
+.news-title-time{
+	font-size: 14px;
+}
+.news-body{
+	font-size: 16px;
+	text-indent:25px;
+	line-height: 35px;
+}
+.news-detail{
+	width: 700px;
+	margin: 0 auto;
+	border-bottom: 1px solid #CCCCCC;
+}
+.fff{
+	width: 700px;
+	margin: 0 auto;
+	border-bottom: 1px solid #CCCCCC;
+}
+.news-foot{
+	margin-top: 20px;
+}
+.news-foot-num span{
+	font-size: 22px;
+    color: #59b6d7;
+}
+.news-foot-content textarea{
+	font-size: 14px;
+    width: 700px;
+    min-height: 77px;
+	margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+    color: #666;
+    border: 1px solid #ededed;
+    outline: none;
+    background: #f3f6f7;
+    z-index: 102;
+}
+.news-foot-btn{
+	float: right;
+	margin-bottom: 15px;
+}
+.news-foot-btn button{
+	font-size: 16px;
+	width: 100px;
+	height: 36px;
+	line-height: 36px;
+	background: #4FC08D;
+	color: #fefefe;
+	display: inline-block;
+	text-align: center;
+	white-space: nowrap;
+	border-radius: 2px;
+	padding: 0 10px;
+	border: 0;
+	outline: none;
+	margin-left: 18px;
+}
+.pinglun{
+	width: 700px;
+	margin: 0 auto;
+}
+.pinglun-content{
+	position: relative;
+}
+.pinglun-img{
+	width: 60px;
+	height: 60px;
+	float: left;
+	text-align: center;
+	line-height: 80px;
+}
+.dianzan,.ping{
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	line-height: 80px;
+}
+.ping{
+	width: 60px;
+}
+.dianzan{
+	top: 20px;
+	right: 60px;
+}
+.ping{
+	top: 20px;
+	right: 0;
+}
+.dianzan img,.ping img{
+	width: 20px;
+	height: 20px;
+}
+.pinglun-img img{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
+.pinglun ul{
+	margin: 0;
+	padding: 0;
+	margin-top: 20px;
+}
+.pinglun li{
+	border-bottom: 1px solid #CCCCCC;
+	height: 80px;
+}
+.pinglun-text{
+	line-height: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float: left;
+}
