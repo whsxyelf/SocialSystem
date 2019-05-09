@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.whsxyelf.social.bean.Collect;
 import com.whsxyelf.social.bean.User;
+import com.whsxyelf.social.packbean.Article;
 import com.whsxyelf.social.service.impl.CollectServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
@@ -32,10 +33,10 @@ public class CollectController {
 	public Map<String,Object> UserRegister(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		int userId = StringUtil.getIntParam(request, "userId");
+		User user = (User)request.getSession().getAttribute("user");
 		
-		if(userId > 0) {
-			List<Collect> result = collectServiceImpl.GetCollectList(userId);
+		if(user != null) {
+			List<Article> result = collectServiceImpl.GetCollectList(user.getUserId());
 			if(result != null) {
 				resultMap.put("success", true);
 				resultMap.put("collectList", result);

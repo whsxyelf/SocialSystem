@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.whsxyelf.social.SocialApplication;
 import com.whsxyelf.social.bean.Concern;
+import com.whsxyelf.social.bean.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocialApplication.class)
@@ -21,8 +22,7 @@ public class ConcernMapperTest {
 	@Test
 	@Ignore
 	public void findConcernListByUserId() {
-		List<Concern> list = mapper.findConcernListByUserId(1);
-		System.out.println(list.size());
+		
 	}
 	
 	@Test

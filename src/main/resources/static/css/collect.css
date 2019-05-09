@@ -1,0 +1,36 @@
+body{
+	text-align: inherit;
+}
+.collect{
+	margin-top: 20px;
+	height: 500px;
+	overflow-y: auto;
+}
+.collect-select{
+		width: 530px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0 auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.collect-head{
+	width: 50px;
+	height: 60px;
+	line-height: 60px;
+	float: left;
+}
+.collect-head img{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	margin-top: 10px;
+}
+.collect-name{
+	font-size: 14px;
+	margin-top: 5px;
+}
+.collect-content{
+	margin-top: 5px;
+}

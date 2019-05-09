@@ -78,19 +78,23 @@ public interface UserMapper {
 		}
 		
 		public String findUsersByList(List<Integer> userId) {
-			StringBuilder list = new StringBuilder();
-			StringBuilder list2 = new StringBuilder();
-			list.append("("+ userId.get(0));
-			list2.append("(user_id,"+userId.get(0));
-			int max = userId.size();
-			for(int i=1;i<max;i++) {
-				list.append(","+userId.get(i));
-				list2.append(","+userId.get(i));
+			if(userId.size() == 0) {
+				return "select * from user where 1=-1";
+			} else {
+				StringBuilder list = new StringBuilder();
+				StringBuilder list2 = new StringBuilder();
+				list.append("("+ userId.get(0));
+				list2.append("(user_id,"+userId.get(0));
+				int max = userId.size();
+				for(int i=1;i<max;i++) {
+					list.append(","+userId.get(i));
+					list2.append(","+userId.get(i));
+				}
+				list.append(")");
+				list2.append(")");
+				return "select user_id,user_nick,user_photo,user_email,sex,phone,signature,permission,user_state,create_time "
+						+ "from user where user_id in " + list.toString() +" order by field" +list2.toString();
 			}
-			list.append(")");
-			list2.append(")");
-			return "select user_id,user_nick,user_photo,user_email,sex,phone,signature,permission,user_state,create_time "
-					+ "from user where user_id in " + list.toString() +" order by field" +list2.toString();
 		}
 		
 		public String updateUser(User user) {

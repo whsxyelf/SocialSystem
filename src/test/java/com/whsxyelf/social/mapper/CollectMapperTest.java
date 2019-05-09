@@ -21,8 +21,7 @@ public class CollectMapperTest {
 	@Test
 	@Ignore
 	public void findCollectListByUserId() {
-		List<Collect> collectList = mapper.findCollectListByUserId(1);
-		System.out.println(collectList.size());
+		
 	}
 	
 	@Test

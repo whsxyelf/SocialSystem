@@ -9,18 +9,23 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.whsxyelf.social.bean.Concern;
+import com.whsxyelf.social.bean.User;
 
 @Mapper
 public interface ConcernMapper {
-	@Select("select concern_id,user_id,concerned_id,create_time from concern "
-			+ "where user_id=#{userId}")
-	public List<Concern> findConcernListByUserId(int userId);
+	@Select("select user_id,user_nick,user_photo,signature from " + 
+			"user where user_id in (select concerned_id from concern where user_id = #{userId})")
+	public List<User> findConcernListByUserId(int userId);
+	
+	@Select("select user_id,user_nick,user_photo,signature from " + 
+			"user where user_id in (select concerned_id from concern where concerned_id = #{userId})")
+	public List<User> findFansListByUserId(int userId);
 	
 	@Insert("insert into concern(user_id,concerned_id) values(#{userId},#{concernedId})")
 	public int addOne(@Param("userId") int userId,@Param("concernedId") int concernedId);
 	
-	@Delete("delete from concern where concern_id=#{concernId} and user_id=#{userId}")
-	public int deleteConcern(@Param("userId") int userId,@Param("concernId") int concernId);
+	@Delete("delete from concern where concerned_id=#{concernedId} and user_id=#{userId}")
+	public int deleteConcern(@Param("userId") int userId,@Param("concernedId") int concernedId);
 	
 	@Select("select count(concern_id) from concern where user_id=#{userId}")
 	public int countConcern(int userId);

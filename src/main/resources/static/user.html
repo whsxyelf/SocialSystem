@@ -20,6 +20,9 @@
 			#myiframe {
 				display: none;
 			}
+			.active1{
+				color: #007BFF;
+			}
 		</style>
 	</head>
 	<body>
@@ -34,6 +37,9 @@
 				</div>
 				<div class="liulan">
 					浏览记录
+				</div>
+				<div class="shoucang">
+					我的收藏
 				</div>
 			</div>
 			<div class="rightcontent">
@@ -108,17 +114,27 @@
 				$("#myiframe").attr("src", "updatepsw.html")
 				$("#inf").css("display", "none");
 				$(".font img").attr("src", "images/xiugai.png")
+				$(this).addClass("active1").siblings("div").removeClass("active1");
 			})
 			$(".inf").click(function() {
 				$("#myiframe").css("display", "none");
 				$("#inf").css("display", "block");
 				$(".font img").attr("src", "images/xinxi.png")
+				$(this).addClass("active1").siblings("div").removeClass("active1");
 			})
 			$(".liulan").click(function() {
 				$("#myiframe").css("display", "block");
 				$("#myiframe").attr("src", "history.html")
 				$("#inf").css("display", "none");
 				$(".font img").attr("src", "images/liulan.png")
+				$(this).addClass("active1").siblings("div").removeClass("active1");
+			})
+			$(".shoucang").click(function() {
+				$("#myiframe").css("display", "block");
+				$("#myiframe").attr("src", "collect.html")
+				$("#inf").css("display", "none");
+				$(".font img").attr("src", "images/shoucang.png");
+				$(this).addClass("active1").siblings("div").removeClass("active1");
 			})
 		</script>
 		

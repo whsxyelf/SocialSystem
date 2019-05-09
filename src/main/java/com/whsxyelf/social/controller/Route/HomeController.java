@@ -99,4 +99,14 @@ public class HomeController {
 		return "newsDetail";
 	}
 	
+	@RequestMapping(value="/concern",method={RequestMethod.GET,RequestMethod.POST})
+	public String concern(HttpServletRequest request) {
+		return "guanzhu";
+	}
+	
+	@RequestMapping(value="/fans",method={RequestMethod.GET,RequestMethod.POST})
+	public String fans(HttpServletRequest request) {
+		return "fans";
+	}
+	
 }

@@ -9,12 +9,14 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.whsxyelf.social.bean.Collect;
+import com.whsxyelf.social.packbean.Article;
 
 @Mapper
 public interface CollectMapper {
-	@Select("select collect_id,user_id,collect_type,collected_id,create_time from collect "
-			+ "where user_id=#{userId}")
-	public List<Collect> findCollectListByUserId(int userId);
+	@Select("select u.user_id,user_nick,user_photo,essay_id,essay_content,essay_photo " + 
+			"from user as u join essay as e on u.user_id=e.user_id where essay_id in " + 
+			"(select collect_id from collect where collect_type=2 and user_id=#{userId})")
+	public List<Article> findCollectListByUserId(int userId);
 	
 	@Insert("insert into collect(user_id,collect_type,collected_id) "
 			+ "values(#{userId},#{collectType},#{collectedId})")

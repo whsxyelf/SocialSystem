@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.whsxyelf.social.bean.Collect;
 import com.whsxyelf.social.mapper.CollectMapper;
+import com.whsxyelf.social.packbean.Article;
 import com.whsxyelf.social.service.CollectService;
 
 @Service
@@ -15,8 +16,8 @@ public class CollectServiceImpl implements CollectService {
 	CollectMapper mapper;
 	
 	@Override
-	public List<Collect> GetCollectList(int userId) {
-		List<Collect> collectList = mapper.findCollectListByUserId(userId);
+	public List<Article> GetCollectList(int userId) {
+		List<Article> collectList = mapper.findCollectListByUserId(userId);
 		return collectList;
 	}
 

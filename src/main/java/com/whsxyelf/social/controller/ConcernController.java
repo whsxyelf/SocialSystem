@@ -32,18 +32,75 @@ public class ConcernController {
 		
 		int userId = StringUtil.getIntParam(request, "userId");
 		
-		if(userId > 0) {
-			List<Concern> result = concernServiceImpl.GetConcernList(userId);
-			if(result != null) {
-				resultMap.put("success", true);
-				resultMap.put("concernList", result);
+		if(userId == -1) {
+			User user = (User)request.getSession().getAttribute("user");
+			if(user != null) {
+				List<User> result = concernServiceImpl.GetConcernList(user.getUserId());
+				if(result != null) {
+					resultMap.put("success", true);
+					resultMap.put("concernList", result);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "未找到关注列表");
+				}
 			} else {
 				resultMap.put("success", false);
-				resultMap.put("error", "未找到关注列表");
+				resultMap.put("error", "未登录");
 			}
 		} else {
-			resultMap.put("success", false);
-			resultMap.put("error", "参数错误");
+			if(userId > 0) {
+				List<User> result = concernServiceImpl.GetConcernList(userId);
+				if(result != null) {
+					resultMap.put("success", true);
+					resultMap.put("concernList", result);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "未找到关注列表");
+				}
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "参数错误");
+			}
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping(value="/getFansList",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> getFansList(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int userId = StringUtil.getIntParam(request, "userId");
+		
+		if(userId == -1) {
+			User user = (User)request.getSession().getAttribute("user");
+			if(user != null) {
+				List<User> result = concernServiceImpl.GetConcernList(user.getUserId());
+				if(result != null) {
+					resultMap.put("success", true);
+					resultMap.put("concernList", result);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "未找到关注列表");
+				}
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "未登录");
+			}
+		} else {
+			if(userId > 0) {
+				List<User> result = concernServiceImpl.GetConcernList(userId);
+				if(result != null) {
+					resultMap.put("success", true);
+					resultMap.put("concernList", result);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "未找到关注列表");
+				}
+			} else {
+				resultMap.put("success", false);
+				resultMap.put("error", "参数错误");
+			}
 		}
 		return resultMap;
 	}
@@ -81,12 +138,12 @@ public class ConcernController {
 	public Map<String,Object> delete(HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		int concernId = StringUtil.getIntParam(request, "concernId");
+		int concernedId = StringUtil.getIntParam(request, "concernedId");
 		
 		User user = (User)request.getSession().getAttribute("user");
 		
-		if(concernId > 0 && user != null) {
-			boolean result = concernServiceImpl.Delete(user.getUserId(), concernId);
+		if(concernedId > 0 && user != null) {
+			boolean result = concernServiceImpl.Delete(user.getUserId(), concernedId);
 			if(result) {
 				resultMap.put("success", true);
 			} else {

@@ -26,6 +26,45 @@ public class HistoryController {
 	@Autowired
 	HistoryServiceImpl historyServiceImpl;
 	
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> add(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		int newsId = StringUtil.getIntParam(request, "newsId");
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if(user != null && newsId > 0) {
+			History history = historyServiceImpl.isExist(user.getUserId(), newsId);
+			if(history == null) {
+				History params = new History();
+				params.setScore(3.0);
+				params.setNewsId(newsId);
+				params.setUserId(user.getUserId());
+				boolean result = historyServiceImpl.add(params);
+				if(result) {
+					resultMap.put("success", true);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "添加历史记录失败");
+				}
+			} else {
+				history.setLastEditTime(new Date());
+				boolean result = historyServiceImpl.update(history);
+				if(result) {
+					resultMap.put("success", true);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "更新历史记录失败");
+				}
+			}
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("error", "未登录");
+		}
+		return resultMap;
+	}
+	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> update(HttpServletRequest request) {
@@ -39,8 +78,11 @@ public class HistoryController {
 			History history = historyServiceImpl.isExist(user.getUserId(), newsId);
 			if(history != null) {
 				double originScore = history.getScore();
-				double score = originScore + 150/(length+0.0);
-				if(score <= 10) {
+				double score = originScore + 80/(length+0.0);
+				if(originScore <= 10) {
+					if(score > 10) {
+						score = 10;
+					}
 					history.setScore(score);
 					history.setLastEditTime(new Date());
 					boolean result = historyServiceImpl.update(history);

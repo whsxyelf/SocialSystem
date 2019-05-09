@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.whsxyelf.social.bean.Concern;
+import com.whsxyelf.social.bean.User;
 import com.whsxyelf.social.mapper.ConcernMapper;
 import com.whsxyelf.social.service.ConcernService;
 
@@ -15,20 +16,31 @@ public class ConcernServiceImpl implements ConcernService {
 	ConcernMapper mapper;
 	
 	@Override
-	public List<Concern> GetConcernList(int userId) {
-		List<Concern> concernList = mapper.findConcernListByUserId(userId);
+	public List<User> GetConcernList(int userId) {
+		List<User> concernList = mapper.findConcernListByUserId(userId);
 		return concernList;
+	}
+	
+	@Override
+	public List<User> GetFansList(int userId) {
+		List<User> fansList = mapper.findFansListByUserId(userId);
+		return fansList;
 	}
 
 	@Override
 	public boolean Add(int userId, int concernedId) {
-		int result = mapper.addOne(userId, concernedId);
+		int result = 0;
+		try {
+			result = mapper.addOne(userId, concernedId);
+		} catch (Exception e) {
+			result = 0;
+		}
 		return result>0?true:false;
 	}
 
 	@Override
-	public boolean Delete(int userId, int concernId) {
-		int result = mapper.deleteConcern(userId, concernId);
+	public boolean Delete(int userId, int concernedId) {
+		int result = mapper.deleteConcern(userId, concernedId);
 		return result>0?true:false;
 	}
 
