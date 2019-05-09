@@ -70,12 +70,24 @@ public class CollectController {
 		
 		if(params != null && user != null) {
 			params.setUserId(user.getUserId());
-			boolean result = collectServiceImpl.Add(params);
-			if(result) {
-				resultMap.put("success", true);
+			if(collectServiceImpl.isExist(params)) {
+				boolean result = collectServiceImpl.DeleteByCollectId(params.getCollectedId(), user.getUserId());
+				if(result) {
+					resultMap.put("success", true);
+					resultMap.put("flag", -1);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "取消收藏失败");
+				}
 			} else {
-				resultMap.put("success", false);
-				resultMap.put("error", "添加收藏失败");
+				boolean result = collectServiceImpl.Add(params);
+				if(result) {
+					resultMap.put("success", true);
+					resultMap.put("flag", 1);
+				} else {
+					resultMap.put("success", false);
+					resultMap.put("error", "添加收藏失败");
+				}
 			}
 		} else {
 			resultMap.put("success", false);

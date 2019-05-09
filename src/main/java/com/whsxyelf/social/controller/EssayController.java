@@ -25,8 +25,10 @@ import com.alibaba.fastjson.JSONException;
 import com.whsxyelf.social.bean.Essay;
 import com.whsxyelf.social.bean.User;
 import com.whsxyelf.social.packbean.Article;
+import com.whsxyelf.social.service.impl.CollectServiceImpl;
 import com.whsxyelf.social.service.impl.EssayServiceImpl;
 import com.whsxyelf.social.service.impl.FileUpLoadServiceImpl;
+import com.whsxyelf.social.service.impl.PraiseServiceImpl;
 import com.whsxyelf.social.util.StringUtil;
 
 @Controller
@@ -35,6 +37,10 @@ import com.whsxyelf.social.util.StringUtil;
 public class EssayController {
 	@Autowired
 	EssayServiceImpl essayServiceImpl;
+	@Autowired
+	CollectServiceImpl collectServiceImpl;
+	@Autowired
+	PraiseServiceImpl praiseServiceImpl;
 	@Autowired
 	FileUpLoadServiceImpl fileUploadServiceImpl;
 
@@ -73,6 +79,16 @@ public class EssayController {
 			List<Article> result = null;
 			if (userId == -1) {
 				result = essayServiceImpl.GetEssayList(user.getUserId());
+				for(Article a: result) {
+					try {
+						int collectCount = collectServiceImpl.CountCollect(2, a.getEssayId());
+						a.setCollectCount(collectCount);
+						int praiseCount = praiseServiceImpl.countPraise(a.getEssayId());
+						a.setPraiseCount(praiseCount);
+					} catch (Exception e) {
+						
+					}
+				}
 			} else {
 				result = essayServiceImpl.GetEssayList(userId);
 			}

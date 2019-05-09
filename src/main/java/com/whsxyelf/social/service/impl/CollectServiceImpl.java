@@ -28,8 +28,8 @@ public class CollectServiceImpl implements CollectService {
 	}
 
 	@Override
-	public boolean DeleteByCollectId(int collectId,int userId) {
-		int result = mapper.deleteCollectByCollectId(collectId,userId);
+	public boolean DeleteByCollectId(int collectedId,int userId) {
+		int result = mapper.deleteCollectByCollectId(collectedId,userId);
 		return result>0?true:false;
 	}
 
@@ -43,6 +43,12 @@ public class CollectServiceImpl implements CollectService {
 	public int CountCollect(int collectType, int collectedId) {
 		int count = mapper.countCollect(collectType, collectedId);
 		return count;
+	}
+
+	@Override
+	public boolean isExist(Collect collect) {
+		Collect result = mapper.isExist(collect);
+		return result!=null?true:false;
 	}
 	
 }

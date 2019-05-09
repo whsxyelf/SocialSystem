@@ -11,4 +11,5 @@ public interface CollectService {
 	public boolean DeleteByCollectId(int collectId,int userId);
 	public boolean DeleteByUserId(int userId);
 	public int CountCollect(int collectType,int collectedId);
+	public boolean isExist(Collect collect);
 }

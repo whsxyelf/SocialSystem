@@ -9,6 +9,8 @@ public class Article {
 	private int essayId;
 	private String essayContent;
 	private String essayPhoto;
+	private int collectCount;
+	private int praiseCount;
 	private Date createTime;
 	
 	public int getUserId() {
@@ -48,6 +50,20 @@ public class Article {
 	}
 	public void setEssayPhoto(String essayPhoto) {
 		this.essayPhoto = essayPhoto;
+	}
+	
+	
+	public int getCollectCount() {
+		return collectCount;
+	}
+	public void setCollectCount(int collectCount) {
+		this.collectCount = collectCount;
+	}
+	public int getPraiseCount() {
+		return praiseCount;
+	}
+	public void setPraiseCount(int praiseCount) {
+		this.praiseCount = praiseCount;
 	}
 	public Date getCreateTime() {
 		return createTime;

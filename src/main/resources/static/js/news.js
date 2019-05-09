@@ -86,10 +86,12 @@ function initEssayList() {
 						photoStr +
 						'</div>' +
 						'</div><div class="box-foot"><div class="box-foot-a">' +
-						'<a href="javascript:void(0)">收藏</a>' +
+						'<a essayId="' + obj.essayId + '" class="collect-btn" href="javascript:void(0)"><span>' + 
+						obj.collectCount + '</span>人收藏</a>' +
 						'<a href="javascript:void(0)">转发</a>' +
 						'<a href="javascript:void(0)">评论</a>' +
-						'<a href="javascript:void(0)">点赞</a>' +
+						'<a essayId="' + obj.essayId + '" class="praise-btn" href="javascript:void(0)"><span>' + 
+						obj.praiseCount + '</span>人点赞</a>' +
 						'</div></div></div>'
 				})
 				if (tableStr != '') {
@@ -133,8 +135,59 @@ function initMethods() {
 				}
 			})
 		}, function() {
-
+			
 		})
+	})
+	
+	$(".collect-btn").on("click",function(data) {
+		essayId = $(this).attr("essayId")
+		collectStr = {
+			"collectType":2,
+			"collectedId":essayId
+		}
+		var here = $(this)
+		$.ajax({
+			type: 'POST',
+			url: path + "collect/add",
+			contentType: 'application/x-www-form-urlencoded',
+			dataType: 'json',
+			data: {
+				"collectStr": JSON.stringify(collectStr)
+			},
+			success:function(data) {
+				if(data.success) {
+					count = here.find("span").html()
+					console.log(count)
+					here.find("span").html(parseInt(count)+data.flag)
+				} else {
+					layer.msg(data.error)
+				}
+			}
+		})
+	})
+	
+	$(".praise-btn").on("click",function(data) {
+		essayId = $(this).attr("essayId")
+		var here = $(this)
+		$.ajax({
+			type: 'POST',
+			url: path + "praise/add",
+			contentType: 'application/x-www-form-urlencoded',
+			dataType: 'json',
+			data: {
+				"essayId":essayId
+			},
+			success:function(data) {
+				if(data.success) {
+					count = here.find("span").html()
+					console.log(count)
+					here.find("span").html(parseInt(count)+data.flag)
+				} else {
+					layer.msg(data.error)
+				}
+			}
+		})
+		
 	})
 }
 
@@ -198,6 +251,7 @@ function initPage() {
 
 	$("#concernCount").click(function() {
 		layer.open({
+			title:'关注列表',
 			type: 2,
 			content: path+'concern',
 			area:['603px','400px']
@@ -206,6 +260,7 @@ function initPage() {
 	
 	$("#concernedCount").click(function() {
 		layer.open({
+			title:'粉丝列表',
 			type: 2,
 			content: path+'fans',
 			area:['603px','400px']
